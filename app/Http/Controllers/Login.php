@@ -28,7 +28,7 @@ class Login extends Controller
             {
                 Auth::login($usuario);
                 $request->session()->regenerate();
-                return redirect()->route('welcome');
+                return redirect()->route('home.servidor');
             }
         }
     
@@ -41,6 +41,6 @@ class Login extends Controller
         {
             Auth::logout();
         }
-        return redirect()->route('form.login');
+        return redirect()->route('welcome');
     }
 }

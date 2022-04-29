@@ -16,7 +16,7 @@ class Certificados extends Controller
 
     public function index()
     {
-        return view('certificados');
+        return view('certificado.certificados');
     }
 
     public function gerarCertificado()

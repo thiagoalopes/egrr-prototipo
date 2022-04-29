@@ -41,4 +41,9 @@ class User extends Authenticatable
      */
     protected $casts = [
     ];
+
+    public function dados()
+    {
+        return $this->hasOne('App\Models\DadosPessoais','cpf');
+    }
 }

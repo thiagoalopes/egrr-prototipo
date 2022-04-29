@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\Welcome@index')->name('welcome');
+Route::get('/servidor', 'App\Http\Controllers\Welcome@homeServidor')->name('home.servidor');
+
 
 
 Route::get('login', 'App\Http\Controllers\Login@index')->name('form.login');

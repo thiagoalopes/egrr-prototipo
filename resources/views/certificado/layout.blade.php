@@ -71,7 +71,7 @@
             <p>Escola de Governo de Roraima</p>
         </div>
         <div class="texto">
-            Certificamos que <b>Fulano de Tal</b>, <b>CPF n. {{ $usuario->cpf }}</b> participou do curso de Informatica basica no periodo de 01/01/2022 a 15/01/2022
+            Certificamos que <b>{{ $usuario->dados->nome }}</b>, <b>CPF n. {{ $usuario->cpf }}</b> participou do curso de Informatica basica no periodo de 01/01/2022 a 15/01/2022
             com carga horaria de 60h.
             
         </div>
