@@ -15,28 +15,39 @@
         </div>
     
         <div class="row">
-            @foreach ($cursos as $item)
-    
-                <div class="col-12 col-md-4 col-lg-3 mb-4" data-aos="flip-left">
-                    
-                    <div class="card" >
-                        <img src="{{ asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
-                        <div class="card-body">
-                            <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
-                            <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
-                            <p><b>Tutor:</b> {{ $item->tutor->nome }}</p>
-                            <p>
-                                <b>Período:</b> De {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_inicio)->format('d/m/Y'):'' }} 
-                            até {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_termino)->format('d/m/Y'):'' }}
-                            </p>
-                            <p><b>Vagas:</b> {{ $item->total_vagas }}</p>
-                            <p><b>Situação:</b> {{ $item->situacao->situacao }}</p>
+            @if ($cursos->count())
+                @foreach ($cursos as $item)
+        
+                    <div class="col-12 col-md-4 col-lg-3 mb-4" data-aos="flip-left">
+                        
+                        <div class="card" >
+                            <img src="{{ asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
+                            <div class="card-body">
+                                <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
+                                <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
+                                <p><b>Tutor:</b> {{ $item->tutor->nome }}</p>
+                                <p>
+                                    <b>Período:</b> De {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_inicio)->format('d/m/Y'):'' }} 
+                                até {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_termino)->format('d/m/Y'):'' }}
+                                </p>
+                                <p><b>Vagas:</b> {{ $item->total_vagas }}</p>
+                                <p><b>Situação:</b> {{ $item->situacao->situacao }}</p>
+                            </div>
                         </div>
-                    </div>
-    
-                </div> 
-    
-            @endforeach
+        
+                    </div> 
+        
+                @endforeach
+                
+            @else
+
+                <div class="col-12" data-aos="flip-left">
+
+                    <h5>Nenhum curso foi ofertado</h5>
+
+                </div>
+                    
+            @endif
         </div>
     
     </div>

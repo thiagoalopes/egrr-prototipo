@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tb_situacao_curso', function (Blueprint $table) {
             $table->id();
             $table->string('situacao', 32)->unique();
-            $table->timestampsTz();
+            $table->timestamps();
         });
     }
 

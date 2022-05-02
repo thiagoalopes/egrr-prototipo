@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_tutor', function (Blueprint $table) {
+        Schema::create('tb_tipos_gestores', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 128);
-            $table->string('cpf', 64)->unique();
-            $table->string('celular', 11);
-            $table->string('email', 32);
+            $table->string('tipo_gestor', 128)->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_tutor');
+        Schema::dropIfExists('tb_tipos_gestores');
     }
 };

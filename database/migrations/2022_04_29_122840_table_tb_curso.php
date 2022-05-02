@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('data_termino');
             $table->integer('total_vagas');
             $table->unsignedBigInteger('id_situacao_curso');
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->foreign('id_tutor')->references('id')->on('tb_tutor');
             $table->foreign('id_situacao_curso')->references('id')->on('tb_situacao_curso');

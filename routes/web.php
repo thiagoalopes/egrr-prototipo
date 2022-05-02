@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\Welcome@index')->name('welcome');
-Route::get('/servidor', 'App\Http\Controllers\Welcome@homeServidor')->name('home.servidor');
-
+Route::get('/servidor', 'App\Http\Controllers\HomeServidores@index')->name('home.servidor');
+Route::get('/servidor/cadastro', 'App\Http\Controllers\HomeServidores@cadastro')->name('cadastro.servidor');
+Route::post('/servidor/cadastro', 'App\Http\Controllers\HomeServidores@update')->name('update.servidor');
 
 
 Route::get('login', 'App\Http\Controllers\Login@index')->name('form.login');

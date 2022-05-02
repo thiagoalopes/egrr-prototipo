@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_tutor', function (Blueprint $table) {
+        Schema::create('tb_conteudos_cursos', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 128);
-            $table->string('cpf', 64)->unique();
-            $table->string('celular', 11);
-            $table->string('email', 32);
+            $table->unsignedInteger('id_curso');
+            $table->string('conteudo', 255);
             $table->timestamps();
+
+            $table->foreign('id_curso')->references('id')->on('tb_curso');
+
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_tutor');
+        Schema::dropIfExists('tb_conteudos_cursos');
     }
 };
