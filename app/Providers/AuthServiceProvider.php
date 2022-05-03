@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\User;
+use App\Models\Administrativo;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,26 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('isAdminCurso', function(User $user){
+
+            $administrativo = Administrativo::where('cpf', $user->cpf)->first();
+            if($administrativo != null && $administrativo->f_cursos == '1')
+            {
+                return true;
+            }
+            return false;
+
+        });
+
+        Gate::define('isMaster', function(User $user){
+
+            $administrativo = Administrativo::where('cpf', $user->cpf)->first();
+            if($administrativo != null && $administrativo->f_master == '1')
+            {
+                return true;
+            }
+            return false;
+
+        });
     }
 }

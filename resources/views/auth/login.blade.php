@@ -26,7 +26,7 @@
         
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary mt-3">Entrar</button>
+                <button type="submit" class="btn btn-primary mt-3">Entrar</button> <a class="align-bottom ms-2" href="https://www.servidor.rr.gov.br/app/recuperarsenha/" target="_blank">Esqueci a senha</a>
             </div>
         </form>
     </div>

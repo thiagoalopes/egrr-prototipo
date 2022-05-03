@@ -11,10 +11,10 @@
 </div>
 
 <div class="row mt-4">
-  <div class="col-12 col-md-3 mt-2">
+  <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        Cadastro
+        <i class="fas fa-clipboard-list"></i> Dados Cadastrais
       </div>
       <div class="card-body">
         <p class="card-text">Verifique as informações do seu cadastro e mantenha os dados sempre atualizados.</p>
@@ -23,10 +23,10 @@
     </div>
   </div>
   
-  <div class="col-12 col-md-3 mt-2">
+  <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        Certificados
+        <i class="fas fa-certificate"></i> Certificados
       </div>
       <div class="card-body">
         <p class="card-text">Visualize e baixe os certificados dos cursos que você realizou na Escola de Governo.</p>
@@ -35,10 +35,10 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-3 mt-2">
+  <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        Cartão de Desconto
+        <i class="fas fa-tags"></i> Cartão de Desconto
       </div>
       <div class="card-body">
         <p class="card-text">Solicite e emita o cartão de descontros do servidor e seus dependente.</p>

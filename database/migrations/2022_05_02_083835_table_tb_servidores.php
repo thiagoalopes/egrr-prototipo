@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('nome', 128);
             $table->string('cpf', 11)->unique();
             $table->enum('tipo_vinculo', ['efetivo', 'comissionado','temporario','outro']);
-            $table->string('matricula')->unique();
+            $table->string('matricula', 32)->unique();
             $table->enum('sexo',['f','m','o']);
             $table->string('cargo', 128);
             $table->unsignedInteger('id_secretaria_servidores')->nullable();
-            $table->string('email');
+            $table->string('email', 64);
             $table->string('celular');
             $table->string('telefone')->nullable();
             $table->timestamps();

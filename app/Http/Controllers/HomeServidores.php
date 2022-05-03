@@ -9,12 +9,15 @@ use App\Models\SecretariaServidores;
 use App\Models\Servidor;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class HomeServidores extends Controller
 {
 
     public function __construct()
     {
+        //Tudo é protegido pela guard auth
+        //só visualiza as rotas se o usuário estiver logado
         $this->middleware('auth');
     }
 
@@ -25,8 +28,8 @@ class HomeServidores extends Controller
 
     public function cadastro()
     {
+        $secretarias = SecretariaServidores::all();
 
-        $secretarias = SecretariaServidores::all(); 
         //Busca o servidor na tb_servidor para verificar se o registro existe
         $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
         
@@ -62,23 +65,39 @@ class HomeServidores extends Controller
 
     public function update(Request $request)
     {
+        $user = Auth::user();
+
+        //Valida os dados do servidor
         $validated = $request->validate([
-            'nome'=>'required|min:5',
-            'cpf'=>'required',
-            'vinculo'=>'required|in:efetivo,comissionado,temporario,outro',
-            'matricula'=>'required',
+            'tipo_vinculo'=>'required|in:efetivo,comissionado,temporario,outro',
+            'matricula'=>'required|regex:/^[0-9]+$/',
             'sexo'=>'required|in:f,m,o',
             'cargo'=>'required|min:5',
-            'secretaria'=>'required',
+            'secretaria'=>'required|regex:/^[0-9]+$/',
             'email'=>'required|email',
-            'celular'=>'required|min:11',
-            'telefone'=>'nullable|min:10',
+            'celular'=>'required|min:11|regex:/^[0-9]+$/',
+            'telefone'=>'nullable|min:10|regex:/^[0-9]+$/',
         ]);
 
-        $user = Auth::user();
-        $user-
-        
-        dd($request->all());
+        //Mapeia os campos validados para o nome das colunas do banco
+        //de dados
+        $mappedData = [
+            'tipo_vinculo'=>$validated['tipo_vinculo'],
+            'matricula'=>$validated['matricula'],
+            'sexo'=>$validated['sexo'],
+            'cargo'=>$validated['cargo'],
+            'id_secretaria_servidores'=>$validated['secretaria'],
+            'email'=>$validated['email'],
+            'celular'=>$validated['celular'],
+            'telefone'=>$validated['telefone'],
+        ];
+
+        //busca o cadastro do servidor pelo cpf do usuário logado
+        //e atualiza.
+        $servidor = Servidor::where('cpf', $user->cpf)->first();
+        $servidor->update($mappedData);
+        Session::flash('success','Dados atualizados!');
+        return redirect()->route('cadastro.servidor');
     }
 
 }
