@@ -2,9 +2,11 @@
 
 @section('content')
 
-<div class="row text-center">
+<div class="container">
+
+  <div class="row text-center">
     <div class="col-12">
-      <h6>Bem vindo, @if(Auth::user() != null) {{ Auth::user()->dados->nome }}! @endif</h6>
+      <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->dados?Auth::user()->dados->nome:'' }}! @endif</h6>
     </div>
 </div>
 
@@ -46,5 +48,9 @@
   </div>
 
 </div>
+
+
+</div>
+
 
 @endsection

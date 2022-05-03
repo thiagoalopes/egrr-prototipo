@@ -8,6 +8,11 @@ header {
     z-index: 999;
 }
 
+a.nav-link {
+    color: #fff !important;
+    font-weight: 400;
+}
+
 main {
     margin-top: 100px;
 }
@@ -16,4 +21,17 @@ main {
 }
 
 .card {
-    box-shadow: -1px 6px 16px -2px rgba(0,0,0,0.5);}
+    box-shadow: -1px 6px 16px -2px rgba(0,0,0,0.5);
+}
+
+.cursos {
+}
+
+.parceiros {
+    background-color: rgb(243, 243, 243);
+}
+
+.cursos, .parceiros {
+    padding: 40px 0 10px 0;
+    background-attachment: fixed;
+}

@@ -1,6 +1,8 @@
 @extends('layout.app')
 @section('content')
-{{ $errors }}
+
+<div class="container">
+  {{ $errors }}
 <div class="row">
     <div class="col-12">
         <a href="{{ route('home.servidor') }}" class="btn btn-secondary mb-4">Voltar ao Painel</a>
@@ -67,4 +69,6 @@
       <button type="submit" class="btn btn-primary">Atualizar</button>
     </div>
   </form>
+</div>
+
 @endsection
