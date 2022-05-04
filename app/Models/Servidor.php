@@ -10,6 +10,7 @@ class Servidor extends Model
     use HasFactory;
 
     protected $table = 'tb_servidores';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',

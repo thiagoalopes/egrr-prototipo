@@ -57,7 +57,7 @@
                             <i class="fas fa-user-cog"></i> Gestão de Cursos
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('home.admnistrador') }}">Painel</a></li>
+                            <li><a class="dropdown-item" href="{{ route('home.administrador') }}">Painel</a></li>
                             <li><a class="dropdown-item" href="#">Tutores</a></li>
                             <li><a class="dropdown-item" href="#">Situações do Curso</a></li>
                             <li><a class="dropdown-item" href="#">Assinaturas do Certificado</a></li>
@@ -70,9 +70,9 @@
                   </ul>
                   <div class="d-flex">
                     @if(Auth::user() != null) 
-                      <a href="{{ route('logout') }}" class="btn btn-outline-success">Sair</a>
+                      <a href="{{ route('logout') }}" class="btn btn-outline-success"><i class="fas fa-sign-in-alt"></i> Sair</a>
                     @else
-                      <a href="{{ route('login') }}" class="btn btn-outline-success">Entrar</a>
+                      <a href="{{ route('login') }}" class="btn btn-outline-success"><i class="fas fa-sign-in-alt"></i> Entrar</a>
                     @endif 
                   </div>
                 </div>

@@ -10,6 +10,7 @@ class Cursos extends Model
     use HasFactory;
 
     protected $table = 'tb_curso';
+    public $timestamps = true;
 
     protected $fillable = [
         'decricao',
@@ -23,9 +24,9 @@ class Cursos extends Model
         'update_at',
     ];
 
-    public function tutor()
+    public function professor()
     {
-        return $this->hasOne('App\Models\Tutores', 'id', 'id_tutor');
+        return $this->hasOne('App\Models\Professores', 'id', 'id_professor');
     }
 
     public function situacao()

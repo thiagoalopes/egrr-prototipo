@@ -45,7 +45,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
                                         <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
-                                        <p><b>Tutor:</b> {{ $item->tutor->nome }}</p>
+                                        <p><b>Tutor:</b> {{ $item->professor->nome }}</p>
                                         <p>
                                             <b>Período:</b> De {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_inicio)->format('d/m/Y'):'' }} 
                                         até {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_termino)->format('d/m/Y'):'' }}

@@ -10,5 +10,4 @@ class DadosPessoais extends Model
     use HasFactory;
 
     protected $table = 'tb_dadospessoais';
-    
 }

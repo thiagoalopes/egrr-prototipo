@@ -23,10 +23,18 @@ Route::prefix('servidor')->group(function(){
     Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
 });
 
-Route::prefix('admnistrativo')->group(function(){
-    Route::get('', 'App\Http\Controllers\Admin\HomeAdministradores@index')->name('home.admnistrador');
-    Route::get('tutores', 'App\Http\Controllers\Admin\Tutores@index')->name('listar.tutores');
-    Route::get('tutores/cadastro', 'App\Http\Controllers\Admin\Tutores@cadastro')->name('cadastro.tutores');
+Route::prefix('administrativo')->group(function(){
+    Route::get('', 'App\Http\Controllers\Admin\HomeAdministradores@index')->name('home.administrador');
+    Route::get('professores', 'App\Http\Controllers\Admin\Professores@index')->name('listar.professores');
+    Route::get('professores/cadastro', 'App\Http\Controllers\Admin\Professores@cadastro')->name('cadastro.professores');
+    Route::post('professores/cadastro', 'App\Http\Controllers\Admin\Professores@salvar')->name('salvar.professores');
+    
+    Route::get('professores/editar', 'App\Http\Controllers\Admin\Professores@editar')->name('editar.professores');
+    Route::post('professores/atualizar', 'App\Http\Controllers\Admin\Professores@atualizar')->name('atualizar.professores');
+
+    Route::get('professores/detalhes', 'App\Http\Controllers\Admin\Professores@detalhes')->name('detalhes.professores');
+
+
 
 });
 

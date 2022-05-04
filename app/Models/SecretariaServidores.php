@@ -10,4 +10,5 @@ class SecretariaServidores extends Model
     use HasFactory;
 
     protected $table = 'tb_secretaria_servidores';
+    public $timestamps = true;
 }

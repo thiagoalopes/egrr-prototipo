@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('nome', 128)->unique();
             $table->text('descricao');
             $table->integer('carga_horaria');
-            $table->unsignedBigInteger('id_tutor');
+            $table->unsignedBigInteger('id_professor');
             $table->date('data_inicio');
             $table->date('data_termino');
             $table->integer('total_vagas');
             $table->unsignedBigInteger('id_situacao_curso');
             $table->timestamps();
 
-            $table->foreign('id_tutor')->references('id')->on('tb_tutor');
+            $table->foreign('id_professor')->references('id')->on('tb_professor');
             $table->foreign('id_situacao_curso')->references('id')->on('tb_situacao_curso');
 
         });

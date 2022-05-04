@@ -14,11 +14,11 @@
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        <i class="fas fa-chalkboard-teacher"></i> Gestão dos Tutores
+        <i class="fas fa-chalkboard-teacher"></i> Gestão dos Professores
       </div>
       <div class="card-body">
-        <p class="card-text">Gerencie o cadastro dos tutores dos cursos no sistema.</p>
-        <a href="{{ route('listar.tutores') }}" class="btn btn-primary">Gerir</a>
+        <p class="card-text">Gerencie o cadastro dos professores dos cursos no sistema.</p>
+        <a href="{{ route('listar.professores') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
         <i class="fas fa-graduation-cap"></i> Gestão de Cursos e Turmas
       </div>
       <div class="card-body">
-        <p class="card-text">Gerencie as informações dos cursos e suas turmas.</p>
+        <p class="card-text">Gerencie as informações de cadastro dos cursos e suas turmas.</p>
         <a href="#" class="btn btn-primary">Gerir</a>
       </div>
     </div>

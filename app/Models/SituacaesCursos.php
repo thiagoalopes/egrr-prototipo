@@ -10,6 +10,7 @@ class SituacaesCursos extends Model
     use HasFactory;
 
     protected $table = 'tb_situacao_curso';
+    public $timestamps = true;
 
     protected $fillable = [
         'situacao',
