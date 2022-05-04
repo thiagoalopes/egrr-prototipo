@@ -13,12 +13,16 @@ class Cursos extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'decricao',
+        'id',
+        'imagem',
+        'nome',
+        'descricao',
         'carga_horaria',
-        'id_tutor',
+        'id_professor',
         'data_inicio',
         'data_termino',
         'total_vagas',
+        'endereco_curso',
         'id_situacao_curso',
         'created_at',
         'update_at',

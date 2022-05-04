@@ -30,7 +30,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">Gerencie as informações das situações dos cursos cadastrados no sistema.</p>
-        <a href="{{ route('certificados') }}" class="btn btn-primary">Gerir</a>
+        <a href="#" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">Gerencie as informações de cadastro dos cursos e suas turmas.</p>
-        <a href="#" class="btn btn-primary">Gerir</a>
+        <a href="{{ route('listar.cursos') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>

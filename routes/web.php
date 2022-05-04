@@ -24,18 +24,31 @@ Route::prefix('servidor')->group(function(){
 });
 
 Route::prefix('administrativo')->group(function(){
+
     Route::get('', 'App\Http\Controllers\Admin\HomeAdministradores@index')->name('home.administrador');
-    Route::get('professores', 'App\Http\Controllers\Admin\Professores@index')->name('listar.professores');
-    Route::get('professores/cadastro', 'App\Http\Controllers\Admin\Professores@cadastro')->name('cadastro.professores');
-    Route::post('professores/cadastro', 'App\Http\Controllers\Admin\Professores@salvar')->name('salvar.professores');
-    
-    Route::get('professores/editar', 'App\Http\Controllers\Admin\Professores@editar')->name('editar.professores');
-    Route::post('professores/atualizar', 'App\Http\Controllers\Admin\Professores@atualizar')->name('atualizar.professores');
 
-    Route::get('professores/detalhes', 'App\Http\Controllers\Admin\Professores@detalhes')->name('detalhes.professores');
+    Route::prefix('professores')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\Professores@index')->name('listar.professores');
+        Route::get('cadastro', 'App\Http\Controllers\Admin\Professores@cadastro')->name('cadastro.professores');
+        Route::post('cadastro', 'App\Http\Controllers\Admin\Professores@salvar')->name('salvar.professores');
+        Route::get('editar', 'App\Http\Controllers\Admin\Professores@editar')->name('editar.professores');
+        Route::post('atualizar', 'App\Http\Controllers\Admin\Professores@atualizar')->name('atualizar.professores');
+        Route::get('detalhes', 'App\Http\Controllers\Admin\Professores@detalhes')->name('detalhes.professores');
+    });
+
+    Route::prefix('cursos')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\Cursos@index')->name('listar.cursos');
+        Route::get('cadastro', 'App\Http\Controllers\Admin\Cursos@cadastro')->name('cadastro.cursos');
+        Route::post('cadastro', 'App\Http\Controllers\Admin\Cursos@salvar')->name('salvar.cursos');
+
+        Route::get('editar', 'App\Http\Controllers\Admin\Cursos@editar')->name('editar.cursos');
+        Route::post('atualizar', 'App\Http\Controllers\Admin\Cursos@atualizar')->name('atualizar.cursos');
+ 
+        Route::get('detalhes', 'App\Http\Controllers\Admin\Cursos@detalhes')->name('detalhes.cursos');
 
 
 
+    });
 });
 
 

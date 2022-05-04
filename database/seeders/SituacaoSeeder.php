@@ -17,13 +17,25 @@ class SituacaoSeeder extends Seeder
     public function run()
     {
         DB::table('tb_situacao_curso')->insert([
-            'situacao' => 'Previsto',
+            'situacao' => 'Confirmado',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         DB::table('tb_situacao_curso')->insert([
             'situacao' => 'Em Andamento',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('tb_situacao_curso')->insert([
+            'situacao' => 'Inscrições Abertas',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('tb_situacao_curso')->insert([
+            'situacao' => 'Inscrições Encerradas',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -41,7 +53,7 @@ class SituacaoSeeder extends Seeder
         ]);
 
         DB::table('tb_situacao_curso')->insert([
-            'situacao' => 'Finalizado',
+            'situacao' => 'Encerrado',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

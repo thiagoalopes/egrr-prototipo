@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('data_inicio');
             $table->date('data_termino');
             $table->integer('total_vagas');
+            $table->string('endereco_curso');
             $table->unsignedBigInteger('id_situacao_curso');
             $table->timestamps();
 

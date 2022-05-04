@@ -41,7 +41,7 @@
                             <div class="col-12 col-md-4 col-lg-3 mb-4" data-aos="flip-left">
                                 
                                 <div class="card" >
-                                    <img src="{{ asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
+                                    <img src="{{ $item->imagem != null?$item->imagem:asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
                                     <div class="card-body">
                                         <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
                                         <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
