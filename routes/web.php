@@ -40,14 +40,18 @@ Route::prefix('administrativo')->group(function(){
         Route::get('', 'App\Http\Controllers\Admin\Cursos@index')->name('listar.cursos');
         Route::get('cadastro', 'App\Http\Controllers\Admin\Cursos@cadastro')->name('cadastro.cursos');
         Route::post('cadastro', 'App\Http\Controllers\Admin\Cursos@salvar')->name('salvar.cursos');
-
         Route::get('editar', 'App\Http\Controllers\Admin\Cursos@editar')->name('editar.cursos');
         Route::post('atualizar', 'App\Http\Controllers\Admin\Cursos@atualizar')->name('atualizar.cursos');
- 
         Route::get('detalhes', 'App\Http\Controllers\Admin\Cursos@detalhes')->name('detalhes.cursos');
+    });
 
-
-
+    Route::prefix('turmas')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\Turmas@index')->name('listar.turmas');
+        Route::get('cadastro', 'App\Http\Controllers\Admin\Turmas@cadastro')->name('cadastro.turmas');
+        Route::post('cadastro', 'App\Http\Controllers\Admin\Turmas@salvar')->name('salvar.turmas');
+        Route::get('editar', 'App\Http\Controllers\Admin\Turmas@editar')->name('editar.turmas');
+        Route::post('atualizar', 'App\Http\Controllers\Admin\Turmas@atualizar')->name('atualizar.turmas');
+        Route::get('detalhes', 'App\Http\Controllers\Admin\Turmas@detalhes')->name('detalhes.turmas');
     });
 });
 

@@ -75,8 +75,8 @@ class HomeServidores extends Controller
             'cargo'=>'required|min:5',
             'secretaria'=>'required|regex:/^[0-9]+$/',
             'email'=>'required|email',
-            'celular'=>'required|min:11|regex:/^[0-9]+$/',
-            'telefone'=>'nullable|min:10|regex:/^[0-9]+$/',
+            'celular'=>'required|celular_com_ddd',
+            'telefone'=>'nullable|telefone_com_ddd',
         ]);
 
         //Mapeia os campos validados para o nome das colunas do banco

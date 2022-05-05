@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('tb_professor', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 128);
-            $table->string('cpf', 64)->unique()->nullable();
+            $table->string('cpf', 16)->unique()->nullable();
             $table->enum('sexo',['f','m','o']);
-            $table->string('celular', 20)->nullable();
+            $table->string('celular', 16)->nullable();
             $table->string('email', 32)->nullable();
             $table->timestamps();
         });

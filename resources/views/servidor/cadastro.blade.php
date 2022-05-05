@@ -24,7 +24,7 @@
     </div>
     <div class="col-md-3">
       <label for="cpf" class="form-label">CPF</label>
-      <input type="text" maxlength="11" class="form-control" disabled id="cpf" value="{{ $servidor->cpf }}">
+      <input type="text" maxlength="11" class="form-control cpf" disabled id="cpf" value="{{ $servidor->cpf }}">
     </div>
     <div class="col-md-3">
         <label for="sexo" class="form-label">Sexo<span class="text-danger">*</span></label>
@@ -98,7 +98,7 @@
     </div>
     <div class="col-md-4">
         <label for="celular" class="form-label">Celular<span class="text-danger">*</span></label>
-        <input type="text" class="form-control @error("celular") is-invalid @enderror" id="celular" name="celular" value="{{ $servidor->celular }}">
+        <input type="text" class="form-control cell_with_ddd @error("celular") is-invalid @enderror" id="celular" name="celular" value="{{ $servidor->celular }}">
         @error('celular')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -107,7 +107,7 @@
       </div>
       <div class="col-md-4">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="text" class="form-control @error("telefone") is-invalid @enderror" id="telefone" name="telefone" value="{{ $servidor->telefone }}">
+        <input type="text" class="form-control phone_with_ddd @error("telefone") is-invalid @enderror" id="telefone" name="telefone" value="{{ $servidor->telefone }}">
         @error('telefone')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

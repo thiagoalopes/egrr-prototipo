@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('tb_secretaria_servidores', function (Blueprint $table) {
             $table->id();
-            $table->string('secretaria', 128)->unique();
+            $table->string('secretaria', 64)->unique();
+            $table->timestamps();
         });
     }
 

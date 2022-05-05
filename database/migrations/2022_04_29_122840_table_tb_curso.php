@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('tb_curso', function (Blueprint $table) {
             $table->id();
-            $table->string('imagem', 1000)->nullable();
+            $table->string('imagem', 1024)->nullable();
             $table->string('nome', 128)->unique();
-            $table->text('descricao');
+            $table->string('descricao', 512);
             $table->integer('carga_horaria');
             $table->unsignedBigInteger('id_professor');
             $table->date('data_inicio');
             $table->date('data_termino');
             $table->integer('total_vagas');
-            $table->string('endereco_curso');
+            $table->string('endereco_curso', 512);
             $table->unsignedBigInteger('id_situacao_curso');
             $table->timestamps();
 

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tb_conteudos_cursos', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('id_curso');
-            $table->string('conteudo', 255);
+            $table->string('conteudo', 512);
             $table->timestamps();
 
             $table->foreign('id_curso')->references('id')->on('tb_curso');
