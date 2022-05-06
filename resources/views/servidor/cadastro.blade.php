@@ -3,8 +3,8 @@
 
 <div class="container mb-5">
 <div class="row">
-    <div class="col-12">
-        <a href="{{ route('home.servidor') }}" class="btn btn-secondary mb-4"><i class="fas fa-undo-alt"></i> Voltar ao Painel</a>
+    <div class="col-12 mb-4">
+        <a href="{{ route('home.servidor') }}"><i class="fas fa-undo-alt"></i> Voltar ao Painel</a>
     </div>
 </div>
 <div class="row justify-content-center">
@@ -116,6 +116,9 @@
       </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary"><i class="fas fa-sync"></i> Atualizar</button>
+    </div>
+    <div class="col-12">
+      <span><span class="text-danger">*</span>Campos obrigatórios</span>
     </div>
   </form>
 </div>

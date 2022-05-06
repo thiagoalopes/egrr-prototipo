@@ -2,10 +2,16 @@
 @section('content')
 
 <div class="container mb-5">
-<div class="row">
-    <div class="col-12">
-        <a href="{{ route('listar.cursos') }}" class="btn btn-secondary mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Cursos</a>
+
+  <div class="row">
+    <div class="col-12 mb-3">
+      <a href="{{ route('listar.cursos') }}" class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Cursos</a>
     </div>
+</div>
+<div class="row mb-3">
+  <div class="col-12">
+      <h2>Detalhes do Curso</h2>
+  </div>
 </div>
 
 <div class="row g-3">

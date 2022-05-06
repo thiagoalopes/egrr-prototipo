@@ -19,11 +19,17 @@ class Cursos extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
+            if($request->has('nome'))
+            {
+                $cursos = ModelsCursos::whereRaw("LOWER(nome) like '%".strtolower($request->input('nome'))."%'")->paginate(15);
+                return view('admin.curso.index', compact(['cursos']));
+            }
+
             $cursos = ModelsCursos::paginate(15);
             return view('admin.curso.index', compact(['cursos']));
         }
@@ -53,11 +59,11 @@ class Cursos extends Controller
                 'imagem'=>'nullable|file|mimes:jpg,jpeg,png|max:1024',
                 'nome'=>'required|max:128',
                 'descricao'=>'required|max:500',
-                'carga_horaria'=>'required|numeric|max:4',
+                'carga_horaria'=>'required|max:4',
                 'total_vagas'=>'required',
                 'id_professor'=>'required',
-                'data_inicio'=>'required|date_format:d/m/Y',
-                'data_termino'=>'required|date_format:d/m/Y',
+                'data_inicio'=>'required|date|date_format:d-m-Y',
+                'data_termino'=>'required|date|date_format:d-m-Y',
                 'endereco_curso'=>'required',
             ]);
 
@@ -124,14 +130,16 @@ class Cursos extends Controller
                     'imagem'=>'nullable|file|mimes:jpg,jpeg,png|max:1024',
                     'nome'=>'required|max:128',
                     'descricao'=>'required|max:500',
-                    'carga_horaria'=>'required|string|max:4',
+                    'carga_horaria'=>'required|max:4',
                     'total_vagas'=>'required',
                     'id_professor'=>'required',
                     'id_situacao_curso'=>'required',
-                    'data_inicio'=>'required|date_format:d/m/Y',
-                    'data_termino'=>'required|date_format:d/m/Y',
+                    'data_inicio'=>'required|date|date_format:d-m-Y',
+                    'data_termino'=>'required|date|date_format:d-m-Y',
                     'endereco_curso'=>'required',
                 ]);
+
+               
 
                 if($request->hasFile('imagem'))
                 {

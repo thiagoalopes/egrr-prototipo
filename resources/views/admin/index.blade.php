@@ -10,14 +10,14 @@
     </div>
 </div>
 
-<div class="row mt-4">
+<div class="row mt-4 mb-4">
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
         <i class="fas fa-chalkboard-teacher"></i> Gestão dos Professores
       </div>
       <div class="card-body">
-        <p class="card-text">Gerencie o cadastro dos professores dos cursos no sistema.</p>
+        <p class="card-text">Gerencie as informações de cadastro dos professores dos cursos no sistema.</p>
         <a href="{{ route('listar.professores') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>

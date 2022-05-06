@@ -2,11 +2,20 @@
 @section('content')
 
 <div class="container">
+    <div class="row mb-3">
+        <div class="col-12">
+            <a href="{{ route('home.administrador') }}" class><i class="fas fa-link"></i> Painel Administrativo</a>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Gestão de Cursos</h2>
+        </div>
+    </div>
 
     <div class="row row-cols-lg-auto g-3 align-items-center mb-5">
         <div class="col-md-12">
-            <a href="{{ route('home.administrador') }}" class="btn btn-secondary"><i class="fas fa-link"></i> Painel</a>
-            <a href="{{ route('cadastro.cursos') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Cadastrar</a>
+            <a href="{{ route('cadastro.cursos') }}" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Novo Curso</a>
         </div>
     </div>
         <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('listar.cursos') }}" method="get">
@@ -15,7 +24,7 @@
             </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Filtrar</button>
-                <a href="{{ route('listar.professores') }}" class="btn btn-secondary"><i class="fas fa-eraser"></i> Cancelar</a>
+                <a href="{{ route('listar.cursos') }}" class="btn btn-secondary"><i class="fas fa-eraser"></i> Cancelar</a>
 
             </div>
         </form>

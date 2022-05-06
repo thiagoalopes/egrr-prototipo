@@ -25,11 +25,26 @@ class Turmas extends Controller
         {
             if($request->has('idCurso'))
             {
-                $turmas = ModelsTurmas::paginate(15);
-                return view('admin.turma.index', compact(['turmas']));
+                $curso = Cursos::find($request->input('idCurso'));
+
+                if($curso != null)
+                {
+                    if($request->has('descricao'))
+                    {
+
+                        $turmas = ModelsTurmas::whereRaw("LOWER(descricao_turma) like '%".strtolower($request->input('descricao'))."%'")
+                        ->where('id_curso', $request->input('idCurso'))->paginate(15);
+                        return view('admin.turma.index', compact(['turmas','curso']));
+                    }
+
+                    $turmas = ModelsTurmas::where('id_curso', $request->input('idCurso'))->paginate(15);
+                    return view('admin.turma.index', compact(['turmas','curso']));
+                }
+
+                return abort(400);
             }
 
-            return abort(400);
+            return abort(404);
         }
 
         return abort(403);
@@ -42,11 +57,18 @@ class Turmas extends Controller
         {
             if($request->has('idCurso'))
             {
-                $situacoesTurmas = SituacaoTurmas::all();
-                return view('admin.turma.cadastro', compact(['situacoesTurmas']));
+                $curso = Cursos::find($request->input('idCurso'));
+
+                if($curso != null)
+                {
+                    $situacoesTurmas = SituacaoTurmas::all();
+                    return view('admin.turma.cadastro', compact(['situacoesTurmas', 'curso']));
+                }
+
+                return abort(404);
             }
 
-            return abort(400);
+            return abort(404);
         }
 
         return abort(403);
@@ -65,37 +87,42 @@ class Turmas extends Controller
                     'id_situacao_turma'=>'required',
                     'descricao_turma'=>'required|max:128',
                     'total_vagas_turma'=>'required|max:4',
-                    'data_inicio'=>'required|date_format:d/m/Y',
-                    'data_termino'=>'required|date_format:d/m/Y',
-                    'horario_inicio_aula'=>'required|date_format:H:i:s',
-                    'horario_termino_aula'=>'required|date_format:H:i:s',
+                    'data_inicio'=>'required|date|date_format:d-m-Y',
+                    'data_termino'=>'required|date|date_format:d-m-Y',
+                    'horario_inicio_aula'=>'required|date_format:H:i',
+                    'horario_termino_aula'=>'required|date_format:H:i',
                 ]);
 
-                //dd($validated['id_curso']);
+                $curso = Cursos::find($request->input('id_curso'));
 
-                $totalDeVagasCurso = Cursos::find($validated['id_curso'])->total_vagas;
-                $turmas = ModelsTurmas::where('id_curso', $validated['id_curso'])->get();
-
-                $totalVagasTurmasCadastradas = 0;
-
-                foreach ($turmas as $turma) {
-                    $totalVagasTurmasCadastradas += $turma->total_vagas_turma;
-                }
-
-                if(($totalVagasTurmasCadastradas + $validated['total_vagas_turma']) >= $totalDeVagasCurso)
+                if($curso != null)
                 {
-                    Session::flash(
-                    'error','Vagas do curso insuficiente. Totais de vagas: Informado' . $totalDeVagasCurso . 
-                    ' - Cadastradas ' . $totalVagasTurmasCadastradas . ' - Restantes ' . ($totalDeVagasCurso - ($totalVagasTurmasCadastradas + $validated['total_vagas_turma']))<=0?0:($totalDeVagasCurso - ($totalVagasTurmasCadastradas + $validated['total_vagas_turma'])));
+                    $totalDeVagasCurso = Cursos::find($validated['id_curso'])->total_vagas;
+                    $turmas = ModelsTurmas::where('id_curso', $validated['id_curso'])->get();
+    
+                    $totalVagasTurmasCadastradas = 0;
+    
+                    foreach ($turmas as $turma) {
+                        $totalVagasTurmasCadastradas += $turma->total_vagas_turma;
+                    }
+    
+                    if(($totalVagasTurmasCadastradas + $validated['total_vagas_turma']) >= $totalDeVagasCurso)
+                    {
+                        Session::flash(
+                        'error','Vagas do curso insuficiente. Totais de vagas: Informado' . $totalDeVagasCurso . 
+                        ' - Cadastradas ' . $totalVagasTurmasCadastradas . ' - Restantes ' . ($totalDeVagasCurso - ($totalVagasTurmasCadastradas + $validated['total_vagas_turma']))<=0?0:($totalDeVagasCurso - ($totalVagasTurmasCadastradas + $validated['total_vagas_turma'])));
+                        return redirect()->route('cadastro.turmas', ['idCurso'=>$validated['id_curso']]);
+                    }
+    
+                    ModelsTurmas::create($validated);
+                    Session::flash('success','Cadastrado com sucesso!');
                     return redirect()->route('cadastro.turmas', ['idCurso'=>$validated['id_curso']]);
                 }
 
-                ModelsTurmas::create($validated);
-                Session::flash('success','Cadastrado com sucesso!');
-                return redirect()->route('cadastro.turmas', ['idCurso'=>$validated['id_curso']]);
+                return abort(404);
             }
 
-            return abort(400);
+            return abort(404);
 
         }
 
@@ -106,12 +133,21 @@ class Turmas extends Controller
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
-            if($request->has('idCurso'))
+            if($request->has('idCurso') && $request->has('idTurma'))
             {
-                //$situacoes = SituacaesCursos::all();
-                //$professores = Professores::all();
-                //$curso = ModelsCursos::find($request->input('idCurso'));
-                //return view('admin.curso.show', compact(['curso','professores','situacoes']));
+                $curso = Cursos::find($request->input('idCurso'));
+
+                $situacoesTurmas = SituacaoTurmas::all();
+
+                $turma = ModelsTurmas::where('id',$request->input('idTurma'))
+                ->where('id_curso', $request->input('idCurso'))->first();
+
+                if($turma != null)
+                {
+                    return view('admin.turma.show', compact(['situacoesTurmas','turma','curso']));
+                }
+
+                return abort(404);
             }
 
             return redirect()->back();
@@ -123,16 +159,28 @@ class Turmas extends Controller
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
-
-            if($request->has('idCurso'))
+            if($request->has('idCurso') && $request->has('idTurma'))
             {
-              //  $situacoes = SituacaesCursos::all();
-               // $professores = Professores::all();
-              //  $curso = ModelsCursos::find($request->input('idCurso'));
-              //  return view('admin.curso.editar', compact(['curso','professores','situacoes']));
+                $curso = Cursos::find($request->input('idCurso'));
+
+                if($curso != null)
+                {
+                    $turma = ModelsTurmas::where('id_curso', $request->input('idCurso'))
+                    ->where('id', $request->input('idTurma'))->first();
+
+                    if($turma != null)
+                    {
+                        $situacoesTurmas = SituacaoTurmas::all();
+                        return view('admin.turma.editar', compact(['turma','situacoesTurmas','curso']));
+                    }
+
+                    return redirect()->route('listar.turmas', ['idCurso'=>$curso->id]);
+                }
+
+                return abort(404);
             }
 
-            return redirect()->back();
+            return abort(404);
         }
 
         return abort(403);
@@ -142,40 +190,40 @@ class Turmas extends Controller
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
-            if($request->has('idCurso'))
+            if($request->has('idCurso') && $request->has('idTurma'))
             {
                 $validated = $request->validate([
-                    'imagem'=>'nullable|file|mimes:jpg,jpeg,png|max:1024',
-                    'nome'=>'required|max:128',
-                    'descricao'=>'required|max:500',
-                    'carga_horaria'=>'required|string|max:4',
-                    'total_vagas'=>'required',
-                    'id_professor'=>'required',
-                    'id_situacao_curso'=>'required',
-                    'data_inicio'=>'required|date_format:d/m/Y',
-                    'data_termino'=>'required|date_format:d/m/Y',
-                    'endereco_curso'=>'required',
+                    'id_situacao_turma'=>'required',
+                    'descricao_turma'=>'required|max:128',
+                    'total_vagas_turma'=>'required|max:4',
+                    'data_inicio'=>'required|date|date_format:d-m-Y',
+                    'data_termino'=>'required|date|date_format:d-m-Y',
+                    'horario_inicio_aula'=>'required|date_format:H:i',
+                    'horario_termino_aula'=>'required|date_format:H:i',
                 ]);
 
-                if($request->hasFile('imagem'))
+                $curso = Cursos::find($request->input('idCurso'));
+
+                if($curso != null)
                 {
-               //     $validated['imagem'] = Storage::disk('imagens')->put('assets/img/cursos', $request->file('imagem'));
+                    $turma = ModelsTurmas::find($request->input('idTurma'));
+
+                    if($turma != null)
+                    {
+
+                        $turma->update($validated);
+                        Session::flash('success','Atualizado com sucesso!');
+                        return redirect()->route('editar.turmas', ['idCurso'=>$curso->id, 'idTurma'=>$turma->id]);
+                    }
+
+                    return redirect()->back();
                 }
-
-               // $curso = ModelsCursos::find($request->input('idCurso'));
-
-               // if($curso != null)
-              //  {
-                //    $curso->update($validated);
-                 //   Session::flash('success','Atualizado com sucesso!');
-                //    return redirect()->route('editar.cursos', ['idCurso'=>$curso->id]);
-               // }
 
                 return redirect()->back();
     
             }
 
-            return abort(400);
+            return abort(404);
         }
 
         return abort(403);

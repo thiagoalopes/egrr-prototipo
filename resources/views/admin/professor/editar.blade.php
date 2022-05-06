@@ -3,9 +3,14 @@
 
 <div class="container mb-5">
 <div class="row">
-    <div class="col-12">
-        <a href="{{ route('listar.professores') }}" class="btn btn-secondary mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Professores</a>
+    <div class="col-12 mb-3">
+        <a href="{{ route('listar.professores') }}" class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Professores</a>
     </div>
+</div>
+<div class="row mb-3">
+  <div class="col-12">
+      <h2>Editar Professor</h2>
+  </div>
 </div>
 <div class="row justify-content-center">
   @if (Session::has('success'))
@@ -71,6 +76,9 @@
       </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary"><i class="fas fa-sync"></i> Atualizar</button>
+    </div>
+    <div class="col-12">
+      <span><span class="text-danger">*</span>Campos obrigatórios</span>
     </div>
   </form>
 </div>

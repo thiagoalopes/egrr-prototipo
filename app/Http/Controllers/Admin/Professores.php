@@ -21,7 +21,6 @@ class Professores extends Controller
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
-
             $professores = null;
 
             if($request->has('nome'))

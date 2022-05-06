@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Servidor</title>
+    <title>Escola de Governo de Roraima</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/b_gov.png') }}">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
@@ -58,8 +58,8 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('home.administrador') }}">Painel</a></li>
-                            <li><a class="dropdown-item" href="#">Tutores</a></li>
-                            <li><a class="dropdown-item" href="#">Situações do Curso</a></li>
+                            <li><a class="dropdown-item" href="{{ route('listar.professores') }}">Professores</a></li>
+                            <li><a class="dropdown-item" href="{{ route('listar.cursos') }}">Cursos e Turmas</a></li>
                             <li><a class="dropdown-item" href="#">Assinaturas do Certificado</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Cursos</a></li>
@@ -103,7 +103,7 @@
         $('.phone_with_ddd').mask('(00) 0000-0000');
         $('.cpf').mask('000.000.000-00', {reverse: true});
         $('.date').mask('00/00/0000');
-        $('.time').mask('00:00:00');
+        $('.time').mask('00:00');
       });
 
     </script>

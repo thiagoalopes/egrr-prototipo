@@ -3,9 +3,15 @@
 
 <div class="container mb-5">
 <div class="row">
-    <div class="col-12">
-        <a href="{{ route('listar.professores') }}" class="btn btn-secondary mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Professores</a>
+    <div class="col-12 mb-3">
+        <a href="{{ route('listar.professores') }}" class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Professores</a>
     </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-12">
+      <h2>Dados do Professor</h2>
+  </div>
 </div>
 
 <div class="row g-3">
