@@ -99,11 +99,20 @@
     <script>
 
       $(document).ready(function(){
+
+        //JquaryMask
         $('.cell_with_ddd').mask('(00) 00000-0000');
         $('.phone_with_ddd').mask('(00) 0000-0000');
         $('.cpf').mask('000.000.000-00', {reverse: true});
         $('.date').mask('00/00/0000');
         $('.time').mask('00:00');
+
+        //Bootstrap Tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
       });
 
     </script>

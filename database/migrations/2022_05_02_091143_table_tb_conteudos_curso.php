@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tb_conteudos_cursos', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('id_curso');
+            $table->string('sequencial_ordenacao', 2);
             $table->string('conteudo', 512);
             $table->timestamps();
 

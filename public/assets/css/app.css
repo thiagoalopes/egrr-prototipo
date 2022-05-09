@@ -1,4 +1,7 @@
 
+.card-header {
+}
+
 header {
     box-shadow: -1px 6px 35px -4px rgba(0,0,0,0.32);
     position: fixed;
@@ -17,7 +20,7 @@ main {
     margin-top: 90px;
 }
 .bg-custom-nav, .bg-custom-nav .bg-light {
-    background-color: rgb(75, 75, 75) !important;
+    background-color: rgb(43, 43, 43) !important;
 }
 
 .card {

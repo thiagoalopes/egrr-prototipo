@@ -31,13 +31,52 @@
 
     <div class="row">
 
-        <div class="col-12">
+        <div class="col-12 col-md-4 col-lg-3 mb-4 mt-4 d-sm-block d-lg-none">
+
+            @if ($cursos->count() != 0)
+                @foreach ($cursos as $item)
+
+                    <div class="card" >
+                        <div class="card-body">
+                            <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
+                            <div class="card-text">
+                                <ul style="list-style-type: none;">
+                                    <li>
+                                        <i class="fas fa-eye" title="ver detalhes do curso"></i> <a href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}">Detalhes</a>
+
+                                    </li>
+                                    <li>
+                                        <i title="editar curso" class="fas fa-edit"></i> <a href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"> Editar</a>
+
+                                    </li>
+                                    <li>
+                                        <i title="turmas do curso" class="fas fa-chalkboard"></i> <a href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}">Turmas</a>
+
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-book-open"></i> <a href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}">Conteúdos</a>
+
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-list-ol"></i> <a href="#"></i>Incrições</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                @endforeach
+            @endif
+
+        </div>
+
+        <div class="col-12 d-none d-lg-block">
             
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>Ação</th>
+                        <th colspan="6" >Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,9 +85,27 @@
                             <tr>
                                 <td>{{ $item->nome }}</td>
                                 <td>
-                                    <a href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye" title="ver detalhes"></i></a>
-                                    <a href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i></a>
-                                    <a href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i title="turmas" class="fas fa-chalkboard"></i></a>
+                                    <ul style="list-style-type: none;">
+                                        <li>
+                                            <i class="fas fa-eye" title="ver detalhes do curso"></i> <a href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}">Detalhes</a>
+    
+                                        </li>
+                                        <li>
+                                            <i title="editar curso" class="fas fa-edit"></i> <a href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"> Editar</a>
+    
+                                        </li>
+                                        <li>
+                                            <i title="turmas do curso" class="fas fa-chalkboard"></i> <a href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}">Turmas</a>
+    
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-book-open"></i> <a href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}">Conteúdos</a>
+    
+                                        </li>
+                                        <li>
+                                            <i class="fas fa-list-ol"></i> <a href="#"></i>Incrições</a>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         @endforeach

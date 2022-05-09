@@ -53,6 +53,17 @@ Route::prefix('administrativo')->group(function(){
         Route::post('atualizar', 'App\Http\Controllers\Admin\Turmas@atualizar')->name('atualizar.turmas');
         Route::get('detalhes', 'App\Http\Controllers\Admin\Turmas@detalhes')->name('detalhes.turmas');
     });
+
+    Route::prefix('conteudos')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\ConteudosCursos@index')->name('listar.conteudos');
+        Route::get('cadastro', 'App\Http\Controllers\Admin\ConteudosCursos@cadastro')->name('cadastro.conteudos');
+        Route::post('cadastro', 'App\Http\Controllers\Admin\ConteudosCursos@salvar')->name('salvar.conteudos');
+        Route::get('editar', 'App\Http\Controllers\Admin\ConteudosCursos@editar')->name('editar.conteudos');
+        Route::post('atualizar', 'App\Http\Controllers\Admin\ConteudosCursos@atualizar')->name('atualizar.conteudos');
+        Route::get('detalhes', 'App\Http\Controllers\Admin\ConteudosCursos@detalhes')->name('detalhes.conteudos');
+        Route::post('remover', 'App\Http\Controllers\Admin\ConteudosCursos@remover')->name('remover.conteudos');
+
+    });
 });
 
 

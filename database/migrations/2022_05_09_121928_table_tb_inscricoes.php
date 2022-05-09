@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_secretaria_servidores', function (Blueprint $table) {
+        Schema::create('tb_inscricoes', function (Blueprint $table) {
             $table->id();
-            $table->string('secretaria', 64)->unique();
-            $table->string('sigla', 32)->unique();
+            $table->unsignedBigInteger('id_servidor');
+            $table->unsignedInteger('id_turma');
+            $table->boolean('inscricao_aprovada')->default('false');
+
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_secretaria_servidores');
+        Schema::dropIfExists('tb_inscricoes');
     }
 };
