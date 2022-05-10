@@ -72,9 +72,6 @@ class Cursos extends Controller
                 $validated['imagem'] = Storage::disk('imagens')->put('assets/img/cursos', $request->file('imagem'));
             }
 
-            //Situação Confirmado
-            $validated['id_situacao_curso'] = 1;
-
             ModelsCursos::create($validated);
 
             Session::flash('success','Cadastrado com sucesso!');
@@ -90,10 +87,9 @@ class Cursos extends Controller
         {
             if($request->has('idCurso'))
             {
-                $situacoes = SituacaesCursos::all();
                 $professores = Professores::all();
                 $curso = ModelsCursos::find($request->input('idCurso'));
-                return view('admin.curso.show', compact(['curso','professores','situacoes']));
+                return view('admin.curso.show', compact(['curso','professores']));
             }
 
             return redirect()->back();
@@ -108,10 +104,9 @@ class Cursos extends Controller
 
             if($request->has('idCurso'))
             {
-                $situacoes = SituacaesCursos::all();
                 $professores = Professores::all();
                 $curso = ModelsCursos::find($request->input('idCurso'));
-                return view('admin.curso.editar', compact(['curso','professores','situacoes']));
+                return view('admin.curso.editar', compact(['curso','professores']));
             }
 
             return redirect()->back();

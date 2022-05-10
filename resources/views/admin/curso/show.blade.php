@@ -15,16 +15,7 @@
 </div>
 
 <div class="row g-3">
-  <div class="col-md-4">
-    <label for="id_situacao_curso" class="form-label">Situação do Curso</label>
-    <select class="form-select" disabled id="id_situacao_curso">
-      <option value="">Selecione</option>
-      @foreach ($situacoes as $item)
-          <option {{ $item->id === $curso->id_situacao_curso?'selected':'' }} value="{{ $item->id }}">{{ $item->situacao }}</option>
-      @endforeach
-  </select>      
-  </div>
-    <div class="col-md-8">
+    <div class="col-12">
       <label for="nome" class="form-label">Nome</label>
       <input type="text" disabled value="{{ $curso->nome }}" class="form-control" id="nome">
     </div>

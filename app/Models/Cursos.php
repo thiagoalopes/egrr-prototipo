@@ -23,7 +23,6 @@ class Cursos extends Model
         'data_termino',
         'total_vagas',
         'endereco_curso',
-        'id_situacao_curso',
         'created_at',
         'update_at',
     ];

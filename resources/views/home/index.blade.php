@@ -51,7 +51,6 @@
                                         até {{ $item->data_inicio?\Carbon\Carbon::parse($item->data_termino)->format('d/m/Y'):'' }}
                                         </p>
                                         <p><b>Vagas:</b> {{ $item->total_vagas }}</p>
-                                        <p><b>Situação:</b> {{ $item->situacao->situacao }}</p>
                                         <p>
                                             <a href="{{ route('home.inscricao', ['idCurso'=>$item->id]) }}">Ver Turmas</a>
                                         </p>

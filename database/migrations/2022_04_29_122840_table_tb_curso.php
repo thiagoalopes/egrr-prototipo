@@ -24,11 +24,9 @@ return new class extends Migration
             $table->date('data_termino');
             $table->integer('total_vagas');
             $table->string('endereco_curso', 512);
-            $table->unsignedBigInteger('id_situacao_curso');
             $table->timestamps();
 
             $table->foreign('id_professor')->references('id')->on('tb_professor');
-            $table->foreign('id_situacao_curso')->references('id')->on('tb_situacao_curso');
 
         });
     }

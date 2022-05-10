@@ -35,28 +35,7 @@
         </span>
       @enderror
     </div>
-    <div class="col-md-4">
-      <label for="id_situacao_curso" class="form-label">Situação do Curso<span class="text-danger">*</span></label>
-      <select name="id_situacao_curso" required class="form-select @error("id_situacao_curso") is-invalid @enderror" id="id_situacao_curso">
-        <option value="">Selecione</option>
-        @foreach ($situacoes as $item)
-            <option 
-            @if(old('id_situacao_curso') != null 
-                            && old('id_situacao_curso') == $item->id )
-                selected
-            @elseif($item->id == $curso->id_situacao_curso)
-                selected
-            @endif
-            value="{{ $item->id }}">{{ $item->situacao }}</option>
-        @endforeach
-    </select>      
-    @error('id_situacao_curso')
-        <span style="display: block;" class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-      @enderror
-    </div>
-    <div class="col-md-8">
+    <div class="col-12">
       <label for="nome" class="form-label">Nome<span class="text-danger">*</span></label>
       <input type="text" 
         @if (old('nome') != null)
