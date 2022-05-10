@@ -74,14 +74,14 @@
       @enderror
     </div>
     <div class="col-md-3 col-lg-2">
-      <label for="total_vagas_turma" class="form-label">Total de Vagas<span class="text-danger">*</span></label>
+      <label for="total_vagas_turma" class="form-label">Total de Vagas<span class="text-danger">*</span> <i data-bs-toggle="tooltip" data-bs-placement="top" title="Atenção! a soma das vagas por turma não deve ultrapassar o limite do curso." class="fas fa-info"></i></label>
       <input type="number"
       @if (old('total_vagas_turma') != null)
         value="{{ old('total_vagas_turma') }}"
       @else
         value="{{ $turma->total_vagas_turma }}"
       @endif
-        required placeholder="0" min="1" max="9999" step="1" value="{{ old('total_vagas_turma') }}" class="form-control @error("total_vagas_turma") is-invalid @enderror" name="total_vagas_turma"  id="total_vagas_turma">
+        required placeholder="1" min="1" max="9999" step="1" value="{{ old('total_vagas_turma') }}" class="form-control @error("total_vagas_turma") is-invalid @enderror" name="total_vagas_turma"  id="total_vagas_turma">
       @error('total_vagas_turma')
         <span style="display: block;" class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -165,7 +165,7 @@
         @enderror
       </div>
       <div class="col-md-3">
-        <label for="horario_termino_aula" class="form-label">Início da Aula<span class="text-danger">*</span></label>
+        <label for="horario_termino_aula" class="form-label">Término da Aula<span class="text-danger">*</span></label>
         <input type="text"
         @if (old('horario_termino_aula') != null)
         value="{{ old('horario_termino_aula') }}"

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tb_turmas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_curso');
-            $table->unsignedBigInteger('id_situacao_turma');
+            $table->unsignedBigInteger('id_situacao_turma')->default(2); // 2-Turma Fechada
             $table->text('descricao_turma');
             $table->date('data_inicio');
             $table->date('data_termino');

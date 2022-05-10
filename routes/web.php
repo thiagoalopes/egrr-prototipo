@@ -21,6 +21,14 @@ Route::prefix('servidor')->group(function(){
     Route::post('cadastro', 'App\Http\Controllers\HomeServidores@update')->name('update.servidor');
     Route::get('certificados', 'App\Http\Controllers\Certificados@index')->name('certificados');
     Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
+
+    Route::get('inscricao/{idCurso}/turmas', 'App\Http\Controllers\Inscricoes@index')
+    ->where(['idCurso'=>'[0-9]+'])
+    ->name('home.inscricao');
+
+    Route::get('inscricao/{idTurma}', 'App\Http\Controllers\Inscricoes@inscricao')
+    ->where(['idTurma'=>'[0-9]+'])
+    ->name('salvar.inscricao');
 });
 
 Route::prefix('administrativo')->group(function(){
@@ -64,6 +72,9 @@ Route::prefix('administrativo')->group(function(){
         Route::post('remover', 'App\Http\Controllers\Admin\ConteudosCursos@remover')->name('remover.conteudos');
 
     });
+
+
+
 });
 
 

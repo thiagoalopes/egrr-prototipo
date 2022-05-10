@@ -28,7 +28,7 @@ class Login extends Controller
             {
                 Auth::login($usuario);
                 $request->session()->regenerate();
-                return redirect()->route('home.servidor');
+                return redirect()->route('welcome');
             }
         }
     

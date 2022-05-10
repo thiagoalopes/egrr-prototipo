@@ -15,9 +15,12 @@ return new class extends Migration
     {
         Schema::create('tb_inscricoes', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo_inscricao');
             $table->unsignedBigInteger('id_servidor');
             $table->unsignedInteger('id_turma');
-            $table->boolean('inscricao_aprovada')->default('false');
+            $table->enum('situacao_inscricao',['pendente','confirmada','cancelada'])->default('pendente');
+            $table->date('data_situacao');
+            $table->text('observacoes');
 
             $table->timestamps();
         });

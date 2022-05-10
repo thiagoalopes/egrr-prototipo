@@ -27,7 +27,7 @@
           </div>
       </div>
     @elseif(Session::has('error'))
-    <div class="col-12 col-md-4 text-center">
+    <div class="col-12 text-center">
       <div class="alert alert-danger">
           {{ Session::get('error') }}
       </div>
@@ -37,21 +37,7 @@
 <form class="row g-3" action="{{ route('salvar.turmas') }}" method="POST">
     @csrf
     <input type="hidden" name="id_curso" value="{{ request()->get('idCurso') }}">
-    <div class="col-md-3 col-lg-2">
-      <label for="id_situacao_turma" class="form-label">Situação da Turma<span class="text-danger">*</span></label>
-      <select name="id_situacao_turma" required class="form-select @error("id_situacao_turma") is-invalid @enderror" id="id_situacao_turma">
-          <option value="">Selecione</option>
-          @foreach ($situacoesTurmas as $item)
-              <option {{ old('id_situacao_turma') == $item->id?'selected':'' }} value="{{ $item->id }}">{{ $item->situacao }}</option>
-          @endforeach
-      </select>
-      @error('id_situacao_turma')
-        <span style="display: block;" class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-      @enderror
-  </div>
-    <div class="col-md-6 col-lg-8">
+    <div class="col-md-9 col-lg-8">
       <label for="descricao_turma" class="form-label">Descrição da Turma<span class="text-danger">*</span></label>
       <input type="text" required placeholder="Turma A" value="{{ old('descricao_turma') }}" maxlength="128" class="form-control @error("descricao_turma") is-invalid @enderror" name="descricao_turma"  id="descricao_turma">
       @error('descricao_turma')
@@ -60,9 +46,9 @@
         </span>
       @enderror
     </div>
-    <div class="col-md-3 col-lg-2">
-      <label for="total_vagas_turma" class="form-label">Total de Vagas<span class="text-danger">*</span></label>
-      <input type="number" required placeholder="0" min="1" max="9999" step="1" value="{{ old('total_vagas_turma') }}" class="form-control @error("total_vagas_turma") is-invalid @enderror" name="total_vagas_turma"  id="total_vagas_turma">
+    <div class="col-md-3 col-lg-4">
+      <label for="total_vagas_turma" class="form-label">Total de Vagas<span class="text-danger">*</span> <i data-bs-toggle="tooltip" data-bs-placement="top" title="Atenção! a soma das vagas por turma não deve ultrapassar o limite do curso." class="fas fa-info"></i></label>
+      <input type="number" required placeholder="1" min="1" max="9999" step="1" value="{{ old('total_vagas_turma') }}" class="form-control @error("total_vagas_turma") is-invalid @enderror" name="total_vagas_turma"  id="total_vagas_turma">
       @error('total_vagas_turma')
         <span style="display: block;" class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -104,7 +90,15 @@
 
       <div class="col-md-3">
         <label for="horario_inicio_aula" class="form-label">Início da Aula<span class="text-danger">*</span></label>
-        <input type="text" required placeholder="00:00" class="form-control time @error("horario_inicio_aula") is-invalid @enderror" placeholder="08:00:00"  id="horario_inicio_aula" name="horario_inicio_aula">
+        <input type="text"
+        @if (old('horario_inicio_aula') != null)
+          @if (strtotime(old('horario_inicio_aula'))))
+            value="{{ \Carbon\Carbon::parse(old('horario_inicio_aula'))->format('H:i') }}"
+          @else
+            value="{{ old('horario_inicio_aula') }}"
+          @endif
+        @endif
+        required placeholder="00:00" class="form-control time @error("horario_inicio_aula") is-invalid @enderror" placeholder="08:00:00"  id="horario_inicio_aula" name="horario_inicio_aula">
         @error('horario_inicio_aula')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -112,8 +106,16 @@
         @enderror
       </div>
       <div class="col-md-3">
-        <label for="horario_termino_aula" class="form-label">Início da Aula<span class="text-danger">*</span></label>
-        <input type="text" required placeholder="00:00" class="form-control time @error("horario_termino_aula") is-invalid @enderror" placeholder="12:00:00"  id="horario_termino_aula" name="horario_termino_aula">
+        <label for="horario_termino_aula" class="form-label">Término da Aula<span class="text-danger">*</span></label>
+        <input type="text"
+        @if (old('horario_termino_aula') != null)
+          @if (strtotime(old('horario_termino_aula'))))
+            value="{{ \Carbon\Carbon::parse(old('horario_termino_aula'))->format('H:i') }}"
+          @else
+            value="{{ old('horario_termino_aula') }}"
+          @endif
+        @endif
+        required placeholder="00:00" class="form-control time @error("horario_termino_aula") is-invalid @enderror" placeholder="12:00:00"  id="horario_termino_aula" name="horario_termino_aula">
         @error('horario_termino_aula')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

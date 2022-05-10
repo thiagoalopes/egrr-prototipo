@@ -25,4 +25,9 @@ class Turmas extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function situacao()
+    {
+        return $this->hasOne('App\Models\SituacaoTurmas','id', 'id_situacao_turma');
+    }
 }
