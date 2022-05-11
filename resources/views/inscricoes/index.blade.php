@@ -28,11 +28,10 @@
                         <div class="card mb-3" >
                             <div class="card-body">
                                 <h5 class="card-title"><b>{{ $item->descricao_turma }}</b></h5>
-                                <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
                                 <p><b>Horário:</b> das {{ $item->horario_inicio_aula }} às {{ $item->horario_termino_aula }}</p>
                                 <p><b>Situação:</b> {{ $item->situacao->situacao }}</p>
                                 <p>
-                                    <a href="#">Inscrição</a>
+                                    <a href="{{ route('pre.inscricao', ['idCurso'=>request()->idCurso,'idTurma'=>$item->id]) }}">Inscrição</a>
                                 </p>
                             </div>
                         </div>

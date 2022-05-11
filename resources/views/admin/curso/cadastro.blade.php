@@ -14,10 +14,6 @@
   </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-    </div>
-</div>
 <div class="row justify-content-center">
   @if (Session::has('success'))
       <div class="col-12 col-md-4 text-center">

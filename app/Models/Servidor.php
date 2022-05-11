@@ -27,4 +27,9 @@ class Servidor extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function porfessor()
+    {
+        return $this->hasOne('App\Models\Professores','id', 'id_professor');
+    }
 }

@@ -14,8 +14,13 @@
               {{ Session::get('success') }}
           </div>
       </div>
+    @elseif(Session::has('error'))
+    <div class="col-12 text-center">
+      <div class="alert alert-danger">
+          {{ Session::get('error') }}
+      </div>
+  </div>
   @endif
-</div>
 <form class="row g-3" action="{{ route('update.servidor') }}" method="POST">
     @csrf
     <div class="col-md-6">

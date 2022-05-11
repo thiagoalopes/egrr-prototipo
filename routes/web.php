@@ -26,8 +26,11 @@ Route::prefix('servidor')->group(function(){
     ->where(['idCurso'=>'[0-9]+'])
     ->name('home.inscricao');
 
-    Route::get('inscricao/{idTurma}', 'App\Http\Controllers\Inscricoes@inscricao')
-    ->where(['idTurma'=>'[0-9]+'])
+    Route::get('inscricao/{idCurso}/{idTurma}', 'App\Http\Controllers\Inscricoes@inscricao')
+    ->where(['idTurma'=>'[0-9]+','idCurso'=>'[0-9]+'])
+    ->name('pre.inscricao');
+
+    Route::post('inscricao', 'App\Http\Controllers\Inscricoes@salvar')
     ->name('salvar.inscricao');
 });
 

@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('codigo_inscricao');
             $table->unsignedBigInteger('id_servidor');
             $table->unsignedInteger('id_turma');
+            $table->boolean('termo_aceito');
             $table->enum('situacao_inscricao',['pendente','confirmada','cancelada'])->default('pendente');
             $table->date('data_situacao');
-            $table->text('observacoes');
+            $table->text('observacoes')->nullable()->default(null);
 
             $table->timestamps();
         });
