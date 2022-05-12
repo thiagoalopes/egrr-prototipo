@@ -28,8 +28,8 @@ class Servidor extends Model
         'updated_at',
     ];
 
-    public function porfessor()
+    public function secretaria()
     {
-        return $this->hasOne('App\Models\Professores','id', 'id_professor');
+        return $this->hasOne('App\Models\SecretariaServidores','id', 'id_secretaria_servidores');
     }
 }

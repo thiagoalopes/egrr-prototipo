@@ -32,6 +32,10 @@ Route::prefix('servidor')->group(function(){
 
     Route::post('inscricao', 'App\Http\Controllers\Inscricoes@salvar')
     ->name('salvar.inscricao');
+
+    Route::get('inscricao/{codigoInscricao}/curso/{idCurso}', 'App\Http\Controllers\Inscricoes@emitir')
+    ->where(['codigoInscricao'=>'[0-9]+','idCurso'=>'[0-9]+'])
+    ->name('comprovante.inscricao');
 });
 
 Route::prefix('administrativo')->group(function(){

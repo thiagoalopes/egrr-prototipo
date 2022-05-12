@@ -21,4 +21,14 @@ class Inscricoes extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function turma()
+    {
+        return $this->hasOne('App\Models\Turmas','id', 'id_turma');
+    }
+
+    public function servidor()
+    {
+        return $this->hasOne('App\Models\Servidor','id', 'id_servidor');
+    }
 }

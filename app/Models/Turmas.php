@@ -30,4 +30,9 @@ class Turmas extends Model
     {
         return $this->hasOne('App\Models\SituacaoTurmas','id', 'id_situacao_turma');
     }
+
+    public function curso()
+    {
+        return $this->hasOne('App\Models\Cursos','id', 'id_curso');
+    }
 }

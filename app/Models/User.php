@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\DadosPessoais','cpf');
     }
+
+    public function servidor()
+    {
+        return $this->hasOne('App\Models\Servidor','cpf','cpf');
+    }
 }

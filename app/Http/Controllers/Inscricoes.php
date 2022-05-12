@@ -7,10 +7,13 @@ use App\Models\Cursos;
 use App\Models\Turmas;
 use App\Models\Servidor;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\SecretariaServidores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Inscricoes as ModelsIncricoes;
+
 
 class Inscricoes extends Controller
 {
@@ -23,6 +26,10 @@ class Inscricoes extends Controller
 
     public function index($idCurso)
     {
+        if(isInscrito())
+        {
+
+        }
         $curso = Cursos::find($idCurso);
         $turmas = Turmas::where('id_curso', $idCurso)
         ->whereNotIn('id_situacao_turma', [2,3]) // 2-Turma Fechada 3-Turma Cancelada
@@ -78,16 +85,52 @@ class Inscricoes extends Controller
                 unset($validated['id_curso']);
 
                 $validated['id_servidor'] = Servidor::where('cpf', Auth::user()->cpf)->first()->id ;
-                $validated['codigo_inscricao'] = Auth::user()->cpf . Carbon::now()->timestamp;
+                $validated['codigo_inscricao'] = Carbon::now()->timestamp;
                 $validated['situacao_inscricao'] = 'pendente';
                 $validated['data_situacao'] = Carbon::now();
         
                 $inscricao = ModelsIncricoes::create($validated);
         
-                return $inscricao;
+                return redirect()->route('comprovante.inscricao',['idCurso'=>$curso->id,'codigoInscricao'=>$inscricao->codigo_inscricao]);
             }
             return abort(404);
         }
         return abort(404);
+    }
+
+    public function emitir($codigoInscricao, $idCurso)
+    {
+        $inscricao = ModelsIncricoes::where('codigo_inscricao',$codigoInscricao)->first();
+
+        if($inscricao == null)
+        {
+            return redirect()->route('home.inscricao',['idCurso'=>$idCurso]);
+        }
+
+        $file = PDF::loadView('inscricoes.comprovante',compact(['inscricao']));
+
+        Storage::put("temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", $file->setPaper('a4', 'portrait')->output());
+
+        info('Servidor '.$inscricao->servidor->nome.' emitiu o comprovante.');
+
+        return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"inline;filename=comprovante_{$inscricao->servidor->cpf}",
+            "Content-Type"=>'application/pdf'
+        ])->deleteFileAfterSend();
+    }
+
+    private function isInscrito($idCurso)
+    {
+        $servidor = Auth::user()->servidor;
+        
+        $inscricao = ModelsIncricoes::where('id_curso', $idCurso)
+        ->where('id_servidor',$servidor->id)
+        ->first();
+
+        if($inscricao != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
