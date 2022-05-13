@@ -21,15 +21,13 @@ class Inscricoes extends Controller
     {
         //Tudo é protegido pela guard auth
         //só visualiza as rotas se o usuário estiver logado
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
+        $this->middleware('isServidorCadastrado')->except('index');
+        $this->middleware('prevent-back-history')->except('emitir');
     }
 
     public function index($idCurso)
     {
-        if(isInscrito())
-        {
-
-        }
         $curso = Cursos::find($idCurso);
         $turmas = Turmas::where('id_curso', $idCurso)
         ->whereNotIn('id_situacao_turma', [2,3]) // 2-Turma Fechada 3-Turma Cancelada
@@ -45,15 +43,22 @@ class Inscricoes extends Controller
 
     public function inscricao(Request $request, $idCurso, $idTurma)
     {
+        
         $turma = Turmas::find($idTurma);
         $curso = Cursos::find($idCurso);
         $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
         $secretarias = SecretariaServidores::all();
-
+        
         if($servidor != null)
         {
             if($turma != null && $curso != null)
             {
+                if($this->isInscrito($idTurma))
+                {
+                    Session::flash('success','Você já se inscreveu neste curso anteriormente!');
+                    return redirect()->route('home.inscricao',['idCurso'=>$turma->id_curso]);
+                }
+
                 return view('inscricoes.inscricao', compact(['curso','turma','servidor','secretarias']));
             }
 
@@ -82,6 +87,12 @@ class Inscricoes extends Controller
 
             if($turma != null && $turma->id_curso == $validated['id_curso'])
             {
+                if($this->isInscrito($validated['id_turma']))
+                {
+                    Session::flash('success','Você já se inscreveu neste curso anteriormente!');
+                    return redirect()->route('home.inscricao',['idCurso'=>$turma->id_curso]);
+                }
+
                 unset($validated['id_curso']);
 
                 $validated['id_servidor'] = Servidor::where('cpf', Auth::user()->cpf)->first()->id ;
@@ -91,11 +102,17 @@ class Inscricoes extends Controller
         
                 $inscricao = ModelsIncricoes::create($validated);
         
-                return redirect()->route('comprovante.inscricao',['idCurso'=>$curso->id,'codigoInscricao'=>$inscricao->codigo_inscricao]);
+                return redirect()->route('sucesso.inscricao',['idCurso'=>$curso->id,'codigoInscricao'=>$inscricao->codigo_inscricao]);
             }
             return abort(404);
         }
         return abort(404);
+    }
+
+    public function sucesso($codigoInscricao, $idCurso)
+    {
+        Session::flash('success','Sua inscrição foi realizada com sucesso!');
+        return view('inscricoes.sucesso', compact(['idCurso','codigoInscricao']));
     }
 
     public function emitir($codigoInscricao, $idCurso)
@@ -113,24 +130,27 @@ class Inscricoes extends Controller
 
         info('Servidor '.$inscricao->servidor->nome.' emitiu o comprovante.');
 
-        return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"inline;filename=comprovante_{$inscricao->servidor->cpf}",
+        return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"attachment;filename=comprovante_{$inscricao->servidor->cpf}",
             "Content-Type"=>'application/pdf'
         ])->deleteFileAfterSend();
     }
 
-    private function isInscrito($idCurso)
+    private function isInscrito($idTurma)
     {
-        $servidor = Auth::user()->servidor;
-        
-        $inscricao = ModelsIncricoes::where('id_curso', $idCurso)
-        ->where('id_servidor',$servidor->id)
-        ->first();
-
-        if($inscricao != null)
+        if($idTurma != null)
         {
-            return true;
+            $inscricoes = Auth::user()->servidor->inscricoes;
+            
+            foreach ($inscricoes as $inscricao) {
+                $turma = $inscricao->turma;
+                
+                if($idTurma == $turma->id)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-
         return false;
     }
 }

@@ -24,6 +24,10 @@ return new class extends Migration
             $table->text('observacoes')->nullable()->default(null);
 
             $table->timestamps();
+
+            $table->foreign('id_servidor')->references('id')->on('tb_servidores');
+            $table->foreign('id_turma')->references('id')->on('tb_turmas');
+
         });
     }
 

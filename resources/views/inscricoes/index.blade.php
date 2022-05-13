@@ -14,6 +14,15 @@
                 <small>{{ $curso->nome }}</small>
             </div>
         </div>
+        <div class="row justify-content-center">
+            @if (Session::has('success'))
+                <div class="col-12 text-center">
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+            @endif
+          </div>
         <div class="row mt-3 mb-3">
             <div class="col-12">
                 <h4>Turmas</h4>

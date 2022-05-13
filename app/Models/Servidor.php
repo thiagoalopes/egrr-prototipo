@@ -32,4 +32,9 @@ class Servidor extends Model
     {
         return $this->hasOne('App\Models\SecretariaServidores','id', 'id_secretaria_servidores');
     }
+
+    public function inscricoes()
+    {
+        return $this->hasMany('App\Models\Inscricoes','id_servidor','id');
+    }
 }

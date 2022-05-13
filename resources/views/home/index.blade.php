@@ -41,9 +41,12 @@
                             <div class="col-12 col-md-4 col-lg-3 mb-4" data-aos="flip-left">
                                 
                                 <div class="card" >
-                                    <img src="{{ $item->imagem != null?$item->imagem:asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
+                                    <a href="{{ route('home.inscricao', ['idCurso'=>$item->id]) }}">
+                                        <img src="{{ $item->imagem != null?$item->imagem:asset('assets/img/cursos/sem-foto.jpg') }}" class="card-img-top" alt="Logo do parceiro">
+                                    </a>
                                     <div class="card-body">
-                                        <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
+                                        <h5 class="card-title"><b>
+                                            <a href="{{ route('home.inscricao', ['idCurso'=>$item->id]) }}">{{ $item->nome }}</a></b></h5>
                                         <p class="card-text"><b>Descrição:</b> {{ $item->descricao }}</p>
                                         <p><b>Professor(a):</b> {{ $item->professor->nome }}</p>
                                         <p>
