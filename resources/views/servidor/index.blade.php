@@ -22,6 +22,18 @@
       </div>
     </div>
   </div>
+
+  <div class="col-12 col-md-4 mt-2">
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-id-card-alt"></i> Inscrições
+      </div>
+      <div class="card-body">
+        <p class="card-text">Visualize todas as informações dos cursos em que você se inscreveu ou acompanhe a situação da inscrição.</p>
+        <a href="{{ route('inscricao.servidor') }}" class="btn btn-primary">Visualizar</a>
+      </div>
+    </div>
+  </div>
   
   <div class="col-12 col-md-4 mt-2">
     <div class="card">

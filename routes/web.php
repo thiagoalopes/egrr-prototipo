@@ -22,6 +22,9 @@ Route::prefix('servidor')->group(function(){
     Route::get('certificados', 'App\Http\Controllers\Certificados@index')->name('certificados');
     Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
 
+    Route::get('inscricoes/', 'App\Http\Controllers\Inscricoes@inscricoesServidores')
+    ->name('inscricao.servidor');
+
     Route::get('inscricao/{idCurso}/turmas', 'App\Http\Controllers\Inscricoes@index')
     ->where(['idCurso'=>'[0-9]+'])
     ->name('home.inscricao');

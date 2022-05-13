@@ -37,8 +37,8 @@
                         <div class="card mb-3" >
                             <div class="card-body">
                                 <h5 class="card-title"><b>{{ $item->descricao_turma }}</b></h5>
-                                <p><b>Horário:</b> das {{ $item->horario_inicio_aula }} às {{ $item->horario_termino_aula }}</p>
-                                <p><b>Situação:</b> {{ $item->situacao->situacao }}</p>
+                                <p><b>Período:</b> das {{ \Carbon\Carbon::parse($item->data_inicio)->format('d/m/Y') }} às {{ \Carbon\Carbon::parse($item->data_termino)->format('d/m/Y') }}</p>
+                                <p><b>Horário:</b> das {{ \Carbon\Carbon::parse($item->horario_inicio_aula)->format('H:i') }} às {{ \Carbon\Carbon::parse($item->horario_termino_aula)->format('H:i') }}</p>
                                 <p>
                                     <a href="{{ route('pre.inscricao', ['idCurso'=>request()->idCurso,'idTurma'=>$item->id]) }}">Inscrição</a>
                                 </p>

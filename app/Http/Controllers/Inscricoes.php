@@ -153,4 +153,10 @@ class Inscricoes extends Controller
         }
         return false;
     }
+
+    public function inscricoesServidores()
+    {
+        $inscricoes = Auth::user()->servidor->inscricoes;
+        return view('servidor.inscricoes',compact(['inscricoes']));
+    }
 }

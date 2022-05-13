@@ -61,3 +61,14 @@ function formatMoeda($value)
     return number_format($value, 2, ',', '.');
 
 }
+
+function hasTurmasAbertas($turmas)
+{
+    foreach ($turmas as $turma) {
+        if($turma->id_situacao_turma == 1)
+        {
+            return true;
+        }
+    }
+    return false;
+}
