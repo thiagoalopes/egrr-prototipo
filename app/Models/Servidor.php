@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Servidor extends Model
+class Servidor extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tb_servidores';
     public $timestamps = true;
@@ -21,9 +24,11 @@ class Servidor extends Model
         'sexo',
         'cargo',
         'id_secretaria_servidores',
+        'funcao',
         'email',
         'celular',
         'telefone',
+        'senha',
         'created_at',
         'updated_at',
     ];

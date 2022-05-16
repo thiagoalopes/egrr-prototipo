@@ -18,24 +18,32 @@ class HomeServidores extends Controller
     {
         //Tudo é protegido pela guard auth
         //só visualiza as rotas se o usuário estiver logado
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['salvar','cadastro']);
     }
 
     public function index()
     {
-        return view('servidor.index');
+        $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
+
+        if($servidor != null && $servidor->servidor_confirmado)
+        {
+            return view('home.servidor');
+        }
+
+        return abort(403);
+
     }
 
-    public function cadastro()
+    public function show()
     {
         $secretarias = SecretariaServidores::all();
 
         //Busca o servidor na tb_servidor para verificar se o registro existe
         $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
         
-        if($servidor != null)
+        if($servidor != null && $servidor->servidor_confirmado)
         {
-            return view('servidor.cadastro', compact(['servidor','secretarias']));
+            return view('servidor.show', compact(['servidor','secretarias']));
         }
         
         #caso não exista o registro na tabela tb_servidores
@@ -52,8 +60,11 @@ class HomeServidores extends Controller
             'tipo_vinculo' => 'outro',
             'matricula' => $cabecalhoContracheque->matricula,
             'sexo' => 'o',
-            'cargo' => $cabecalhoContracheque->funcao,
+            'cargo' => $cabecalhoContracheque->cargo,
             'email' => $dadosPessoais->email,
+            'senha' => Auth::user()->senha,
+            'funcao' => $cabecalhoContracheque->funcao!=null?$cabecalhoContracheque->funcao:$cabecalhoContracheque->cargo,
+            'servidor_confirmado'=> true,
             'celular' => $dadosPessoais->celular,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -98,6 +109,24 @@ class HomeServidores extends Controller
         $servidor->update($mappedData);
         Session::flash('success','Dados atualizados!');
         return redirect()->route('cadastro.servidor');
+    }
+
+    public function cadastro()
+    {
+        $usuario = Auth::user();
+
+        if($usuario != null)
+        {
+            return redirect()->route('home.servidor');
+        }
+
+        $secretarias = SecretariaServidores::all();
+        return view('servidor.cadastro',compact(['secretarias']));
+    }
+
+    public function salvar()
+    {
+        return abort(403);
     }
 
 }

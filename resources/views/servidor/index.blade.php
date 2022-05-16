@@ -18,7 +18,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">Verifique as informações do seu cadastro e mantenha os dados sempre atualizados.</p>
-        <a href="{{ route('cadastro.servidor') }}" class="btn btn-primary">Visualizar</a>
+        <a href="{{ route('show.servidor') }}" class="btn btn-primary">Visualizar</a>
       </div>
     </div>
   </div>

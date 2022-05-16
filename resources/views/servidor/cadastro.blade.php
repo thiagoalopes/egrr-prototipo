@@ -3,7 +3,7 @@
 
 <div class="container mb-5">
 <div class="row">
-    <div class="col-12 mb-4">
+    <div class="col-12 mb-2">
         <a href="{{ route('home.servidor') }}"><i class="fas fa-undo-alt"></i> Voltar ao Painel</a>
     </div>
 </div>
@@ -21,23 +21,37 @@
       </div>
   </div>
   @endif
-<form class="row g-3" action="{{ route('update.servidor') }}" method="POST">
+<form class="row g-3" action="{{ route('salvar.servidor') }}" method="POST">
     @csrf
+    <div class="col-12">
+      <h5>Informações Pessoais</h5>
+    </div>
     <div class="col-md-6">
-      <label for="nome" class="form-label">Nome</label>
-      <input type="text" maxlength="128" class="form-control" disabled value="{{ $servidor->nome }}" id="nome">
+      <label for="nome" class="form-label">Nome<span class="text-danger">*</span></label>
+      <input type="text" maxlength="128" class="form-control @error("sexo") is-invalid @enderror" name="nome" id="nome">
+      @error('nome')
+      <span style="display: block;" class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+      </span>
+    @enderror
     </div>
     <div class="col-md-3">
-      <label for="cpf" class="form-label">CPF</label>
-      <input type="text" maxlength="11" class="form-control cpf" disabled id="cpf" value="{{ $servidor->cpf }}">
+      <label for="cpf" class="form-label">CPF<span class="text-danger">*</span></label>
+      <input type="text" maxlength="11" class="form-control cpf @error("sexo") is-invalid @enderror" name="cpf" id="cpf">
+      @error('cpf')
+      <span style="display: block;" class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+      </span>
+    @enderror
     </div>
     <div class="col-md-3">
         <label for="sexo" class="form-label">Sexo<span class="text-danger">*</span></label>
         <select name="sexo"class="form-select @error("sexo") is-invalid @enderror" id="sexo">
             <option value="">Selecione</option>
-            <option {{ $servidor->sexo == 'f' || old('f') == 'f'?'selected':'' }} value="f">Feminino</option>
-            <option {{ $servidor->sexo == 'm'|| old('m') == 'm'?'selected':'' }} value="m">Masculino</option>
-            <option {{ $servidor->sexo == 'o'|| old('o') == 'o'?'selected':'' }} value="o">Outro</option>
+            <option {{ old('f') == 'f'?'selected':'' }} value="f">Feminino</option>
+            <option {{ old('m') == 'm'?'selected':'' }} value="m">Masculino</option>
+            <option {{ old('o') == 'o'?'selected':'' }} value="o">Outro</option>
+            <option {{ old('n') == 'n'?'selected':'' }} value="n">Não Informar</option>
         </select>
         @error('sexo')
           <span style="display: block;" class="invalid-feedback" role="alert">
@@ -47,7 +61,7 @@
     </div>
     <div class="col-md-3 col-lg-2">
       <label for="matricula" class="form-label">Matrícula<span class="text-danger">*</span></label>
-      <input type="text" maxlength="32" class="form-control @error("matricula") is-invalid @enderror" id="matricula" name="matricula" value="{{ $servidor->matricula }}" placeholder="1234 Main St">
+      <input type="text" maxlength="32" class="form-control @error("matricula") is-invalid @enderror" id="matricula" name="matricula">
       @error('matricula')
         <span style="display: block;" class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -58,10 +72,11 @@
         <label for="tipo_vinculo" class="form-label">Tipo de Vínculo<span class="text-danger">*</span></label>
         <select name="tipo_vinculo"class="form-select @error("tipo_vinculo") is-invalid @enderror" id="tipo_vinculo">
             <option value="">Selecione</option>
-            <option {{ $servidor->tipo_vinculo === 'efetivo'?'selected':'' }} value="efetivo">Efetivo</option>
-            <option {{ $servidor->tipo_vinculo === 'comissionado'?'selected':'' }} value="comissionado">Comissionado</option>
-            <option {{ $servidor->tipo_vinculo === 'temporario'?'selected':'' }} value="temporario">Temporário</option>
-            <option {{ $servidor->tipo_vinculo === 'outro'?'selected':'' }} value="outro">Outro</option>
+            <option {{ old('tipo_vinculo') === 'efetivo'?'selected':'' }} value="efetivo">Efetivo</option>
+            <option {{ old('tipo_vinculo') === 'efetcomis'?'selected':'' }} value="efetcomis">Efetivo/Comissionado</option>
+            <option {{ old('tipo_vinculo') === 'comissionado'?'selected':'' }} value="comissionado">Comissionado</option>
+            <option {{ old('tipo_vinculo') === 'temporario'?'selected':'' }} value="temporario">Temporário</option>
+            <option {{ old('tipo_vinculo') === 'outro'?'selected':'' }} value="outro">Outro</option>
         </select>
         @error('tipo_vinculo')
           <span style="display: block;" class="invalid-feedback" role="alert">
@@ -71,8 +86,17 @@
     </div>
     <div class="col-md-6 col-lg-4">
       <label for="cargo" class="form-label">Cargo<span class="text-danger">*</span></label>
-      <input type="text" maxlength="128" class="form-control @error("cargo") is-invalid @enderror" id="cargo" name="cargo" value="{{ $servidor->cargo }}">
+      <input type="text" maxlength="128" class="form-control @error("cargo") is-invalid @enderror" id="cargo" name="cargo">
       @error('cargo')
+        <span style="display: block;" class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <label for="funcao" class="form-label">Função<span class="text-danger">*</span></label>
+      <input type="text" maxlength="128" class="form-control @error("funcao") is-invalid @enderror" id="funcao" name="funcao">
+      @error('funcao')
         <span style="display: block;" class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
@@ -83,7 +107,7 @@
       <select name="secretaria"class="form-select @error("secretaria") is-invalid @enderror" id="secretaria">
         <option value="">Selecione</option>
         @foreach ($secretarias as $item)
-            <option {{ $item->id === $servidor->id_secretaria_servidores?'selected':'' }} value="{{ $item->id }}">{{ $item->secretaria }}</option>
+            <option {{ $item->id === old('secretaria')?'selected':'' }} value="{{ $item->id }}">{{ $item->secretaria }}</option>
         @endforeach
     </select>
       @error('secretaria')
@@ -94,7 +118,7 @@
     </div>
     <div class="col-md-6 col-lg-4">
       <label for="email" class="form-label">E-mail<span class="text-danger">*</span></label>
-      <input type="text" maxlength="64" class="form-control @error("email") is-invalid @enderror" id="email" name="email" value="{{ $servidor->email }}">
+      <input type="text" maxlength="64" class="form-control @error("email") is-invalid @enderror" id="email" name="email">
       @error('email')
         <span style="display: block;" class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -103,7 +127,7 @@
     </div>
     <div class="col-md-4">
         <label for="celular" class="form-label">Celular<span class="text-danger">*</span></label>
-        <input type="text" class="form-control cell_with_ddd @error("celular") is-invalid @enderror" id="celular" name="celular" value="{{ $servidor->celular }}">
+        <input type="text" class="form-control cell_with_ddd @error("celular") is-invalid @enderror" id="celular" name="celular">
         @error('celular')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -112,17 +136,38 @@
       </div>
       <div class="col-md-4">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="text" class="form-control phone_with_ddd @error("telefone") is-invalid @enderror" id="telefone" name="telefone" value="{{ $servidor->telefone }}">
+        <input type="text" class="form-control phone_with_ddd @error("telefone") is-invalid @enderror" id="telefone" name="telefone">
         @error('telefone')
           <span style="display: block;" class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
         @enderror
       </div>
+      <div class="col-12">
+        <h5>Senha de Acesso</h5>
+      </div>
+      <div class="col-md-3">
+        <label for="senha" class="form-label">Senha<span class="text-danger">*</span></label>
+        <input type="password" class="form-control phone_with_ddd @error("senha") is-invalid @enderror" id="senha" name="senha">
+        @error('senha')
+          <span style="display: block;" class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+        @enderror
+      </div>
+      <div class="col-md-3">
+        <label for="password_conformation" class="form-label">Confirmação da Senha<span class="text-danger">*</span></label>
+        <input type="password" class="form-control phone_with_ddd @error("password_conformation") is-invalid @enderror" id="password_conformation" name="password_conformation">
+        @error('password_conformation')
+          <span style="display: block;" class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+        @enderror
+      </div>
     <div class="col-12">
-      <button type="submit" class="btn btn-primary"><i class="fas fa-sync"></i> Atualizar</button>
+      <button type="submit" class="btn btn-primary"><i class="fas fa-database"></i> Cadastrar</button>
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-0">
       <span><span class="text-danger">*</span>Campos obrigatórios</span>
     </div>
   </form>

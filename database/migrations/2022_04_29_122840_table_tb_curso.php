@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tb_curso', function (Blueprint $table) {
             $table->id();
-            $table->string('imagem', 1024)->nullable();
+            $table->text('imagem', 1024)->nullable();
             $table->string('nome', 128)->unique();
             $table->string('descricao', 512);
             $table->integer('carga_horaria');

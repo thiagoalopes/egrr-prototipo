@@ -38,6 +38,17 @@ class AuthServiceProvider extends ServiceProvider
 
         });
 
+        Gate::define('isAdminCartao', function(User $user){
+
+            $administrativo = Administrativo::where('cpf', $user->cpf)->first();
+            if($administrativo != null && $administrativo->f_cartao == '1')
+            {
+                return true;
+            }
+            return false;
+
+        });
+
         Gate::define('isMaster', function(User $user){
 
             $administrativo = Administrativo::where('cpf', $user->cpf)->first();

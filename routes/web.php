@@ -17,10 +17,13 @@ Route::get('/', 'App\Http\Controllers\Welcome@index')->name('welcome');
 
 Route::prefix('servidor')->group(function(){
     Route::get('', 'App\Http\Controllers\HomeServidores@index')->name('home.servidor');
-    Route::get('cadastro', 'App\Http\Controllers\HomeServidores@cadastro')->name('cadastro.servidor');
-    Route::post('cadastro', 'App\Http\Controllers\HomeServidores@update')->name('update.servidor');
+    Route::get('cadastro/dados', 'App\Http\Controllers\HomeServidores@show')->name('show.servidor');
+    Route::post('cadastro/dados', 'App\Http\Controllers\HomeServidores@update')->name('update.servidor');
     Route::get('certificados', 'App\Http\Controllers\Certificados@index')->name('certificados');
     Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
+
+    Route::get('cadastro', 'App\Http\Controllers\HomeServidores@cadastro')->name('cadastro.servidor');
+    Route::post('cadastro', 'App\Http\Controllers\HomeServidores@salvar')->name('salvar.servidor');
 
     Route::get('inscricoes/', 'App\Http\Controllers\Inscricoes@inscricoesServidores')
     ->name('inscricao.servidor');
