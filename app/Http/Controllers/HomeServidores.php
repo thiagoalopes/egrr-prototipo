@@ -23,11 +23,11 @@ class HomeServidores extends Controller
 
     public function index()
     {
-        $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
+        $servidor = Auth::user();
 
-        if($servidor != null && $servidor->servidor_confirmado)
+        if($servidor->servidor_confirmado)
         {
-            return view('home.servidor');
+            return view('servidor.index');
         }
 
         return abort(403);
@@ -39,39 +39,12 @@ class HomeServidores extends Controller
         $secretarias = SecretariaServidores::all();
 
         //Busca o servidor na tb_servidor para verificar se o registro existe
-        $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
+        $servidor = Auth::user();
         
-        if($servidor != null && $servidor->servidor_confirmado)
+        if($servidor != null)
         {
-            return view('servidor.show', compact(['servidor','secretarias']));
+            return view('servidor.atualizacao', compact(['servidor','secretarias']));
         }
-        
-        #caso não exista o registro na tabela tb_servidores
-        #os dados são buscados primeiramente na tb_dadospessoais, cabecalho
-        #e rotarnados para a view. 
-        $dadosPessoais = Auth::user()->dados;
-        $cabecalhoContracheque = CabecalhoContracheque::where("cpf", Auth::user()->cpf)
-        ->orderBy('ano','desc')
-        ->orderBy('mes','desc')->first();
-        
-        $servidor = [
-            'nome' => $cabecalhoContracheque->nome,
-            'cpf' => $cabecalhoContracheque->cpf,
-            'tipo_vinculo' => 'outro',
-            'matricula' => $cabecalhoContracheque->matricula,
-            'sexo' => 'o',
-            'cargo' => $cabecalhoContracheque->cargo,
-            'email' => $dadosPessoais->email,
-            'senha' => Auth::user()->senha,
-            'funcao' => $cabecalhoContracheque->funcao!=null?$cabecalhoContracheque->funcao:$cabecalhoContracheque->cargo,
-            'servidor_confirmado'=> true,
-            'celular' => $dadosPessoais->celular,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ];
-
-        $servidor = Servidor::create($servidor);
-        return view('servidor.cadastro', compact(['servidor','secretarias']));
     }
 
     public function update(Request $request)
@@ -80,10 +53,11 @@ class HomeServidores extends Controller
 
         //Valida os dados do servidor
         $validated = $request->validate([
-            'tipo_vinculo'=>'required|in:efetivo,comissionado,temporario,outro',
+            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,outro',
             'matricula'=>'required|regex:/^[0-9]+$/',
-            'sexo'=>'required|in:f,m,o',
+            'sexo'=>'required|in:f,m,o,n',
             'cargo'=>'required|min:5',
+            'funcao'=>'required|min:5',
             'secretaria'=>'required|regex:/^[0-9]+$/',
             'email'=>'required|email',
             'celular'=>'required|celular_com_ddd',
@@ -97,6 +71,7 @@ class HomeServidores extends Controller
             'matricula'=>$validated['matricula'],
             'sexo'=>$validated['sexo'],
             'cargo'=>$validated['cargo'],
+            'funcao'=>$validated['funcao'],
             'id_secretaria_servidores'=>$validated['secretaria'],
             'email'=>$validated['email'],
             'celular'=>$validated['celular'],
@@ -108,7 +83,7 @@ class HomeServidores extends Controller
         $servidor = Servidor::where('cpf', $user->cpf)->first();
         $servidor->update($mappedData);
         Session::flash('success','Dados atualizados!');
-        return redirect()->route('cadastro.servidor');
+        return redirect()->route('show.servidor');
     }
 
     public function cadastro()
@@ -124,8 +99,24 @@ class HomeServidores extends Controller
         return view('servidor.cadastro',compact(['secretarias']));
     }
 
-    public function salvar()
+    public function salvar(Request $request)
     {
+        $validated = $request->validate([
+            'nome'=>'required|max:128',
+            'cpf'=>'required|cpf',
+            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,outro',
+            'matricula'=>'required|regex:/^[0-9]+$/',
+            'sexo'=>'required|in:f,m,o,n',
+            'cargo'=>'required|min:5',
+            'funcao'=>'required|min:5',
+            'secretaria'=>'required|regex:/^[0-9]+$/',
+            'email'=>'required|email',
+            'servidor_confirmado'=>'true',
+            'senha'=>'required|confirmed',
+            'celular'=>'required|celular_com_ddd',
+            'telefone'=>'nullable|telefone_com_ddd',
+        ]);
+
         return abort(403);
     }
 

@@ -29,7 +29,7 @@ class Login extends Controller
         //Se não houver o usuaŕio devera se cadastrar
         $usuarioCC4 = Autenticacao::where('cpf', $request->input('cpf'))->first();
         $servidor = Servidor::where('cpf', $request->input('cpf'))->first();
-
+        
         if($usuarioCC4 != null && $servidor == null)
         {
             if($usuarioCC4->senha === md5($request->input('senha')))
@@ -38,7 +38,7 @@ class Login extends Controller
                 ->orderBy('ano','desc')
                 ->orderBy('mes','desc')->first();
 
-                $dadosPessoais = DadosPessoais::where('cpf', $usuarioCC4->cpf);
+                $dadosPessoais = DadosPessoais::where('cpf', $usuarioCC4->cpf)->first();
 
                 $servidor = [
                     'nome' => $cabecalhoContracheque->nome,
@@ -67,6 +67,7 @@ class Login extends Controller
 
                 return redirect()->route('home.servidor');
             }
+            return redirect()->back()->withErrors(['credenciais'=>'Usuário ou senha inválidos.']);
         }
         elseif($usuarioCC4 != null && $servidor != null)
         {
@@ -74,6 +75,8 @@ class Login extends Controller
             {
                 if($servidor->senha === md5($request->input('senha')))
                 {
+                    Auth::login($servidor);
+
                     if(Gate::allows('isAdminCurso') || Gate::allows('isAdminCartao'))
                     {
                         return redirect()->route('home.administrador');
@@ -81,6 +84,8 @@ class Login extends Controller
     
                     return redirect()->route('home.servidor');
                 }
+
+                return redirect()->back()->withErrors(['credenciais'=>'Usuário ou senha inválidos.']);
             }
             else{
 
@@ -89,6 +94,8 @@ class Login extends Controller
 
                 if($servidor->senha === md5($request->input('senha')))
                 {
+                    Auth::login($servidor);
+
                     if(Gate::allows('isAdminCurso') || Gate::allows('isAdminCartao'))
                     {
                         return redirect()->route('home.administrador');
@@ -96,12 +103,16 @@ class Login extends Controller
     
                     return redirect()->route('home.servidor');
                 }
+
+                return redirect()->back()->withErrors(['credenciais'=>'Usuário ou senha inválidos.']);
             }
         }
         elseif($usuarioCC4 == null && $servidor != null)
         {
             if($servidor->senha === md5($request->input('senha')))
             {
+                Auth::login($servidor);
+
                 if(Gate::allows('isAdminCurso') || Gate::allows('isAdminCartao'))
                 {
                     return redirect()->route('home.administrador');
@@ -109,27 +120,14 @@ class Login extends Controller
 
                 return redirect()->route('home.servidor');
             }
+
+            return redirect()->back()->withErrors(['credenciais'=>'Usuário ou senha inválidos.']);
         }
         else
         {
-            $usuario = Servidor::where('cpf', $request->input('cpf'))->first();
-
-            if($usuario != null)
-            {
-                if($usuario->senha === md5($request->input('senha')))
-                {
-                    Auth::login($usuario);
-                    $request->session()->regenerate();
-                    return redirect()->route('welcome');
-                }
-                else
-                {
-                    return redirect()->route('');
-                }
-            }
+            return redirect()->back()->withErrors(['credenciais'=>'Usuário não cadastrado.']);
         }
     
-        return redirect()->route('form.login');
     }
 
     public function logout()

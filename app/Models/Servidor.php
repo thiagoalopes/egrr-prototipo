@@ -24,6 +24,7 @@ class Servidor extends Authenticatable
         'sexo',
         'cargo',
         'id_secretaria_servidores',
+        'servidor_confirmado',
         'funcao',
         'email',
         'celular',

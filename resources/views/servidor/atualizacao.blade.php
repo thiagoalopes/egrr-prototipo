@@ -81,6 +81,15 @@
       @enderror
     </div>
     <div class="col-md-6 col-lg-4">
+      <label for="funcao" class="form-label">Função<span class="text-danger">*</span></label>
+      <input type="text" maxlength="128" value="{{ $servidor->funcao }}" class="form-control @error("funcao") is-invalid @enderror" id="funcao" name="funcao">
+      @error('funcao')
+        <span style="display: block;" class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
+    </div>
+    <div class="col-md-6 col-lg-4">
       <label for="secretaria" class="form-label">Secretaria<span class="text-danger">*</span></label>
       <select name="secretaria"class="form-select @error("secretaria") is-invalid @enderror" id="secretaria">
         <option value="">Selecione</option>
