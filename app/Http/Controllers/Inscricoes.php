@@ -139,7 +139,7 @@ class Inscricoes extends Controller
     {
         if($idTurma != null)
         {
-            $inscricoes = Auth::user()->servidor->inscricoes;
+            $inscricoes = Auth::user()->inscricoes;
             
             foreach ($inscricoes as $inscricao) {
                 $turma = $inscricao->turma;

@@ -38,3 +38,20 @@ main {
     padding: 40px 0 10px 0;
     background-attachment: fixed;
 }
+
+.btns-login {
+    text-align: center;
+}
+
+#btnlogin {
+    width: 100% !important;
+}
+
+@media (min-width: 768px) {
+    .btns-login {
+        text-align: left;
+    }
+   #btnlogin {
+        width: 30% !important;
+    }
+}

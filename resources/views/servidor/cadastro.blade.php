@@ -4,12 +4,12 @@
 <div class="container mb-5">
 <div class="row">
     <div class="col-12 mb-2">
-        <a href="{{ route('home.servidor') }}"><i class="fas fa-undo-alt"></i> Voltar ao Painel</a>
+        <a href="{{ route('login') }}"><i class="fas fa-undo-alt"></i> Voltar ao Login</a>
     </div>
 </div>
 <div class="row justify-content-center">
   @if (Session::has('success'))
-      <div class="col-12 col-md-4 text-center">
+      <div class="col-12 text-center">
           <div class="alert alert-success">
               {{ Session::get('success') }}
           </div>
@@ -21,6 +21,7 @@
       </div>
   </div>
   @endif
+</div>
 <form class="row g-3" action="{{ route('salvar.servidor') }}" method="POST">
     @csrf
     <div class="col-12">

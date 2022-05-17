@@ -6,8 +6,24 @@
 
   <div class="row text-center">
     <div class="col-12">
-      <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->dados?Auth::user()->dados->nome:'' }}! @endif</h6>
+      <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->nome }}! @endif</h6>
     </div>
+</div>
+
+<div class="row justify-content-center">
+  @if (Session::has('success'))
+      <div class="col-12 text-center">
+          <div class="alert alert-success">
+              {{ Session::get('success') }}
+          </div>
+      </div>
+    @elseif(Session::has('error'))
+    <div class="col-12 text-center">
+      <div class="alert alert-danger">
+          {{ Session::get('error') }}
+      </div>
+  </div>
+  @endif
 </div>
 
 <div class="row mt-4">

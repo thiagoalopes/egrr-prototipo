@@ -7,6 +7,27 @@
 <section class="cursos">
 
     <div class="container">
+        <div class="row justify-content-center">
+            @if (Session::has('success'))
+                <div class="col-12 col-md-4 text-center">
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+              @elseif(Session::has('error'))
+              <div class="col-12 text-center">
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+            </div>
+            @elseif(Session::has('warning'))
+            <div class="col-12 text-center">
+                <div class="alert alert-warning">
+                    {{ Session::get('warning') }}
+                </div>
+            </div>
+            @endif
+          </div>
         <div class="row mb-4">
             <div class="col-12 text-center">
                 <h3 class="title">Cursos e Treinamentos</h3>

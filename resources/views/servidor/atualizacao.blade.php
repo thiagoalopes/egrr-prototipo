@@ -9,7 +9,7 @@
 </div>
 <div class="row justify-content-center">
   @if (Session::has('success'))
-      <div class="col-12 col-md-4 text-center">
+      <div class="col-12 text-center">
           <div class="alert alert-success">
               {{ Session::get('success') }}
           </div>

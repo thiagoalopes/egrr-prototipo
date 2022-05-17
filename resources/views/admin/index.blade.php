@@ -6,7 +6,7 @@
 
   <div class="row text-center">
     <div class="col-12">
-      <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->dados?Auth::user()->dados->nome:'' }}! @endif</h6>
+      <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->nome }}! @endif</h6>
     </div>
 </div>
 
@@ -22,15 +22,15 @@
       </div>
     </div>
   </div>
-  
+
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        <i class="fas fa-exclamation"></i> Gestão da Situação dos Cursos
+        <i class="fas fa-graduation-cap"></i> Gestão de Cursos e Turmas
       </div>
       <div class="card-body">
-        <p class="card-text">Gerencie as informações das situações dos cursos cadastrados no sistema.</p>
-        <a href="#" class="btn btn-primary">Gerir</a>
+        <p class="card-text">Gerencie as informações de cadastro dos cursos e suas turmas, inscrições...</p>
+        <a href="{{ route('listar.cursos') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>
@@ -43,18 +43,6 @@
       <div class="card-body">
         <p class="card-text">Gerencie as informações de assinaturas que irão aparecer nos certificados.</p>
         <a href="#" class="btn btn-primary">Gerir</a>
-      </div>
-    </div>
-  </div>
-  <i class="fas fa-lock-alt"></i>
-  <div class="col-12 col-md-4 mt-2">
-    <div class="card">
-      <div class="card-header">
-        <i class="fas fa-graduation-cap"></i> Gestão de Cursos e Turmas
-      </div>
-      <div class="card-body">
-        <p class="card-text">Gerencie as informações de cadastro dos cursos e suas turmas.</p>
-        <a href="{{ route('listar.cursos') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>
