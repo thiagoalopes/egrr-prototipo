@@ -52,27 +52,69 @@ class Login extends Controller
 
                     $dadosPessoais = DadosPessoais::where('cpf', $usuarioCC4->cpf)->first();
 
-                    $servidor = [
-                        'nome' => $cabecalhoContracheque->nome,
-                        'cpf' => $cabecalhoContracheque->cpf,
-                        'tipo_vinculo' => 'outro',
-                        'matricula' => $cabecalhoContracheque->matricula,
-                        'sexo' => 'o',
-                        'cargo' => $cabecalhoContracheque->cargo,
-                        'email' => $dadosPessoais->email,
-                        'senha' => $usuarioCC4->senha,
-                        'funcao' => $cabecalhoContracheque->funcao!=null?$cabecalhoContracheque->funcao:$cabecalhoContracheque->cargo,
-                        'servidor_confirmado'=> true,
-                        'celular' => $dadosPessoais->celular,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
-                    ];
+                    $servidor = [];
+
+                    if($dadosPessoais != null && $cabecalhoContracheque != null) 
+                    {
+                        $servidor = [
+                            'nome' => $cabecalhoContracheque->nome,
+                            'cpf' => $cabecalhoContracheque->cpf,
+                            'tipo_vinculo' => 'outro',
+                            'matricula' => $cabecalhoContracheque->matricula,
+                            'sexo' => 'o',
+                            'cargo' => $cabecalhoContracheque->cargo,
+                            'email' => $dadosPessoais->email,
+                            'senha' => $usuarioCC4->senha,
+                            'funcao' => $cabecalhoContracheque->funcao!=null?$cabecalhoContracheque->funcao:$cabecalhoContracheque->cargo,
+                            'servidor_confirmado'=> true,
+                            'celular' => $dadosPessoais->celular,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ];
+                    }
+                    elseif($dadosPessoais == null && $cabecalhoContracheque != null)
+                    {
+
+                        $servidor = [
+                            'nome' => $cabecalhoContracheque->nome,
+                            'cpf' => $cabecalhoContracheque->cpf,
+                            'tipo_vinculo' => 'outro',
+                            'matricula' => $cabecalhoContracheque->matricula,
+                            'sexo' => 'o',
+                            'cargo' => $cabecalhoContracheque->cargo,
+                            'email' => '',
+                            'senha' => $usuarioCC4->senha,
+                            'funcao' => $cabecalhoContracheque->funcao!=null?$cabecalhoContracheque->funcao:$cabecalhoContracheque->cargo,
+                            'servidor_confirmado'=> true,
+                            'celular' => '',
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ];
+                    }
+                    else
+                    {
+                        $servidor = [
+                            'nome' => '',
+                            'cpf' => $usuarioCC4->cpf,
+                            'tipo_vinculo' => 'outro',
+                            'matricula' => '',
+                            'sexo' => 'o',
+                            'cargo' => '',
+                            'email' => '',
+                            'senha' => $usuarioCC4->senha,
+                            'funcao' => '',
+                            'servidor_confirmado'=> true,
+                            'celular' => '',
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ];
+                    }
                     
                     $servidor = Servidor::create($servidor);
 
                     Auth::login($servidor);
 
-                    if(Gate::allows('isAdminCurso') || Gate::allows('isAdminCartao'))
+                    if(Gate::allows('isAdminCurso', $servidor) || Gate::allows('isAdminCartao', $servidor))
                     {
                        return $request->rotaAnterior?
                        redirect($request->rotaAnterior):
@@ -81,7 +123,7 @@ class Login extends Controller
 
                     return $request->rotaAnterior?
                     redirect($request->rotaAnterior):
-                     redirect()->route('home.administrador');
+                     redirect()->route('home.servidor');
                 }
 
                 Session::flash('error','Usuário ou senha inválidos');
@@ -102,7 +144,7 @@ class Login extends Controller
     
                     return $request->rotaAnterior?
                     redirect($request->rotaAnterior):
-                     redirect()->route('home.administrador');
+                     redirect()->route('home.servidor');
                 }
 
                 Session::flash('error','Usuário ou senha inválidos.');
@@ -133,7 +175,7 @@ class Login extends Controller
     
                     return $request->rotaAnterior?
                     redirect($request->rotaAnterior):
-                     redirect()->route('home.administrador');
+                     redirect()->route('home.servidor');
                 }
     
                 Session::flash('error','Usuário ou senha inválidos.');

@@ -51,6 +51,7 @@
                                 <td>
                                     <a class="btn btn-link text-success" href="{{ route('detalhes.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i class="fas fa-eye" title="ver detalhes"></i></a>
                                     <a class="btn btn-link text-primary" href="{{ route('editar.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i></a>
+                                    <a class="btn btn-link text-primary" href="{{ route('frequencia.turmas', ['idTurma'=>$item->id]) }}"><i title="frequência da turma" class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -147,7 +147,7 @@
       <div class="col-12">
         <h5>Senha de Acesso</h5>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4 col-lg-3">
         <label for="senha" class="form-label">Senha<span class="text-danger">*</span></label>
         <input type="password" class="form-control @error("senha") is-invalid @enderror" id="senha" name="senha">
         @error('senha')
@@ -156,17 +156,46 @@
           </span>
         @enderror
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4 col-lg-3">
         <label for="senha_confirmation" class="form-label">Confirmação da Senha<span class="text-danger">*</span></label>
         <input type="password" class="form-control" id="senha_confirmation" name="senha_confirmation">
       </div>
+
+      <div class="col-12">
+          <div class="captcha mb-3 mt-3">
+            <span class="img">{!! captcha_img() !!}</span>
+            <button type="button" class="btn btn-danger" style="display: inline;" class="reload" id="reload">
+                &#x21bb;
+            </button>
+            <span><input style="display: inline" id="captcha" type="text" class="form-control w-25 @error("captcha") is-invalid @enderror" placeholder="Enter Captcha" name="captcha"></span>
+          </div>
+          @error('captcha')
+            <span style="display: block;" class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+      </div>
+      
     <div class="col-12">
       <button type="submit" class="btn btn-primary"><i class="fas fa-database"></i> Cadastrar</button>
-    </div>
-    <div class="col-12 mb-0">
+    </div> 
+    <div class="col-12 mt-2">
       <span><span class="text-danger">*</span>Campos obrigatórios</span>
     </div>
   </form>
 </div>
 
+@endsection
+@section('scripts')
+  <script type="text/javascript">
+    $('#reload').click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '{{route('reload.captcha')}}',
+            success: function (data) {
+                $(".captcha .img").html(data.captcha);
+            }
+        });
+    });
+  </script>
 @endsection

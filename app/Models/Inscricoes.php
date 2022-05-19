@@ -10,6 +10,7 @@ class Inscricoes extends Model
     use HasFactory;
 
     protected $table = 'tb_inscricoes';
+    public $timestamps = true;
 
     protected $fillable = [
         'termo_aceito',

@@ -10,6 +10,7 @@ class ConteudosCursos extends Model
     use HasFactory;
 
     protected $table = 'tb_conteudos_cursos';
+    public $timestamps = true;
 
     protected $fillable = [
         'id',

@@ -76,6 +76,12 @@ Route::prefix('administrativo')->group(function(){
         Route::get('editar', 'App\Http\Controllers\Admin\Turmas@editar')->name('editar.turmas');
         Route::post('atualizar', 'App\Http\Controllers\Admin\Turmas@atualizar')->name('atualizar.turmas');
         Route::get('detalhes', 'App\Http\Controllers\Admin\Turmas@detalhes')->name('detalhes.turmas');
+
+
+        Route::get('frequencia/{idTurma}/{dataAula?}', 'App\Http\Controllers\Admin\Frequencia@index')
+        ->where(['idTurma'=>'[0-9]+'])
+        ->name('frequencia.turmas');
+
     });
 
     Route::prefix('conteudos')->group(function(){
@@ -90,11 +96,15 @@ Route::prefix('administrativo')->group(function(){
     });
 
 
-
 });
 
 
 Route::get('login', 'App\Http\Controllers\Login@index')->name('form.login');
 Route::post('login', 'App\Http\Controllers\Login@login')->name('login');
 Route::get('logout', 'App\Http\Controllers\Login@logout')->name('logout');
+
+
+Route::get('/reload-captcha',  function(){
+    return response()->json(['captcha'=> captcha_img()]);
+})->name('reload.captcha');
 

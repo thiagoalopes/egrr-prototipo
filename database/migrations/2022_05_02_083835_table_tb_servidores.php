@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('funcao', 128);
             $table->unsignedInteger('id_secretaria_servidores')->nullable();
             $table->boolean('servidor_confirmado')->default('false');
-            $table->string('email', 32);
+            $table->string('email', 64);
             $table->string('celular',16);
             $table->string('telefone',16)->nullable();
             $table->string('senha', 512);

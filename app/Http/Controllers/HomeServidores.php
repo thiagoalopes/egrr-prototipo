@@ -19,7 +19,7 @@ class HomeServidores extends Controller
     {
         //Tudo é protegido pela guard auth
         //só visualiza as rotas se o usuário estiver logado
-        $this->middleware('auth')->except(['salvar','cadastro']);
+        $this->middleware('auth')->except(['salvar','cadastro','reloadCaptcha']);
     }
 
     public function index()
@@ -107,6 +107,7 @@ class HomeServidores extends Controller
             'senha'=>'required|confirmed',
             'celular'=>'required|celular_com_ddd',
             'telefone'=>'nullable|telefone_com_ddd',
+            'captcha' => 'required|captcha'
         ]);
 
         $servidor = Servidor::where('cpf', $validated['cpf'])->first();
@@ -139,6 +140,5 @@ class HomeServidores extends Controller
         Session::flash('success','Cadastro realizado com sucesso!');
         return redirect()->route('login');
     }
-
 }
 
