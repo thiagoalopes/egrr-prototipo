@@ -24,6 +24,10 @@ class DateConverterMiddleware
         {
             $request->merge(['data_termino'=>str_replace('/','-',$request->input('data_termino'))]);
         }
+        if(isset($request->data_aula))
+        {
+            $request->merge(['data_aula'=>str_replace('/','-',$request->input('data_aula'))]);
+        }
         return $next($request);
     }
 }

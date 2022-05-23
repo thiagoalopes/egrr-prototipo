@@ -78,9 +78,17 @@ Route::prefix('administrativo')->group(function(){
         Route::get('detalhes', 'App\Http\Controllers\Admin\Turmas@detalhes')->name('detalhes.turmas');
 
 
-        Route::get('frequencia/{idTurma}/{dataAula?}', 'App\Http\Controllers\Admin\Frequencia@index')
+        Route::get('/{idTurma}/frequencia', 'App\Http\Controllers\Admin\Frequencia@index')
         ->where(['idTurma'=>'[0-9]+'])
         ->name('frequencia.turmas');
+
+        Route::post('/{idTurma}/frequencia/salvar', 'App\Http\Controllers\Admin\Frequencia@salvar')
+        ->where(['idTurma'=>'[0-9]+'])
+        ->name('salvar.frequecia.turmas');
+
+        Route::post('/{idTurma}/frequencia/atualizar', 'App\Http\Controllers\Admin\Frequencia@atualizar')
+        ->where(['idTurma'=>'[0-9]+'])
+        ->name('atualizar.frequecia.turmas');
 
     });
 
