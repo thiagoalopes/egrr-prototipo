@@ -21,70 +21,8 @@ class Frequencia extends Controller
     public function index(Request $request, $idTurma)
     {
         $dataAula = $request->input('data_aula');
-
-        
-        if($dataAula != null && strtotime($dataAula))
-        {
-            $inscricoes = Inscricoes::where('id_turma', $idTurma)
-            ->where('situacao_inscricao', 'confirmada')
-            ->get();
-
-            
-            if($inscricoes != null)
-            {
-                //Cadastra todos os servidores inscritos aprovados na tb frequencia na turma no dia da aula selecionada
-                foreach ($inscricoes as $inscricao) {
-                    $frequencia = ModelsFrequencia::where('id_turma', $idTurma)
-                    ->where('id_servidor', $inscricao->id_servidor)
-                    ->where('data_aula', $dataAula)
-                    ->first();
-
-                    if($frequencia == null)
-                    {
-                        ModelsFrequencia::create([
-                            'id_inscricao'=>$inscricao->id,
-                            'id_servidor'=>$inscricao->servidor->id,
-                            'id_secretaria_servidor'=>$inscricao->servidor->secretaria->id,
-                            'id_curso'=>$inscricao->turma->curso->id,
-                            'id_turma'=>$inscricao->turma->id,
-                            'id_professor'=>$inscricao->turma->curso->professor->id,
-                            'nome_servidor'=>$inscricao->servidor->nome,
-                            'sigla_secretaria'=>$inscricao->servidor->secretaria->sigla,
-                            'nome_curso'=>$inscricao->turma->curso->nome,
-                            'descricao_turma'=>$inscricao->turma->descricao_turma,
-                            'nome_professor'=>$inscricao->turma->curso->professor->nome,
-                            'data_aula'=>$dataAula,
-                        ]);
-                    }
-                }
-
-                $frequencias = ModelsFrequencia::where('id_turma', $idTurma)
-                ->where('data_aula', $dataAula)
-                ->get();
-
-                if($frequencias != null)
-                {
-                    $frequenciaServidor = [];
-
-                    foreach ($inscricoes as $inscricao) {
-                        foreach ($frequencias as $frequencia) {
-                            
-                            if($frequencia->id_servidor == $inscricao->id_servidor)
-                            {
-                                $frequenciaServidor[$frequencia->id_servidor] = $frequencia;
-                                break;
-                            }
-                        }
-                    }
-
-                    return view('admin.frequencias.index', compact(['frequenciaServidor','inscricoes']));
-
-                }
-                return view('admin.frequencias.index', compact(['inscricoes']));
-            }
-        }
-        
         $turma = Turmas::find($idTurma);
+        $datas = [];
 
         if($turma)
         {
@@ -96,13 +34,62 @@ class Frequencia extends Controller
             $intervalo = new DateInterval('P1D');
             $periodo = new DatePeriod($dataInicio, $intervalo ,$dataTermino);
     
-            $datas = [];
     
             foreach ($periodo as $data) {
                 array_push($datas, $data);
             }
-    
-            return view('admin.frequencias.index', compact(['datas']));
+
+
+            if($dataAula != null && strtotime($dataAula))
+            {
+                $inscricoes = Inscricoes::where('id_turma', $idTurma)
+                ->where('situacao_inscricao', 'confirmada')
+                ->get();
+
+                
+                if($inscricoes != null)
+                {
+                    //Cadastra todos os servidores inscritos aprovados na tb frequencia na turma no dia da aula selecionada
+                    foreach ($inscricoes as $inscricao) {
+                        $frequencia = ModelsFrequencia::where('id_turma', $idTurma)
+                        ->where('id_servidor', $inscricao->id_servidor)
+                        ->where('data_aula', $dataAula)
+                        ->first();
+
+                        if($frequencia == null)
+                        {
+                            ModelsFrequencia::create([
+                                'id_inscricao'=>$inscricao->id,
+                                'id_servidor'=>$inscricao->servidor->id,
+                                'id_secretaria_servidor'=>$inscricao->servidor->secretaria->id,
+                                'id_curso'=>$inscricao->turma->curso->id,
+                                'id_turma'=>$inscricao->turma->id,
+                                'id_professor'=>$inscricao->turma->curso->professor->id,
+                                'nome_servidor'=>$inscricao->servidor->nome,
+                                'sigla_secretaria'=>$inscricao->servidor->secretaria->sigla,
+                                'nome_curso'=>$inscricao->turma->curso->nome,
+                                'descricao_turma'=>$inscricao->turma->descricao_turma,
+                                'nome_professor'=>$inscricao->turma->curso->professor->nome,
+                                'data_aula'=>$dataAula,
+                            ]);
+                        }
+                    }
+
+                    $frequencias = ModelsFrequencia::where('id_turma', $idTurma)
+                    ->where('data_aula', $dataAula)
+                    ->orderBy('nome_servidor', 'ASC')
+                    ->get();
+
+                    if($frequencias != null)
+                    {
+                        return view('admin.frequencias.index', compact(['frequencias','turma','datas']));
+
+                    }
+                    return abort(404);
+                }
+            }
+
+            return view('admin.frequencias.index', compact(['turma','datas']));
         }
 
         return abort(404);

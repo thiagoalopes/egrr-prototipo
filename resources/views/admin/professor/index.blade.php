@@ -48,8 +48,8 @@
                                 <tr>
                                     <td>{{ $item->nome }}</td>
                                     <td>
-                                        <a class="btn btn-link text-success" href="{{ route('detalhes.professores', ['idProfessor'=>$item->id]) }}"><i class="fas fa-eye" title="ver detalhes"></i></a>
-                                        <a class="btn btn-link text-primary" href="{{ route('editar.professores', ['idProfessor'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i></a>
+                                        <a class="btn btn-outline-success" title="Detalhes do professor" href="{{ route('detalhes.professores', ['idProfessor'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhes</span></a>
+                                        <a class="btn btn-outline-success" title="Editar dados do professor" href="{{ route('editar.professores', ['idProfessor'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i><span class="d-none d-md-inline">Editar</span></a>
                                     </td>
                                 </tr>
                             @endforeach

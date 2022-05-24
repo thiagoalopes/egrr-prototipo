@@ -40,7 +40,7 @@
                 <thead>
                     <tr>
                         <th>Descrição da Turma</th>
-                        <th>Ação</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +48,10 @@
                         @foreach ($turmas as $item)
                             <tr>
                                 <td>{{ $item->descricao_turma }}</td>
-                                <td>
-                                    <a class="btn btn-link text-success" href="{{ route('detalhes.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i class="fas fa-eye" title="ver detalhes"></i></a>
-                                    <a class="btn btn-link text-primary" href="{{ route('editar.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i></a>
-                                    <a class="btn btn-link text-primary" href="{{ route('frequencia.turmas', ['idTurma'=>$item->id]) }}"><i title="frequência da turma" class="fas fa-edit"></i></a>
+                                <td class="text-center">
+                                    <a class="m-1 btn  btn-outline-success btn-sm" href="{{ route('detalhes.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i class="fas fa-eye" title="Detalhes da Turma"></i> <span class="d-none d-md-inline">Detalhes</span></a>
+                                    <a class="m-1 btn btn-outline-primary btn-sm" href="{{ route('editar.turmas', ['idCurso'=>request()->get('idCurso'), 'idTurma'=>$item->id]) }}"><i title="Editar Turma" class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                    <a class="m-1 btn btn-outline-primary btn-sm" href="{{ route('frequencia.turmas', ['idTurma'=>$item->id]) }}"><i title="Frequência da Turma" class="fas fa-list-alt"></i> <span class="d-none d-md-inline">Frequência</span></a>
                                 </td>
                             </tr>
                         @endforeach

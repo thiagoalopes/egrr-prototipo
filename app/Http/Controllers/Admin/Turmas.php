@@ -33,11 +33,16 @@ class Turmas extends Controller
                     {
 
                         $turmas = ModelsTurmas::whereRaw("LOWER(descricao_turma) like '%".strtolower($request->input('descricao'))."%'")
-                        ->where('id_curso', $request->input('idCurso'))->paginate(15);
+                        ->where('id_curso', $request->input('idCurso'))
+                        ->orderBy('descricao_turma','ASC')
+                        ->paginate(15);
                         return view('admin.turma.index', compact(['turmas','curso']));
                     }
 
-                    $turmas = ModelsTurmas::where('id_curso', $request->input('idCurso'))->paginate(15);
+                    $turmas = ModelsTurmas::where('id_curso', $request->input('idCurso'))
+                    ->orderBy('descricao_turma','ASC')
+                    ->paginate(15);
+                    
                     return view('admin.turma.index', compact(['turmas','curso']));
                 }
 

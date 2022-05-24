@@ -31,36 +31,22 @@
 
     <div class="row">
 
-        <div class="col-12 col-md-4 col-lg-3 mb-4 mt-4 d-sm-block d-lg-none">
+        <div class="col-12 col-md-6 col-lg-3 mb-4 mt-4 d-sm-block d-lg-none">
 
             @if ($cursos->count() != 0)
                 @foreach ($cursos as $item)
 
                     <div class="card" >
                         <div class="card-body">
-                            <h5 class="card-title"><b>{{ $item->nome }}</b></h5>
-                            <div class="card-text">
-                                <ul style="list-style-type: none;">
-                                    <li>
-                                        <i class="fas fa-eye" title="ver detalhes do curso"></i> <a href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}">Detalhes</a>
-
-                                    </li>
-                                    <li>
-                                        <i title="editar curso" class="fas fa-edit"></i> <a href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"> Editar</a>
-
-                                    </li>
-                                    <li>
-                                        <i title="turmas do curso" class="fas fa-chalkboard"></i> <a href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}">Turmas</a>
-
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-book-open"></i> <a href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}">Conteúdos</a>
-
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-list-ol"></i> <a href="#"></i>Incrições</a>
-                                    </li>
-                                </ul>
+                            <div class="card-header text-center">
+                                <h6 class="card-title"><b>{{ $item->nome }}</b></h6>
+                            </div>
+                            <div class="card-text mt-3 text-center">
+                                <a class="btn btn-outline-success m-1" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhe</span></a>
+                                <a class="btn btn-outline-success m-1" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                <a class="btn btn-outline-primary m-1" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
+                                <a class="btn btn-outline-primary m-1" title="Gestão das turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
+                                <a class="btn btn-outline-primary m-1" title="Gestão das inscrições" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
                             </div>
                         </div>
                     </div>
@@ -76,7 +62,7 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th colspan="6" >Ações</th>
+                        <th colspan="6" class="text-center" >Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,28 +70,12 @@
                         @foreach ($cursos as $item)
                             <tr>
                                 <td>{{ $item->nome }}</td>
-                                <td>
-                                    <ul style="list-style-type: none;">
-                                        <li>
-                                            <i class="fas fa-eye" title="ver detalhes do curso"></i> <a href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}">Detalhes</a>
-    
-                                        </li>
-                                        <li>
-                                            <i title="editar curso" class="fas fa-edit"></i> <a href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"> Editar</a>
-    
-                                        </li>
-                                        <li>
-                                            <i title="turmas do curso" class="fas fa-chalkboard"></i> <a href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}">Turmas</a>
-    
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-book-open"></i> <a href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}">Conteúdos</a>
-    
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-list-ol"></i> <a href="#"></i>Incrições</a>
-                                        </li>
-                                    </ul>
+                                <td class="text-center">
+                                    <a class="btn btn-outline-success m-1" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhes do Curso</span></a>
+                                    <a class="btn btn-outline-success m-1" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar Curso</span></a>
+                                    <a class="btn btn-outline-primary m-1" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
+                                    <a class="btn btn-outline-primary m-1" title="Gestão das Turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
+                                    <a class="btn btn-outline-primary m-1" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
                                 </td>
                             </tr>
                         @endforeach
