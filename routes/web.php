@@ -86,11 +86,15 @@ Route::prefix('administrativo')->group(function(){
         ->where(['idTurma'=>'[0-9]+'])
         ->name('imprimir.frequencia.turmas');
 
-        Route::post('/{idTurma}/frequencia/salvar', 'App\Http\Controllers\Admin\Frequencia@salvar')
-        ->where(['idTurma'=>'[0-9]+'])
-        ->name('salvar.frequecia.turmas');
+        Route::get('/{idTurma}/frequencia/{idFrequencia}', 'App\Http\Controllers\Admin\Frequencia@dadosFrequencia')
+        ->where(['idTurma'=>'[0-9]+','idFrequencia'=>'[0-9]+'])
+        ->name('dados.frequecia.turmas');
 
-        Route::post('/{idTurma}/frequencia/atualizar', 'App\Http\Controllers\Admin\Frequencia@atualizar')
+        Route::post('/{idTurma}/frequencia/{idFrequencia}', 'App\Http\Controllers\Admin\Frequencia@atualizarDados')
+        ->where(['idTurma'=>'[0-9]+','idFrequencia'=>'[0-9]+'])
+        ->name('corrigir.frequecia.turmas');
+
+        Route::post('/{idTurma}/frequencia/atualizar', 'App\Http\Controllers\Admin\Frequencia@atualizarPresenca')
         ->where(['idTurma'=>'[0-9]+'])
         ->name('atualizar.frequecia.turmas');
 

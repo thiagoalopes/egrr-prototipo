@@ -58,7 +58,7 @@
                 </div>
             @endif
         </div>
-        @if (isset($frequencias))
+        @if (isset($frequencias) && $frequencias->count() != 0)
             <div class="row mt-5">
                 <div class="col-12">
                     <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('imprimir.frequencia.turmas',['idTurma'=>$turma->id]) }}" method="POST">
@@ -82,6 +82,7 @@
                                 Presença
                                 <i data-bs-toggle="tooltip" data-bs-placement="top" title="Marque o campo para registrar a presença do aluno" class="fas fa-info text-primary"></i>
                             </th>
+                            <th class="text-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,12 +102,19 @@
                                                     >
                                                 
                                             </th>
+                                            <td class="text-center">
+                                                <a class="btn btn-outline-success btn-sm" title="Editar dados da frequência" href="{{ route('dados.frequecia.turmas', ['idTurma'=>$item->id_turma,'idFrequencia'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i><span class="d-none d-md-inline">Editar</span></a>
+                                            </td>
                                         </tr>
                                 @endforeach
-                            @else
+                            @elseif(isset($frequencias) && $frequencias->count() == 0)
                                         <tr>
-                                            <td class="text-center" colspan="3">Selecione o dia da aula</td>
+                                            <td class="text-center" colspan="4">Não há inscritos aprovados nesta turma</td>
                                         </tr>
+                            @else
+                                <tr>
+                                    <td class="text-center" colspan="4">Selecione o dia da aula</td>
+                                </tr>
                             @endif
                     </tbody>
                 </table>

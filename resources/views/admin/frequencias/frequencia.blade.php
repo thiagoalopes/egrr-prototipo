@@ -109,15 +109,22 @@
                     <td style="width: 20%; font-weight: 700;background-color: #c1c1c1;">ORGÃO DE ORIGEM</td>
                     <td style="width: 25%;text-align: center;font-weight: 700;background-color: #c1c1c1;">ASSINATURA</td>
                 </tr>
-                @foreach ($frequencias as $item)
-                    <tr>
-                        <td style="text-align: center;">{{ $loop->index+1  }}</td>
-                        <td class="col-relacao">{{ $item->nome_servidor }}</td>
-                        <td class="col-relacao">{{ $item->sigla_secretaria }}</td>
-                        <td class="col-relacao"></td>
-                    </tr>
+                    @if($frequencias->count() > 0)
+                    
+                        @foreach ($frequencias as $item)
+                            <tr>
+                                <td style="text-align: center;">{{ $loop->index+1  }}</td>
+                                <td class="col-relacao">{{ $item->nome_servidor }}</td>
+                                <td class="col-relacao">{{ $item->sigla_secretaria }}</td>
+                                <td class="col-relacao"></td>
+                            </tr>
 
-                @endforeach
+                        @endforeach
+                    @else
+                            <tr>
+                                <td colspan="4">Não há inscritos</td>
+                            </tr>
+                    @endif
                 <tr>
                     <td colspan="4" style="padding: 15px"><b>Data e Hora da Emissão:</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }} <b>às</b> {{ \Carbon\Carbon::now()->format('H:i') }}h</td>
                 </tr>

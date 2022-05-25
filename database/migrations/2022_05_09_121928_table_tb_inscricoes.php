@@ -17,6 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('codigo_inscricao');
             $table->unsignedBigInteger('id_servidor');
+            $table->string('nome_servidor');
+            $table->string('cpf_servidor');
+            $table->string('matricula');
+            $table->string('secretaria');
+            $table->string('sigla');
             $table->unsignedInteger('id_turma');
             $table->boolean('termo_aceito');
             $table->enum('situacao_inscricao',['pendente','confirmada','cancelada'])->default('pendente');
@@ -27,6 +32,7 @@ return new class extends Migration
 
             $table->foreign('id_servidor')->references('id')->on('tb_servidores');
             $table->foreign('id_turma')->references('id')->on('tb_turmas');
+
 
         });
     }

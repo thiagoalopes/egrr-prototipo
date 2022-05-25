@@ -31,8 +31,15 @@ class Frequencia extends Controller
             $turma = Turmas::find($idTurma);
             $datas = [];
 
-            if($turma)
+            if($turma != null)
             {
+                //Verifica se a turma esta fechada
+                if($turma->situacao->situacao != 'Fechada')
+                {
+                    Session::flash('error','A Turma ainda não está fechada!');
+                    return redirect()->route('listar.turmas',['idCurso'=>$turma->curso->id]);
+                }
+
                 $dataInicio = new DateTime($turma->data_inicio);
         
                 $dataTermino = new DateTime($turma->data_termino);
@@ -52,12 +59,12 @@ class Frequencia extends Controller
                     $inscricoes = Inscricoes::where('id_turma', $idTurma)
                     ->where('situacao_inscricao', 'confirmada')
                     ->get();
-
                     
                     if($inscricoes != null)
                     {
                         //Cadastra todos os servidores inscritos aprovados na tb frequencia na turma no dia da aula selecionada
                         foreach ($inscricoes as $inscricao) {
+                            
                             $frequencia = ModelsFrequencia::where('id_turma', $idTurma)
                             ->where('id_servidor', $inscricao->id_servidor)
                             ->where('data_aula', $dataAula)
@@ -72,8 +79,8 @@ class Frequencia extends Controller
                                     'id_curso'=>$inscricao->turma->curso->id,
                                     'id_turma'=>$inscricao->turma->id,
                                     'id_professor'=>$inscricao->turma->curso->professor->id,
-                                    'nome_servidor'=>$inscricao->servidor->nome,
-                                    'sigla_secretaria'=>$inscricao->servidor->secretaria->sigla,
+                                    'nome_servidor'=>$inscricao->nome_servidor,
+                                    'sigla_secretaria'=>$inscricao->sigla,
                                     'nome_curso'=>$inscricao->turma->curso->nome,
                                     'descricao_turma'=>$inscricao->turma->descricao_turma,
                                     'nome_professor'=>$inscricao->turma->curso->professor->nome,
@@ -148,28 +155,14 @@ class Frequencia extends Controller
             return redirect()->back();
         }
         return abort(404);
-
-
-        /*
-        $inscricao = ModelsIncricoes::where('codigo_inscricao',$codigoInscricao)->first();
-
-        if($inscricao == null)
-        {
-            return redirect()->route('home.inscricao',['idCurso'=>$idCurso]);
-        }
-
-        $file = PDF::loadView('inscricoes.comprovante',compact(['inscricao']));
-
-        Storage::put("temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", $file->setPaper('a4', 'portrait')->output());
-
-        info('Servidor '.$inscricao->servidor->nome.' emitiu o comprovante.');
-
-        return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"attachment;filename=comprovante_{$inscricao->servidor->cpf}",
-            "Content-Type"=>'application/pdf'
-        ])->deleteFileAfterSend();*/
     }
 
-    public function atualizar(Request $request)
+    public function dadosFrequencia($idTurma, $idFrequencia)
+    {
+        return 'ok';
+    }
+
+    public function atualizarPresenca(Request $request)
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {

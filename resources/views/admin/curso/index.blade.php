@@ -42,11 +42,11 @@
                                 <h6 class="card-title"><b>{{ $item->nome }}</b></h6>
                             </div>
                             <div class="card-text mt-3 text-center">
-                                <a class="btn btn-outline-success m-1" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhe</span></a>
-                                <a class="btn btn-outline-success m-1" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
-                                <a class="btn btn-outline-primary m-1" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
-                                <a class="btn btn-outline-primary m-1" title="Gestão das turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
-                                <a class="btn btn-outline-primary m-1" title="Gestão das inscrições" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
+                                <a class="btn btn-outline-success m-1 btn-sm" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhe</span></a>
+                                <a class="btn btn-outline-success m-1 btn-sm" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                <a class="btn btn-outline-primary m-1 btn-sm" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
+                                <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
+                                <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das inscrições" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
                             </div>
                         </div>
                     </div>
@@ -71,11 +71,11 @@
                             <tr>
                                 <td>{{ $item->nome }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-outline-success m-1" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhes do Curso</span></a>
-                                    <a class="btn btn-outline-success m-1" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar Curso</span></a>
-                                    <a class="btn btn-outline-primary m-1" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
-                                    <a class="btn btn-outline-primary m-1" title="Gestão das Turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
-                                    <a class="btn btn-outline-primary m-1" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
+                                    <a class="btn btn-outline-success m-1 btn-sm" title="Ver detalhes do curso" href="{{ route('detalhes.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhes</span></a>
+                                    <a class="btn btn-outline-success m-1 btn-sm" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                    <a class="btn btn-outline-primary m-1 btn-sm" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
+                                    <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das Turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
+                                    <a class="btn btn-outline-primary m-1 btn-sm" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
                                 </td>
                             </tr>
                         @endforeach

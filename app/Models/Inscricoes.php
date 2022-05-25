@@ -15,6 +15,11 @@ class Inscricoes extends Model
     protected $fillable = [
         'termo_aceito',
         'id_turma',
+        'nome_servidor',
+        'cpf_servidor',
+        'matricula',
+        'secretaria',
+        'sigla',
         'id_servidor',
         'codigo_inscricao',
         'situacao_inscricao',

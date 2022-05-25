@@ -104,20 +104,6 @@ class Turmas extends Controller
                 if($curso != null)
                 {
                     $totalDeVagasCurso = Cursos::find($validated['id_curso'])->total_vagas;
-                    $turmas = ModelsTurmas::where('id_curso', $validated['id_curso'])->get();
-    
-                    $totalVagasTurmasCadastradas = 0;
-    
-                    foreach ($turmas as $turma) {
-                        $totalVagasTurmasCadastradas += $turma->total_vagas_turma;
-                    }
-    
-                    //Valida se há vagas disponíveis
-                    if(($totalVagasTurmasCadastradas + $validated['total_vagas_turma']) > $totalDeVagasCurso)
-                    {
-                        Session::flash('error','O limite de ' .$totalDeVagasCurso. ' vagas para este curso foi ultrapassado. Vagas disponíveis: '.($totalDeVagasCurso - $totalVagasTurmasCadastradas.'.'));
-                        return redirect()->route('cadastro.turmas', ['idCurso'=>$validated['id_curso']])->withInput($validated);
-                    }
     
                     ModelsTurmas::create($validated);
                     Session::flash('success','Cadastrado com sucesso!');
@@ -216,16 +202,26 @@ class Turmas extends Controller
                     if($turma != null)
                     {
                         $totalDeVagasCurso = Cursos::find($request->input('idCurso'))->total_vagas;
-                        $turmas = ModelsTurmas::where('id_curso', $request->input('idCurso'))->get();
-        
+                        $turmas = ModelsTurmas::where('id_curso', $request->input('idCurso'));
+
+                        if($validated['id_situacao_turma'] != '3')
+                        {
+                            $turmas = $turmas->where('id_situacao_turma','<>','3')
+                            ->get();
+                        }
+                        else
+                        {
+                            $turmas = $turmas->get();
+                        }
+
                         $totalVagasTurmasCadastradas = 0;
         
                         foreach ($turmas as $turmax) {
                             $totalVagasTurmasCadastradas += $turmax->total_vagas_turma;
                         }
         
-                        //Valida se há vagas disponíveis
-                        if((($totalVagasTurmasCadastradas + $validated['total_vagas_turma']) - $turma->total_vagas_turma) > $totalDeVagasCurso)
+                        //Valida se há vagas disponíveis caso a turma não esteja cancelada
+                        if($validated['id_situacao_turma'] != '3' && ((($totalVagasTurmasCadastradas + $validated['total_vagas_turma']) - $turma->total_vagas_turma) > $totalDeVagasCurso))
                         {
                             Session::flash('error','O limite de ' .$totalDeVagasCurso. ' vagas para este curso foi ultrapassado. Vagas disponíveis: '.($totalDeVagasCurso - $totalVagasTurmasCadastradas.'.'));
                             return redirect()->route('editar.turmas', ['idCurso'=>$curso->id, 'idTurma'=>$request->input('idTurma')]);

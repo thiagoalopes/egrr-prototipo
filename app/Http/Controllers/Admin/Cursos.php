@@ -128,13 +128,10 @@ class Cursos extends Controller
                     'carga_horaria'=>'required|max:4',
                     'total_vagas'=>'required',
                     'id_professor'=>'required',
-                    'id_situacao_curso'=>'required',
                     'data_inicio'=>'required|date|date_format:d-m-Y',
                     'data_termino'=>'required|date|date_format:d-m-Y',
                     'endereco_curso'=>'required',
                 ]);
-
-               
 
                 if($request->hasFile('imagem'))
                 {
