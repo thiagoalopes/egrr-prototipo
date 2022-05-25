@@ -82,6 +82,10 @@ Route::prefix('administrativo')->group(function(){
         ->where(['idTurma'=>'[0-9]+'])
         ->name('frequencia.turmas');
 
+        Route::post('/{idTurma}/frequencia/imprimir', 'App\Http\Controllers\Admin\Frequencia@downloadFrequencia')
+        ->where(['idTurma'=>'[0-9]+'])
+        ->name('imprimir.frequencia.turmas');
+
         Route::post('/{idTurma}/frequencia/salvar', 'App\Http\Controllers\Admin\Frequencia@salvar')
         ->where(['idTurma'=>'[0-9]+'])
         ->name('salvar.frequecia.turmas');

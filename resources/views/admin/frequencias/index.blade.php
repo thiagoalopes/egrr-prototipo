@@ -7,14 +7,37 @@
             </div>
         </div>
 
+        <div class="row justify-content-center">
+            @if (Session::has('success'))
+                <div class="col-12 text-center">
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                </div>
+              @elseif(Session::has('error'))
+              <div class="col-12 text-center">
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+            </div>
+            @endif
+          </div>
+
         <div class="row mb-3">
             <div class="col-12">
                 <h2>Frequência da Turma</h2>
                 <p class="m-0"><small>{{ $turma->curso->nome }}</small></p>
                 <small class="mt-2"><span style="font-weight: 600;" >Turma:</span> {{ $turma->descricao_turma }}</small>
+                <small class="mt-2"><span style="font-weight: 600;" >Período:</span>
+                     {{ \Carbon\Carbon::parse($turma->data_inicio)->format('d/m/Y') }} a
+                     {{ \Carbon\Carbon::parse($turma->data_termino)->format('d/m/Y') }}
+                </small>
+                <small class="mt-2"><span style="font-weight: 600;" >Carga horária:</span> {{ $turma->curso->carga_horaria }}</small>
+
+
             </div>
           </div>
-        <div class="row mt-3">
+        <div class="row mt-4">
             @if (isset($datas))
                 <div class="col-12">
 
@@ -35,6 +58,19 @@
                 </div>
             @endif
         </div>
+        @if (isset($frequencias))
+            <div class="row mt-5">
+                <div class="col-12">
+                    <form class="row row-cols-lg-auto g-3 align-items-center" action="{{ route('imprimir.frequencia.turmas',['idTurma'=>$turma->id]) }}" method="POST">
+                        <input type="hidden" name="data_aula" value="{{ \Carbon\Carbon::parse(request()->data_aula)->format('d/m/Y') }}">
+                        <input type="hidden" name="id_turma" value="{{ $turma->id }}">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-outline-success btn-sm">Imprimir Modelo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
         <div class="row mt-3">
             <div class="col-12">
                 <table class="table table-striped">
