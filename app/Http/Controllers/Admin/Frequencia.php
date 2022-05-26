@@ -57,11 +57,12 @@ class Frequencia extends Controller
                 if($dataAula != null && strtotime($dataAula))
                 {
                     $inscricoes = Inscricoes::where('id_turma', $idTurma)
-                    ->where('situacao_inscricao', 'confirmada')
                     ->get();
                     
                     if($inscricoes != null)
                     {
+                        $idsFrequenciasInscricoesCanceladas = [];
+
                         //Cadastra todos os servidores inscritos aprovados na tb frequencia na turma no dia da aula selecionada
                         foreach ($inscricoes as $inscricao) {
                             
@@ -70,7 +71,7 @@ class Frequencia extends Controller
                             ->where('data_aula', $dataAula)
                             ->first();
 
-                            if($frequencia == null)
+                            if($frequencia == null && $inscricao->situacao_inscricao = 'confirmada')
                             {
                                 ModelsFrequencia::create([
                                     'id_inscricao'=>$inscricao->id,
@@ -87,12 +88,20 @@ class Frequencia extends Controller
                                     'data_aula'=>$dataAula,
                                 ]);
                             }
+                            elseif($frequencia != null && $inscricao->situacao_inscricao == 'cancelada')
+                            {
+                                array_push($idsFrequenciasInscricoesCanceladas, $frequencia->id);
+                            }
                         }
 
                         $frequencias = ModelsFrequencia::where('id_turma', $idTurma)
-                        ->where('data_aula', $dataAula)
-                        ->orderBy('nome_servidor', 'ASC')
-                        ->get();
+                        ->where('data_aula', $dataAula);
+                        if($idsFrequenciasInscricoesCanceladas != null && count($idsFrequenciasInscricoesCanceladas) > 0)
+                        {
+                            $frequencias=$frequencias->whereNotIn('id', $idsFrequenciasInscricoesCanceladas);
+                        }
+                        
+                        $frequencias = $frequencias->orderBy('nome_servidor', 'ASC')->get();
 
                         if($frequencias != null)
                         {

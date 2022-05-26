@@ -32,10 +32,21 @@ class Inscricoes extends Controller
         $turmas = Turmas::where('id_curso', $idCurso)
         ->whereNotIn('id_situacao_turma', [2,3]) // 2-Turma Fechada 3-Turma Cancelada
         ->get();
+        
+        $hasVaga = true;
 
         if($turmas != null)
         {
-            return view('inscricoes.index', compact(['curso','turmas']));
+            foreach ($turmas as $turma) {
+                
+                if(!$this->hasVagas($turma->id))
+                {
+                    Session::flash('success','Ops! todas as vagas foram preenchidas no momento.');
+                    $hasVaga=false;
+                    break;
+                }
+            }
+            return view('inscricoes.index', compact(['curso','turmas','hasVaga']));
         }
 
         return abort(404);
@@ -43,11 +54,16 @@ class Inscricoes extends Controller
 
     public function inscricao(Request $request, $idCurso, $idTurma)
     {
-        
         $turma = Turmas::find($idTurma);
         $curso = Cursos::find($idCurso);
         $servidor = Servidor::where('cpf', Auth::user()->cpf)->first();
         $secretarias = SecretariaServidores::all();
+
+        if(!$this->hasVagas($turma->id))
+        {
+            Session::flash('success','Ops! todas as vagas foram preenchidas no momento.');
+            return redirect()->route('home.inscricao',['idCurso'=>$turma->id_curso]);
+        }
         
         if($servidor != null)
         {
@@ -157,6 +173,43 @@ class Inscricoes extends Controller
             return false;
         }
         return false;
+    }
+
+    private function hasVagas($idTurma)
+    {
+        $turma = Turmas::find($idTurma);
+        $inscricoesDaTurma = ModelsIncricoes::where('situacao_inscricao','<>','cancelada')
+        ->where('id_turma', $turma->id)->get(); 
+        $curso = $turma->curso;
+
+        $turmasNaoCanceladas = Turmas::where('id_curso', $curso->id)
+        ->where('id_situacao_turma','<>','3')
+        ->get();
+
+        $totalVagasTurmasCadastradas = 0;
+        $idsTurmas = [];
+
+        //Totaliza as vagas de todas as turmas do curso
+        foreach ($turmasNaoCanceladas as $turmaAux) {
+            $totalVagasTurmasCadastradas += $turmaAux->total_vagas_turma;
+            array_push($idsTurmas, $turmaAux->id);
+        }
+
+        $inscricoes = ModelsIncricoes::orWhere('situacao_inscricao','pendente')
+        ->orWhere('situacao_inscricao','confirmada')
+        ->whereIn('id_turma',$idsTurmas)
+        ->get();
+        
+        //Totaliza as inscricoes realizadas para a turmas
+        $totalDeInscricoes = $inscricoes->count();
+
+        //Valida se há vagas disponíveis caso a turma não esteja cancelada
+        if($turma->total_vagas_turma <= $inscricoesDaTurma->count() || $curso->total_vagas <= $totalDeInscricoes)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public function inscricoesServidores()

@@ -111,7 +111,20 @@ Route::prefix('administrativo')->group(function(){
 
     });
 
+    Route::prefix('inscricoes')->group(function(){
+        Route::get('{idCurso}', 'App\Http\Controllers\Admin\Inscricoes@index')
+        ->where(['idCurso'=>'[0-9]+'])
+        ->name('index.admin.inscricao');
 
+        Route::post('{idCurso}/aprovar/{idInscricao}', 'App\Http\Controllers\Admin\Inscricoes@aprovarInscricao')
+        ->where(['idCurso'=>'[0-9]+','idInscricao'=>'[0-9]+'])
+        ->name('aprovar.admin.inscricao');
+
+        Route::post('{idCurso}/cancelar/{idInscricao}', 'App\Http\Controllers\Admin\Inscricoes@cancelarInscricao')
+        ->where(['idCurso'=>'[0-9]+','idInscricao'=>'[0-9]+'])
+        ->name('cancelar.admin.inscricao');
+
+    });
 });
 
 
