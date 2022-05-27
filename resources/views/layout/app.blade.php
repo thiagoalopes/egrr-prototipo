@@ -36,14 +36,14 @@
                         @if(request()->routeIs('home.servidor') ||
                             request()->routeIs('cadastro.servidor') ||
                             request()->routeIs('certificados')) active @endif dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user"></i> Área do Servidor
+                       </i> Servidor
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('home.servidor') }}">Painel</a></li>
-                        <li><a class="dropdown-item" href="{{ route('cadastro.servidor') }}">Cadastro</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('certificados') }}">Certificados</a></li>
-                        <li><a class="dropdown-item" href="#">Cartão do Servidor</a></li>
+                        <li><a class="dropdown-item" href="{{ route('show.servidor') }}">Cadastro</a></li>
+                        <li><a class="dropdown-item" href="#">Certificados</a></li>
+                        <li><a class="dropdown-item" href="#">Cartão</a></li>
                       </ul>
                     </li>
                     @endif
@@ -54,15 +54,15 @@
                             @if(request()->routeIs('home.servidor') ||
                                 request()->routeIs('cadastro.servidor') ||
                                 request()->routeIs('certificados')) active @endif dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-cog"></i> Gestão de Cursos
+                            Administrativo
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('home.administrador') }}">Painel</a></li>
+                            <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('listar.professores') }}">Professores</a></li>
                             <li><a class="dropdown-item" href="{{ route('listar.cursos') }}">Cursos e Turmas</a></li>
-                            <li><a class="dropdown-item" href="#">Assinaturas do Certificado</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Cursos</a></li>
+                            <li><a class="dropdown-item" href="#">Assinaturas</a></li>
+                            <li><a class="dropdown-item" href="#">Permissões</a></li>
                           </ul>
                         </li>
                       @endcan

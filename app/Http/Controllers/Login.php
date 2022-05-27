@@ -4,34 +4,33 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Servidor;
+use Illuminate\Support\Str;
 use App\Models\Autenticacao;
 use Illuminate\Http\Request;
 use App\Models\DadosPessoais;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\CabecalhoContracheque;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\URL;
+use App\Notifications\ResetSenhaNotification;
 
 class Login extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->only(['login','index','resetarSenhaForm','resetarSenha']);
+        $this->middleware('auth')->only(['logout','alterarSenhaForm','alterarSenha']);
     }
 
     public function index(Request $request)
     {
         $rotaAnterior = URL::previous();
 
-        //dd($rotaAnterior);
-        //dd(route('welcome'));
-
         if(route('welcome').'/' == $rotaAnterior)
         {
             return view('auth.login');
         }
-
         return view('auth.login',compact(['rotaAnterior']));
     }
 
@@ -56,7 +55,7 @@ class Login extends Controller
 
                     if($dadosPessoais != null && $cabecalhoContracheque != null) 
                     {
-                        $servidor = [
+                        $servidor = [ 
                             'nome' => $cabecalhoContracheque->nome,
                             'cpf' => $cabecalhoContracheque->cpf,
                             'tipo_vinculo' => 'outro',
@@ -195,5 +194,64 @@ class Login extends Controller
             Auth::logout();
         }
         return redirect()->route('welcome');
+    }
+
+    public function alterarSenhaForm()
+    {
+        return view('auth.alterar');
+    }
+
+    public function alterarSenha(Request $request)
+    {
+        $validated = $request->validate([
+            'senha_atual'=>'required',
+            'nova_senha'=>'required|confirmed|min:8',
+        ]);
+
+        $usuario = Servidor::find(Auth::user()->id);
+
+        if($usuario->senha === md5($validated['senha_atual']))
+        {
+            $usuario->senha = md5($validated['nova_senha']);
+            $usuario->update();
+
+            Session::flash('success','Senha alterada com sucesso!');
+            return redirect()->back();
+        }
+
+        Session::flash('error','Senha atual errada!');
+        return redirect()->back();
+    }
+
+    public function resetarSenhaForm()
+    {
+        return view('auth.esqueci');
+    }
+
+    public function resetarSenha(Request $request)
+    {
+        $validated = $request->validate([
+            'cpf'=>'required|cpf',
+            'email'=>'required|email',
+            'captcha' => 'required|captcha'
+        ]);
+
+        $usuario = Servidor::where('cpf',$validated['cpf'])
+        ->where('email', $validated['email'])
+        ->first();
+
+        if($usuario != null)
+        {
+            $senha = str_replace(' ', 'Ef', Str::random(8));
+            $usuario->senha = md5($senha);
+            $usuario->update();
+
+            $usuario->notify(new ResetSenhaNotification($usuario, $senha));
+            Session::flash('success','Uma nova senha foi enviada para o email cadastrado!');
+            return redirect()->route('login');
+        }
+
+        Session::flash('error','Os dados informados não são válidos.');
+        return redirect()->back()->withInput($validated);
     }
 }

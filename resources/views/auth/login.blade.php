@@ -26,6 +26,7 @@
                 </div>
             </div>
             @endif
+        </div>
             <div class="row">
                 <div class="col-12 col-md-8 m-auto">
 
@@ -66,7 +67,7 @@
                           <div class="btns-login">
                               <button id="btnlogin" type="submit" class="btn btn-primary w-50">Acessar</button>
                               <a id="btncadastro" class="btn btn-outline-success mt-3 mt-md-0" href="{{ route('cadastro.servidor') }}">Novo Cadastro</a>
-                              <a id="linksenha" class="mt-3" style="display: block;" href="{{ route('cadastro.servidor') }}">Esqueci a Senha</a>
+                              <a id="linksenha" class="mt-3" style="display: block;" href="{{ route('reset.senha.form') }}">Esqueci a Senha</a>
                           </div>
                     </form>
                 </div>

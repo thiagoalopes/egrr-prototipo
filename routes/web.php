@@ -129,9 +129,15 @@ Route::prefix('administrativo')->group(function(){
 
 
 Route::get('login', 'App\Http\Controllers\Login@index')->name('form.login');
+Route::get('esqueceu-senha', 'App\Http\Controllers\Login@resetarSenhaForm')->name('reset.senha.form');
+Route::post('esqueceu-senha', 'App\Http\Controllers\Login@resetarSenha')->name('reset.senha');
+
+
 Route::post('login', 'App\Http\Controllers\Login@login')->name('login');
 Route::get('logout', 'App\Http\Controllers\Login@logout')->name('logout');
 
+Route::get('alterar-senha', 'App\Http\Controllers\Login@alterarSenhaForm')->name('alterar.senha.form');
+Route::post('alterar-senha', 'App\Http\Controllers\Login@alterarSenha')->name('alterar.senha');
 
 Route::get('/reload-captcha',  function(){
     return response()->json(['captcha'=> captcha_img()]);

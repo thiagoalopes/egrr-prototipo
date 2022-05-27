@@ -7,6 +7,8 @@
   <div class="row text-center">
     <div class="col-12">
       <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->nome }}! @endif</h6>
+      <small><a href="{{ route('alterar.senha.form') }}">Alterar Senha</a></small>
+
     </div>
 </div>
 
@@ -45,8 +47,8 @@
         <i class="fas fa-id-card-alt"></i> Inscrições
       </div>
       <div class="card-body">
-        <p class="card-text">Visualize todas as informações dos cursos em que você se inscreveu ou acompanhe a situação da inscrição.</p>
-        <a href="{{ route('inscricao.servidor') }}" class="btn btn-primary">Visualizar</a>
+        <p class="card-text">As informações dos cursos em que você se inscreveu estão aqui.</p>
+        <a href="#" class="btn btn-primary">Visualizar</a>
       </div>
     </div>
   </div>
@@ -58,7 +60,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">Visualize e baixe os certificados dos cursos que você realizou na Escola de Governo.</p>
-        <a href="{{ route('certificados') }}" class="btn btn-primary">Visualizar</a>
+        <a href="#" class="btn btn-primary">Visualizar</a>
       </div>
     </div>
   </div>

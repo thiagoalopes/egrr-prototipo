@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Ação</th>
+                            <th class="text-center">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +47,7 @@
                             @foreach ($professores as $item)
                                 <tr>
                                     <td>{{ $item->nome }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <a class="btn btn-outline-success" title="Detalhes do professor" href="{{ route('detalhes.professores', ['idProfessor'=>$item->id]) }}"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detalhes</span></a>
                                         <a class="btn btn-outline-success" title="Editar dados do professor" href="{{ route('editar.professores', ['idProfessor'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i><span class="d-none d-md-inline">Editar</span></a>
                                     </td>

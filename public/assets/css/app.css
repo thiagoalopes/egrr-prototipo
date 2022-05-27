@@ -47,6 +47,14 @@ main {
     width: 100% !important;
 }
 
+table td, table th {
+    vertical-align: middle;
+}
+
+[data-bs-toggle="tooltip"] {
+    cursor: pointer;
+}
+
 @media (min-width: 768px) {
     .btns-login {
         text-align: left;

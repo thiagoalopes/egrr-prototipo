@@ -7,6 +7,7 @@
   <div class="row text-center">
     <div class="col-12">
       <h6>Bem vindo @if(Auth::user() != null) {{Auth::user()->nome }}! @endif</h6>
+      <small><a href="{{ route('alterar.senha.form') }}">Alterar Senha</a></small>
     </div>
 </div>
 
