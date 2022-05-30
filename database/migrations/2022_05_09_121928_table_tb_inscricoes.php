@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('cpf_servidor');
             $table->string('matricula');
             $table->string('secretaria');
+            $table->string('nome_curso');
             $table->string('sigla');
             $table->unsignedInteger('id_turma');
             $table->boolean('termo_aceito');

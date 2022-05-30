@@ -119,6 +119,7 @@ class Inscricoes extends Controller
                 $validated['cpf_servidor'] = Auth::user()->cpf;
                 $validated['secretaria'] = Auth::user()->secretaria->secretaria;
                 $validated['sigla'] = Auth::user()->secretaria->sigla;
+                $validated['nome_curso'] = $curso->nome;
                 $validated['data_situacao'] = Carbon::now();
         
                 $inscricao = ModelsIncricoes::create($validated);

@@ -20,6 +20,7 @@ class Inscricoes extends Model
         'matricula',
         'secretaria',
         'sigla',
+        'nome_curso',
         'id_servidor',
         'codigo_inscricao',
         'situacao_inscricao',
