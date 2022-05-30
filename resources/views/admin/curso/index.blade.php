@@ -46,7 +46,7 @@
                                 <a class="btn btn-outline-success m-1 btn-sm" title="Editar informações do curso" href="{{ route('editar.cursos', ['idCurso'=>$item->id]) }}"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
                                 <a class="btn btn-outline-primary m-1 btn-sm" title="Conteúdos do curso" href="{{ route('listar.conteudos', ['idCurso'=>$item->id]) }}"><i class="fas fa-book-open"></i> <span class="d-none d-md-inline">Conteúdos</span></a>
                                 <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das turmas"  href="{{ route('listar.turmas', ['idCurso'=>$item->id]) }}"><i class="fas fa-chalkboard"></i> <span class="d-none d-md-inline">Turmas</span></a>
-                                <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das inscrições" href="#"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
+                                <a class="btn btn-outline-primary m-1 btn-sm" title="Gestão das inscrições" href="{{ route('index.admin.inscricao',['idCurso'=>$item->id]) }}"><i class="fas fa-list-ol"></i> <span class="d-none d-md-inline">Incrições</span></a>
                             </div>
                         </div>
                     </div>

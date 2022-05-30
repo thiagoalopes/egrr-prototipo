@@ -47,6 +47,17 @@
       </div>
     </div>
   </div>
+  <div class="col-12 col-md-4 mt-2">
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-user"></i> Gestão do Cadastro
+      </div>
+      <div class="card-body">
+        <p class="card-text">Gerencie as informações dos cadastros dos servidores no sistema.</p>
+        <a href="{{ route('listar.cadastros') }}" class="btn btn-primary">Gerir</a>
+      </div>
+    </div>
+  </div>
   @can('isMaster', Auth::user())
     <div class="col-12 col-md-4 mt-2">
       <div class="card">

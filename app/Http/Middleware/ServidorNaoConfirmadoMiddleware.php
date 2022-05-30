@@ -33,7 +33,10 @@ class ServidorNaoConfirmadoMiddleware
         if($request->routeIs('welcome') || 
             $request->routeIs('logout') ||
             $request->routeIs('form.login') ||
-            $request->routeIs('login'))
+            $request->routeIs('login') ||
+            $request->routeIs('show.servidor') ||
+            $request->routeIs('update.servidor'))
+
         {
             return $next($request);
         }

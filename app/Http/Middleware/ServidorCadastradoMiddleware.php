@@ -34,12 +34,12 @@ class ServidorCadastradoMiddleware
                  $servidor->celular == null)
             {
                 Session::flash('success','Por favor, atualize todos os seus dados!');
-                return redirect()->route('cadastro.servidor');
+                return redirect()->route('show.servidor');
             }
 
             return $next($request);
         }
 
-        return redirect()->route('cadastro.servidor');
+        return redirect()->route('show.servidor');
     }
 }

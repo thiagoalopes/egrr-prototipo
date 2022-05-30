@@ -125,6 +125,15 @@ Route::prefix('administrativo')->group(function(){
         ->name('cancelar.admin.inscricao');
 
     });
+
+    Route::prefix('cadastros')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\CadastroServidor@index')->name('listar.cadastros');
+        Route::get('{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@detalhes')->name('detalhes.cadastros');
+        Route::get('servidor/{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@editar')->name('show.cadastros');
+        Route::post('servidor/{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@update')->name('update.cadastros');
+        Route::post('{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@confirmarDados')->name('confirmar.cadastros');
+    });
+
 });
 
 
