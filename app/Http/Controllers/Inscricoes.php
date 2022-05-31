@@ -116,6 +116,7 @@ class Inscricoes extends Controller
                 $validated['situacao_inscricao'] = 'pendente';
                 $validated['nome_servidor'] = Auth::user()->nome;
                 $validated['matricula'] = Auth::user()->matricula;
+                $validated['tipo_vinculo'] = Auth::user()->tipo_vinculo;
                 $validated['cpf_servidor'] = Auth::user()->cpf;
                 $validated['secretaria'] = Auth::user()->secretaria->secretaria;
                 $validated['sigla'] = Auth::user()->secretaria->sigla;
@@ -133,7 +134,7 @@ class Inscricoes extends Controller
 
     public function sucesso($codigoInscricao, $idCurso)
     {
-        Session::flash('success','Sua inscrição foi realizada com sucesso!');
+        Session::flash('success','Sua inscrição foi realizada com sucesso! Aguarde a confirmação pela EGRR');
         return view('inscricoes.sucesso', compact(['idCurso','codigoInscricao']));
     }
 
@@ -215,7 +216,7 @@ class Inscricoes extends Controller
 
     public function inscricoesServidores()
     {
-        $inscricoes = Auth::user()->servidor->inscricoes;
+        $inscricoes = Auth::user()->inscricoes;
         return view('servidor.inscricoes',compact(['inscricoes']));
     }
 }

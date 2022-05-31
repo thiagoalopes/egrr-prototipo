@@ -17,6 +17,7 @@ class Inscricoes extends Model
         'id_turma',
         'nome_servidor',
         'cpf_servidor',
+        'tipo_vinculo',
         'matricula',
         'secretaria',
         'sigla',

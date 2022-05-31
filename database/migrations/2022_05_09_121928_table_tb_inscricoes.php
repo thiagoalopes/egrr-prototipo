@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_servidor');
             $table->string('nome_servidor');
             $table->string('cpf_servidor');
+            $table->string('tipo_vinculo');
             $table->string('matricula');
             $table->string('secretaria');
             $table->string('nome_curso');

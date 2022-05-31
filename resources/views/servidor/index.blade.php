@@ -48,7 +48,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">As informações dos cursos em que você se inscreveu estão aqui.</p>
-        <a href="#" class="btn btn-primary">Visualizar</a>
+        <a href="{{ route('inscricao.servidor') }}" class="btn btn-primary">Visualizar</a>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">Visualize e baixe os certificados dos cursos que você realizou na Escola de Governo.</p>
-        <a href="#" class="btn btn-primary">Visualizar</a>
+        <a href="" class="btn btn-primary">Visualizar</a>
       </div>
     </div>
   </div>

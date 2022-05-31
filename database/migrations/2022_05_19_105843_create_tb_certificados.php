@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('tb_certificados', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_servidor');
+            $table->unsignedBigInteger('id_curso');
+            $table->unsignedBigInteger('id_inscricao');
             $table->string('nome_servidor');
             $table->string('cpf');
             $table->string('matricula');

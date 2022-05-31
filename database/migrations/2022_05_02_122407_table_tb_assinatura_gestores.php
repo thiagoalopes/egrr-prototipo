@@ -15,14 +15,12 @@ return new class extends Migration
     {
         Schema::create('tb_assinatura_gestores', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_tipos_gestores');
-            $table->string('nome_gestor', 128)->unique();
-            $table->string('imagem_assinatura_gestor', 1000);
-            $table->date('inicio_vigencia');
-            $table->date('termino_vigencia')->nullable();
-            $table->timestamps();
+            $table->string('nome_secretario', 128);
+            $table->string('nome_diretor_egrr', 128);
+            $table->string('imagem_assinatura_secretario', 1000);
+            $table->string('imagem_assinatura_diretor', 1000);
 
-            $table->foreign('id_tipos_gestores')->references('id')->on('tb_tipos_gestores');
+            $table->timestamps();
 
         });
     }

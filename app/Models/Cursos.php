@@ -41,4 +41,9 @@ class Cursos extends Model
     {
         return $this->hasMany('App\Models\Turmas','id_curso','id');
     }
+
+    public function conteudos()
+    {
+        return $this->hasMany('App\Models\ConteudosCursos','id_curso','id');
+    }
 }
