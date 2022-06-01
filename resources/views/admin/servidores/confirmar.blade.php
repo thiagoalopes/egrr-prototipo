@@ -64,7 +64,7 @@
             <option {{ $servidor->tipo_vinculo === 'efetcomis'?'selected':'' }} value="efetcomis">Efetivo/Comissionado</option>
             <option {{ $servidor->tipo_vinculo === 'comissionado'?'selected':'' }} value="comissionado">Comissionado</option>
             <option {{ $servidor->tipo_vinculo === 'temporario'?'selected':'' }} value="temporario">Temporário</option>
-            <option {{ $servidor->tipo_vinculo === 'outro'?'selected':'' }} value="outro">Outro</option>
+            <option {{ $servidor->tipo_vinculo === 'federal'?'selected':'' }} value="federal">Federal</option>
         </select>
     </div>
     <div class="col-md-6 col-lg-4">

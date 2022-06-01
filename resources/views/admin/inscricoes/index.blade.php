@@ -117,7 +117,7 @@
                         @endforeach
                     @else
                             <tr>
-                                <td colspan="2">Nenhum registro encontrado!</td>
+                                <td colspan="4" class="text-center">Nenhum registro encontrado!</td>
                             </tr>
                     @endif
                 </tbody>

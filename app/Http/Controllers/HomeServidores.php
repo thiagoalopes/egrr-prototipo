@@ -46,7 +46,7 @@ class HomeServidores extends Controller
 
         //Valida os dados do servidor
         $validated = $request->validate([
-            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,outro',
+            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,federal',
             'matricula'=>'required|regex:/^[0-9]+$/',
             'sexo'=>'required|in:f,m,o,n',
             'cargo'=>'required|min:5',
@@ -97,7 +97,7 @@ class HomeServidores extends Controller
         $validated = $request->validate([
             'nome'=>'required|max:128',
             'cpf'=>'required|cpf',
-            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,outro',
+            'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,federal',
             'matricula'=>'required|regex:/^[0-9]+$/|unique:tb_servidores',
             'sexo'=>'required|in:f,m,o,n',
             'cargo'=>'required|min:5',

@@ -75,7 +75,7 @@ class CadastroServidor extends Controller
             $validated = $request->validate([
                 'nome'=>'required',
                 'cpf'=>'required|cpf',
-                'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,outro',
+                'tipo_vinculo'=>'required|in:efetivo,efetcomis,comissionado,temporario,federal',
                 'matricula'=>'required|regex:/^[0-9]+$/',
                 'sexo'=>'required|in:f,m,o,n',
                 'cargo'=>'required|min:5',

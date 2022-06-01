@@ -77,7 +77,7 @@
             <option {{ old('tipo_vinculo') === 'efetcomis'?'selected':'' }} value="efetcomis">Efetivo/Comissionado</option>
             <option {{ old('tipo_vinculo') === 'comissionado'?'selected':'' }} value="comissionado">Comissionado</option>
             <option {{ old('tipo_vinculo') === 'temporario'?'selected':'' }} value="temporario">Temporário</option>
-            <option {{ old('tipo_vinculo') === 'outro'?'selected':'' }} value="outro">Outro</option>
+            <option {{ old('tipo_vinculo') === 'federal'?'selected':'' }} value="federal">Federal</option>
         </select>
         @error('tipo_vinculo')
           <span style="display: block;" class="invalid-feedback" role="alert">
