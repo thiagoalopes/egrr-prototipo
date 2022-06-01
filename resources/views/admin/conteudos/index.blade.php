@@ -5,7 +5,7 @@
 
     <div class="row mb-3">
         <div class="col-12">
-            <a href="{{ route('listar.cursos') }}"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i> Voltar para cursos</a>
+            <a href="{{ route('listar.cursos') }}"><i class="fas fa-school" aria-hidden="true"></i> Voltar para cursos</a>
         </div>
     </div>
     <div class="row mb-4">
@@ -41,7 +41,7 @@
                     <tr>
                         <th>Ordem</th>
                         <th>Descrição</th>
-                        <th>Ação</th>
+                        <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@
                             <tr>
                                 <td style="width: 2%;">{{ $item->sequencial_ordenacao }}</td>
                                 <td>{{ $item->conteudo }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a class="btn btn-link text-success" href="{{ route('detalhes.conteudos', ['idCurso'=>request()->get('idCurso'), 'idConteudo'=>$item->id]) }}"><i class="fas fa-eye" title="ver detalhes"></i></a>
                                     <a class="btn btn-link text-primary" href="{{ route('editar.conteudos', ['idCurso'=>request()->get('idCurso'), 'idConteudo'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i></a>
                                     <form style="display: inline-block" method="POST" action="{{ route('remover.conteudos') }}">
@@ -66,7 +66,7 @@
                         
                     @else
                             <tr>
-                                <td colspan="2">Nenhum registro encontrado!</td>
+                                <td colspan="3" class="text-center">Nenhum registro encontrado!</td>
                             </tr>
                     @endif
                 </tbody>

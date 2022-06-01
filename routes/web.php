@@ -20,7 +20,9 @@ Route::prefix('servidor')->group(function(){
     Route::get('cadastro/dados', 'App\Http\Controllers\HomeServidores@show')->name('show.servidor');
     Route::post('cadastro/dados', 'App\Http\Controllers\HomeServidores@update')->name('update.servidor');
     Route::get('certificados/{idCurso}', 'App\Http\Controllers\Certificados@index')->name('certificados');
-    Route::get('certificados/{idInscricao}/liberar', 'App\Http\Controllers\Certificados@liberarCertificado')->name('librerar.certificados');
+    Route::get('certificados/{idInscricao}/liberar', 'App\Http\Controllers\Certificados@liberarCertificado')->name('liberar.certificados');
+    Route::get('certificados/{idInscricao}/editar', 'App\Http\Controllers\Certificados@editar')->name('editar.certificados');
+    Route::post('certificados/{idInscricao}/editar', 'App\Http\Controllers\Certificados@update')->name('update.certificados');
 
     Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
 
@@ -135,6 +137,15 @@ Route::prefix('administrativo')->group(function(){
         Route::post('servidor/{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@update')->name('update.cadastros');
         Route::post('{idServidor}', 'App\Http\Controllers\Admin\CadastroServidor@confirmarDados')->name('confirmar.cadastros');
     });
+
+    Route::prefix('gestores')->group(function(){
+        Route::get('', 'App\Http\Controllers\Admin\Gestores@index')->name('listar.assinaturas');
+        Route::get('cadastro', 'App\Http\Controllers\Admin\Gestores@cadastro')->name('cadastro.assinaturas');
+        Route::post('cadastro', 'App\Http\Controllers\Admin\Gestores@salvar')->name('salvar.assinaturas');
+
+
+    });
+
 
 });
 

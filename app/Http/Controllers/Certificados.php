@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Certificados as ModelsCertificados;
+use App\Models\Professores;
 
 class Certificados extends Controller
 {
@@ -85,7 +86,8 @@ class Certificados extends Controller
                     ]);
                 }
 
-                return view('certificado.certificados',compact(['situacoesAlunos','curso']));
+                $gestores = Gestores::orderBy('id','DESC')->first();
+                return view('certificado.certificados',compact(['situacoesAlunos','curso','gestores']));
 
             }
         }
@@ -151,6 +153,7 @@ class Certificados extends Controller
                         'data_termino'=>$inscricao->turma->curso->data_termino,
                         'carga_horaria'=>$inscricao->turma->curso->carga_horaria,
                         'aproveitamento'=>$aproveitamento,
+                        'id_assinatura_gestor'=>$gestores->id,
                         'id_curso'=>$inscricao->turma->curso->id,
                         'diretor_egrr'=>$gestores->nome_diretor_egrr,
                         'assinatura_diretor_egrr'=>$gestores->imagem_assinatura_diretor,
@@ -175,6 +178,47 @@ class Certificados extends Controller
     public function certificadosServidor()
     {
         $certificados = ModelsCertificados::where('id_curso');
+    }
+
+    public function editar($idInscricao)
+    {
+        
+        if(Gate::allows('isAdminCurso', Auth::user()))
+        {
+            $certificado = ModelsCertificados::where('id_inscricao', $idInscricao)->first();
+
+            if($certificado != null)
+            {
+                $professores = Professores::all();
+                $assinaturas = Gestores::all();
+                return view('certificado.editar',compact(['certificado','professores','assinaturas']));
+            }
+            Session::flash('error','Certificado não encontrado!');
+            return redirect()->back();
+        }
+        return abort(403);
+
+    }
+
+    public function update(Request $request, $idInscricao)
+    {
+
+        $validated = $request->validate([
+            'nome_servidor'=>'required',
+            'cpf'=>'required|cpf',
+            'matricula'=>'required',
+            'tipo_vinculo'=>'required',
+            'data_inicio'=>'required|date|date_format:d-m-Y',
+            'data_termino'=>'required|date|date_format:d-m-Y',
+            'carga_horaria'=>'required|max:4',
+            'aproveitamento'=>'required',
+            'id_assinatura_gestor'=>'required',
+        ]);
+        dd($validated);
+        $professores = Professores::all();
+        $certificado = ModelsCertificados::where('id_inscricao', $idInscricao)->first();
+        $assinaturas = Gestores::all();
+        return view('certificado.editar',compact(['certificado','professores','assinaturas']));
     }
 
     public function gerarCertificado()

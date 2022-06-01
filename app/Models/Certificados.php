@@ -20,6 +20,7 @@ class Certificados extends Model
         'tipo_vinculo',
         'id_curso',
         'id_inscricao',
+        'id_assinatura_gestor',
         'curso',
         'professor',
         'data_inicio',

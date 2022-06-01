@@ -4,7 +4,7 @@
 
     <div class="row mb-3">
         <div class="col-12">
-            <a href="{{ route('listar.cursos') }}"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i> Voltar para cursos</a>
+            <a href="{{ route('listar.cursos') }}"><i class="fas fa-school" aria-hidden="true"></i> Voltar para cursos</a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -26,6 +26,15 @@
         <div class="col-12">
             <h2>Gestão dos Certificados</h2>
             <small>{{ $curso->nome }}</small>
+        </div>
+    </div>
+
+    <div class="row mt-5 mb-4">
+        <div class="col-12">
+            <h6>Assinaturas Cadastradas<sup><i data-bs-toggle="tooltip"  data-bs-placement="top" title="Os certificados serão assinados pelos gestores informados." class="fas fa-info text-danger"></i></sup></h6>
+            <small><b>Secretário de Administração:</b> {{ $gestores?$gestores->nome_secretario:'Não cadastrado' }}</small><br>
+            <small><b>Diretor da EGRR:</b> {{ $gestores?$gestores->nome_diretor_egrr:'Não cadastrado' }}</small>
+
         </div>
     </div>
 
@@ -64,14 +73,15 @@
                                 </td>
                                 <td>
                                     @if ($item['situacao'] == 'A' && !$item['hascertificado'])
-                                        <a class="btn btn-outline-success btn-sm" title="Liberar certificado" href="{{ route('librerar.certificados',['idInscricao'=>$item['id_inscricao']]) }}">
+                                        <a class="btn btn-outline-success btn-sm" title="Liberar certificado" href="{{ route('liberar.certificados',['idInscricao'=>$item['id_inscricao']]) }}">
                                             <i class="fas fa-certificate"></i> <span class="d-none d-md-inline">Liberar Certificado</span>
                                         </a>
                                     @elseif($item['hascertificado'])
                                         <a class="btn btn-outline-secondary btn-sm" title="O certificado já foi liberado" href="#">
                                             <i class="fas fa-certificate"></i> <span class="d-none d-md-inline">Liberado</span>
                                         </a>
-                                    @endif
+                                        <a class="m-1 btn btn-outline-success btn-sm" href="{{ route('editar.certificados',['idInscricao'=>$item['id_inscricao']]) }}"><i class="fas fa-edit" title="Editar certificado"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                        @endif
                                 </td>
                             </tr>
                         @endforeach

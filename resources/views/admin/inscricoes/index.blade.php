@@ -5,7 +5,7 @@
 
     <div class="row mb-3">
         <div class="col-12">
-            <a href="{{ route('listar.cursos') }}"><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i> Voltar para cursos</a>
+            <a href="{{ route('listar.cursos') }}"><i class="fas fa-school" aria-hidden="true"></i> Voltar para cursos</a>
         </div>
     </div>
     <div class="row justify-content-center">

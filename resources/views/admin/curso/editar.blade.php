@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="col-12 mb-3">
-      <a href="{{ route('listar.cursos') }}" class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Voltar para Cursos</a>
+      <a href="{{ route('listar.cursos') }}" class="mb-4"><i class="fas fa-school" aria-hidden="true"></i> Voltar para Cursos</a>
     </div>
 </div>
 <div class="row mb-3">

@@ -27,7 +27,7 @@
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        <i class="fas fa-graduation-cap"></i> Gestão de Cursos e Turmas
+        <i class="fas fa-school"></i> Gestão de Cursos e Turmas
       </div>
       <div class="card-body">
         <p class="card-text">Gerencie as informações de cadastro dos cursos e suas turmas, inscrições...</p>
@@ -39,11 +39,11 @@
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        <i class="fas fa-check-circle"></i> Gestão de Assinaturas
+        <i class="fas fa-pen-fancy"></i> Gestão de Assinaturas
       </div>
       <div class="card-body">
         <p class="card-text">Gerencie as informações de assinaturas que irão aparecer nos certificados.</p>
-        <a href="#" class="btn btn-primary">Gerir</a>
+        <a href="{{ route('listar.assinaturas') }}" class="btn btn-primary">Gerir</a>
       </div>
     </div>
   </div>
