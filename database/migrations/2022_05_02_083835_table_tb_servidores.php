@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('foto')->nullable();
             $table->string('nome', 128);
             $table->string('cpf', 16)->unique();
-            $table->enum('tipo_vinculo', ['efetivo', 'comissionado','efetcomis','temporario','federal']);
+            $table->enum('tipo_vinculo', ['efetivo', 'comissionado','efetcomis','temporario','federal','outro']);
             $table->string('matricula', 16)->unique();
             $table->enum('sexo',['f','m','o','n']);
             $table->string('cargo', 128);
