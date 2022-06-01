@@ -78,8 +78,10 @@
                                 </td>
                                 <td>{{ formatCpfCnpj($item->cpf_servidor) }}</td>
                                 <td class="text-center">
-                                    <a class="m-1 btn  btn-outline-success btn-sm" href=""><i class="fas fa-eye" title="Detalhes da Turma"></i> <span class="d-none d-md-inline">Detalhes</span></a>
-                                    <a class="m-1 btn btn-outline-primary btn-sm" href=""><i title="Editar Turma" class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                    <!--
+                                    <a class="m-1 btn  btn-outline-secondary btn-sm" href=""><i class="fas fa-eye" title="Detalhes da Turma"></i> <span class="d-none d-md-inline">Detalhes</span></a>
+                                    <a class="m-1 btn btn-outline-secondary btn-sm" href=""><i title="Editar Turma" class="fas fa-edit"></i> <span class="d-none d-md-inline">Editar</span></a>
+                                    -->
                                     @if($item->situacao_inscricao == 'pendente')
                                         <form style="display: inline-block;" action="{{ route('aprovar.admin.inscricao',['idCurso'=>$curso->id,'idInscricao'=>$item->id]) }}" method="POST">
                                             @csrf

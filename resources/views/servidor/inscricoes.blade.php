@@ -38,10 +38,19 @@
                         <p>
                             <b>Comprovante:</b>
                             @if ($item->situacao_inscricao == 'confirmada')
-                                <a id="comprovante" href="{{ route('comprovante.inscricao',['idCurso'=>$item->turma->curso->id,'codigoInscricao'=>$item->codigo_inscricao]) }}">baixar</a>
+                                <a id="comprovante" href="{{ route('comprovante.inscricao',['idCurso'=>$item->turma->curso->id,'codigoInscricao'=>$item->codigo_inscricao]) }}">Baixar</a>
                             @else
                                 <span class="text-danger">Após confirmação</span>
                             @endif 
+
+                            <b class="ms-3">Certificado:</b>
+
+                            @if ($item->situacao_inscricao == 'confirmada' && $item->certificado != null)
+                                <a id="comprovante" target="_blank" href="{{ route('download.certificado',['idInscricao'=>$item->id]) }}">Baixar</a>
+                            @else
+                                <span class="text-danger">Indisponível</span>
+                            @endif 
+
                         </p>
                     </div>
                 </div>

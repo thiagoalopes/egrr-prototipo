@@ -101,7 +101,7 @@ class Frequencia extends Controller
                             $frequencias=$frequencias->whereNotIn('id', $idsFrequenciasInscricoesCanceladas);
                         }
                         
-                        $frequencias = $frequencias->orderBy('nome_servidor', 'ASC')->get();
+                        $frequencias = $frequencias->orderBy('nome_servidor', 'ASC')->paginate(15);
 
                         if($frequencias != null)
                         {
@@ -127,43 +127,47 @@ class Frequencia extends Controller
 
     public function downloadFrequencia(Request $request)
     { 
-        if($request->input('data_aula') != null && $request->input('id_turma') != null)
+        if(Gate::allows('isAdminCurso', Auth::user()))
         {
-            $dataAula = $request->input('data_aula');
-            $idTurma = $request->input('id_turma');
-            $turma = Turmas::find($request->input('id_turma'));
-
-            if($turma != null)
+            if($request->input('data_aula') != null && $request->input('id_turma') != null)
             {
-                if(strtotime($dataAula))
-                {
-                    $frequencias = ModelsFrequencia::where('id_turma', $idTurma)
-                    ->where('data_aula', $dataAula)
-                    ->orderBy('nome_servidor', 'ASC')
-                    ->get();
-    
-                    if($frequencias == null)
-                    {
-                        Session::flash('error','Não há frequências disponivéis');
-                        return redirect()->back();
-                    }
-            
-                    $file = PDF::loadView('admin.frequencias.frequencia',compact(['frequencias','turma','dataAula']));
-                    Storage::put("temp/frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
-                         $file->setPaper('a4', 'portrait')->output());
+                $dataAula = $request->input('data_aula');
+                $idTurma = $request->input('id_turma');
+                $turma = Turmas::find($request->input('id_turma'));
 
-                    return response()->file(storage_path()."/app/temp/frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
-                     ["Content-Disposition"=>"attachment;filename=frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
-                    "Content-Type"=>'application/pdf'
-                     ])->deleteFileAfterSend();
+                if($turma != null)
+                {
+                    if(strtotime($dataAula))
+                    {
+                        $frequencias = ModelsFrequencia::where('id_turma', $idTurma)
+                        ->where('data_aula', $dataAula)
+                        ->orderBy('nome_servidor', 'ASC')
+                        ->get();
+        
+                        if($frequencias == null)
+                        {
+                            Session::flash('error','Não há frequências disponivéis');
+                            return redirect()->back();
+                        }
+                
+                        $file = PDF::loadView('admin.frequencias.frequencia',compact(['frequencias','turma','dataAula']));
+                        Storage::put("temp/frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
+                            $file->setPaper('a4', 'portrait')->output());
+
+                        return response()->file(storage_path()."/app/temp/frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
+                        ["Content-Disposition"=>"attachment;filename=frequencia_".str_replace(' ','_',strtolower($turma->descricao_turma)).".pdf",
+                        "Content-Type"=>'application/pdf'
+                        ])->deleteFileAfterSend();
+                    }
+                    Session::flash('error','Data inválida!');
+                    return redirect()->back();
                 }
-                Session::flash('error','Data inválida!');
+                Session::flash('error','turma não encontrada');
                 return redirect()->back();
             }
-            Session::flash('error','turma não encontrada');
-            return redirect()->back();
+            return abort(404);
         }
-        return abort(404);
+        return abort(403);
     }
 
     public function dadosFrequencia($idTurma, $idFrequencia)

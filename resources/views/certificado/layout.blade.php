@@ -71,8 +71,9 @@
             <p>Escola de Governo de Roraima</p>
         </div>
         <div class="texto">
-            Certificamos que <b>{{ $usuario->dados->nome }}</b>, <b>CPF n. {{ $usuario->cpf }}</b> participou do curso de Informatica basica no periodo de 01/01/2022 a 15/01/2022
-            com carga horaria de 60h.
+            Certificamos que <b>{{ $certificado->nome_servidor }}</b>, <b>matrícula {{ $certificado->matricula }}</b> participou do curso {{ $certificado->curso }} 
+            no periodo de {{ \Carbon\Carbon::parse($certificado->data_inicio)->format('d/m/Y') }} a {{ \Carbon\Carbon::parse($certificado->data_termino)->format('d/m/Y') }}
+            com carga horaria de {{ $certificado->carga_horaria }}h com aproveitamento de {{ $certificado->aproveitamento }}%.
             
         </div>
     </div>

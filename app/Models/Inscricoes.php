@@ -39,4 +39,9 @@ class Inscricoes extends Model
     {
         return $this->hasOne('App\Models\Servidor','id', 'id_servidor');
     }
+
+    public function certificado()
+    {
+        return $this->hasOne('App\Models\Certificados','id_inscricao','id');
+    }
 }

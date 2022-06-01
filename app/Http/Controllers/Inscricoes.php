@@ -142,20 +142,25 @@ class Inscricoes extends Controller
     {
         $inscricao = ModelsIncricoes::where('codigo_inscricao',$codigoInscricao)->first();
 
-        if($inscricao == null)
+        if($inscricao->id_servidor == Auth::user()->id)
         {
-            return redirect()->route('home.inscricao',['idCurso'=>$idCurso]);
+            if($inscricao == null)
+            {
+                return redirect()->route('home.inscricao',['idCurso'=>$idCurso]);
+            }
+
+            $file = PDF::loadView('inscricoes.comprovante',compact(['inscricao']));
+
+            Storage::put("temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", $file->setPaper('a4', 'portrait')->output());
+
+            info('Servidor '.$inscricao->servidor->nome.' emitiu o comprovante.');
+
+            return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"attachment;filename=comprovante_{$inscricao->servidor->cpf}",
+                "Content-Type"=>'application/pdf'
+            ])->deleteFileAfterSend();
+
         }
-
-        $file = PDF::loadView('inscricoes.comprovante',compact(['inscricao']));
-
-        Storage::put("temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", $file->setPaper('a4', 'portrait')->output());
-
-        info('Servidor '.$inscricao->servidor->nome.' emitiu o comprovante.');
-
-        return response()->file(storage_path()."/app/temp/comprovante_inscricao_{$inscricao->servidor->cpf}.pdf", ["Content-Disposition"=>"attachment;filename=comprovante_{$inscricao->servidor->cpf}",
-            "Content-Type"=>'application/pdf'
-        ])->deleteFileAfterSend();
+        return abort(403);
     }
 
     private function isInscrito($idTurma)

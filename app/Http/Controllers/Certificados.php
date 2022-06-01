@@ -3,22 +3,21 @@
 namespace App\Http\Controllers;
 
 use DateTime;
-use DatePeriod;
-use DateInterval;
 use Carbon\Carbon;
 use App\Models\Cursos;
 use App\Models\Gestores;
 use App\Models\Frequencia;
 use App\Models\Inscricoes;
+use App\Models\Professores;
 use Illuminate\Http\Request;
 use App\Models\ConteudosCursos;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Certificados as ModelsCertificados;
-use App\Models\Professores;
 
 class Certificados extends Controller
 {
@@ -27,7 +26,7 @@ class Certificados extends Controller
         $this->middleware('auth');
     }
 
-    public function index($idCurso)
+    public function index(Request $request, $idCurso)
     {
         if(Gate::allows('isAdminCurso', Auth::user()))
         {
@@ -86,7 +85,11 @@ class Certificados extends Controller
                     ]);
                 }
 
+                $situacoesAlunos = $this->paginate($situacoesAlunos,15,$request->has('page')?$request->input('page'):1);
+                $situacoesAlunos->setPath(Paginator::resolveCurrentPath());
+
                 $gestores = Gestores::orderBy('id','DESC')->first();
+
                 return view('certificado.certificados',compact(['situacoesAlunos','curso','gestores']));
 
             }
@@ -165,21 +168,16 @@ class Certificados extends Controller
                     ]);
 
                     Session::flash('success','Certificado liberado');
-                    return redirect()->route('certificados',['idCurso'=>$inscricao->turma->curso->id]);
+                    return redirect()->back();
                 }
                 Session::flash('error','Assinaturas não informadas');
-                return redirect()->route('certificados',['idCurso'=>$inscricao->turma->curso->id]);
+                return redirect()->back();
             }
             return abort(404);
         }
         return abort(403);
     }
     
-    public function certificadosServidor()
-    {
-        $certificados = ModelsCertificados::where('id_curso');
-    }
-
     public function editar($idInscricao)
     {
         
@@ -202,36 +200,43 @@ class Certificados extends Controller
 
     public function update(Request $request, $idInscricao)
     {
-
-        $validated = $request->validate([
-            'nome_servidor'=>'required',
-            'cpf'=>'required|cpf',
-            'matricula'=>'required',
-            'tipo_vinculo'=>'required',
-            'data_inicio'=>'required|date|date_format:d-m-Y',
-            'data_termino'=>'required|date|date_format:d-m-Y',
-            'carga_horaria'=>'required|max:4',
-            'aproveitamento'=>'required',
-            'id_assinatura_gestor'=>'required',
-        ]);
-        dd($validated);
-        $professores = Professores::all();
-        $certificado = ModelsCertificados::where('id_inscricao', $idInscricao)->first();
-        $assinaturas = Gestores::all();
-        return view('certificado.editar',compact(['certificado','professores','assinaturas']));
+        if(Gate::allows('isAdminCurso', Auth::user()))
+        {
+            $validated = $request->validate([
+                'nome_servidor'=>'required',
+                'cpf'=>'required|cpf',
+                'matricula'=>'required',
+                'tipo_vinculo'=>'required',
+                'data_inicio'=>'required|date|date_format:d-m-Y',
+                'data_termino'=>'required|date|date_format:d-m-Y',
+                'carga_horaria'=>'required|max:4',
+                'aproveitamento'=>'required',
+                'id_assinatura_gestor'=>'required',
+            ]);
+            $professores = Professores::all();
+            $certificado = ModelsCertificados::where('id_inscricao', $idInscricao)->first();
+            $assinaturas = Gestores::all();
+            return view('certificado.editar',compact(['certificado','professores','assinaturas']));
+        }
+        return abort(403);
     }
 
-    public function gerarCertificado()
+    public function gerarCertificado($idInscricao)
     {
-        $usuario = Auth::user();
-        
-        $file = PDF::loadView('certificado.layout',compact(['usuario']));
+        $inscricao = Inscricoes::find($idInscricao);
+        $certificado = $inscricao->certificado;
 
-        Storage::put("temp/certificado_{$usuario->cpf}.pdf", $file->setPaper('a4', 'landscape')->output());
+        if(Auth::user()->id == $inscricao->id_servidor || Gate::allows('isAdminCurso', Auth::user()))
+        {
+            $file = PDF::loadView('certificado.layout',compact(['certificado']));
 
-        return response()->file(storage_path()."/app/temp/certificado_{$usuario->cpf}.pdf", ["Content-Disposition"=>"inline;filename=certificado_{$usuario->cpf}",
-            "Content-Type"=>'application/pdf'
-        ])->deleteFileAfterSend();
+            Storage::put("temp/certificado_{$certificado->cpf}.pdf", $file->setPaper('a4', 'landscape')->output());
 
+            return response()->file(storage_path()."/app/temp/certificado_{$certificado->cpf}.pdf", ["Content-Disposition"=>"inline;filename=certificado_{$certificado->cpf}",
+                "Content-Type"=>'application/pdf'
+            ])->deleteFileAfterSend();
+        }
+        return abort(403);
     }
+  
 }

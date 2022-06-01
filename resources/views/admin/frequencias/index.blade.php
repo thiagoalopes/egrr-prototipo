@@ -103,7 +103,7 @@
                                                 
                                             </th>
                                             <td class="text-center">
-                                                <a class="btn btn-outline-success btn-sm" title="Editar dados da frequência" href="{{ route('dados.frequecia.turmas', ['idTurma'=>$item->id_turma,'idFrequencia'=>$item->id]) }}"><i title="editar" class="fas fa-edit"></i><span class="d-none d-md-inline">Editar</span></a>
+                                                <a class="btn btn-outline-secondary btn-sm" title="Editar dados da frequência" href="#"><i title="editar" class="fas fa-edit"></i><span class="d-none d-md-inline">Editar</span></a>
                                             </td>
                                         </tr>
                                 @endforeach
@@ -121,6 +121,12 @@
             </div>
         </div>
 
+        @if (isset($frequencias) && $frequencias->count() > 0)
+
+            <div class="d-flex justify-content-center">
+                {!! $frequencias->withQueryString()->onEachSide(5)->links() !!}
+            </div>
+        @endif
 
         
 

@@ -44,7 +44,7 @@
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">
-        <i class="fas fa-id-card-alt"></i> Inscrições
+        <i class="fas fa-certificate"></i> Inscrições e Certificados
       </div>
       <div class="card-body">
         <p class="card-text">As informações dos cursos em que você se inscreveu estão aqui.</p>
@@ -52,19 +52,6 @@
       </div>
     </div>
   </div>
-  
-  <div class="col-12 col-md-4 mt-2">
-    <div class="card">
-      <div class="card-header">
-        <i class="fas fa-certificate"></i> Certificados
-      </div>
-      <div class="card-body">
-        <p class="card-text">Visualize e baixe os certificados dos cursos que você realizou na Escola de Governo.</p>
-        <a href="" class="btn btn-primary">Visualizar</a>
-      </div>
-    </div>
-  </div>
-
   <div class="col-12 col-md-4 mt-2">
     <div class="card">
       <div class="card-header">

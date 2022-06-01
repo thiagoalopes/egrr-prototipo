@@ -73,11 +73,11 @@
                                 </td>
                                 <td>
                                     @if ($item['situacao'] == 'A' && !$item['hascertificado'])
-                                        <a class="btn btn-outline-success btn-sm" title="Liberar certificado" href="{{ route('liberar.certificados',['idInscricao'=>$item['id_inscricao']]) }}">
+                                        <a id="{{ $item['id_inscricao'] }}" class="btn btn-outline-success btn-sm" title="Liberar certificado" href="{{ route('liberar.certificados',['idInscricao'=>$item['id_inscricao']]) }}#{{ $item['id_inscricao'] }}">
                                             <i class="fas fa-certificate"></i> <span class="d-none d-md-inline">Liberar Certificado</span>
                                         </a>
                                     @elseif($item['hascertificado'])
-                                        <a class="btn btn-outline-secondary btn-sm" title="O certificado já foi liberado" href="#">
+                                        <a id="{{ $item['id_inscricao'] }}" class="btn btn-outline-secondary btn-sm" title="O certificado já foi liberado" href="#">
                                             <i class="fas fa-certificate"></i> <span class="d-none d-md-inline">Liberado</span>
                                         </a>
                                         <a class="m-1 btn btn-outline-success btn-sm" href="{{ route('editar.certificados',['idInscricao'=>$item['id_inscricao']]) }}"><i class="fas fa-edit" title="Editar certificado"></i> <span class="d-none d-md-inline">Editar</span></a>
@@ -95,6 +95,9 @@
             </table>
     
         </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        {!! $situacoesAlunos->onEachSide(5)->links() !!}
     </div>
 
 </div>

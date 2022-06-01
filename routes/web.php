@@ -24,7 +24,7 @@ Route::prefix('servidor')->group(function(){
     Route::get('certificados/{idInscricao}/editar', 'App\Http\Controllers\Certificados@editar')->name('editar.certificados');
     Route::post('certificados/{idInscricao}/editar', 'App\Http\Controllers\Certificados@update')->name('update.certificados');
 
-    Route::get('certificados/download', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
+    Route::get('certificados/download/{idInscricao}', 'App\Http\Controllers\Certificados@gerarCertificado')->name('download.certificado');
 
     Route::get('cadastro', 'App\Http\Controllers\HomeServidores@cadastro')->name('cadastro.servidor');
     Route::post('cadastro', 'App\Http\Controllers\HomeServidores@salvar')->name('salvar.servidor');
