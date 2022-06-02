@@ -36,9 +36,9 @@
             text-align: center;
             position: absolute;
             top: 150px;
-            left: 320px;
+            left: 275px;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
 
         }
 
@@ -60,27 +60,34 @@
             text-align: justify;
             position: absolute;
             left: 50%;
-            top: 40%;
+            top: 38%;
             margin-left: -40%;
-
-        }   
-
-        .assinatura-secretario {
-            position: absolute;
-            bottom: 10%;
-            left: 15%;
-            font-size: 0.8rem;
-            text-align: center;
-            line-height: 20px;
+            line-height: 30px;
 
         }
-        .assinatura-diretor {
+        
+        .data {
+            position: absolute;
+            right: 20%;
+            top: 63%;
+        }
+
+        .assinatura-secretario {
             position: absolute;
             bottom: 10%;
             right: 15%;
             font-size: 0.8rem;
             text-align: center;
-            line-height: 20px;
+            line-height: 15px;
+
+        }
+        .assinatura-diretor {
+            position: absolute;
+            bottom: 10%;
+            left: 15%;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 15px;
         }
         
     </style>
@@ -91,15 +98,75 @@
         <img class="brasao" src="assets/img/brasao.png" alt="">
         <img class="marca-dagua" src="assets/img/brasao.png">
         <div class="cabecalho">
-            <p>Estado de Roraima</p>
-            <p>Secretaria de Estado de Gestão Estratégica e Administração</p>
-            <p>Escola de Governo de Roraima</p>
+            <p>ESTADO DE RORAIMA</p>
+            <p>SECRETARIA DE ESTADO DA GESTÃO ESTRATÉGICA E ADMINISTRAÇÃO DE RORAIMA - SEGAD</p>
+            <p>ESCOLA DE GOVER NO DE RORAIMA</p>
+            <p>DECRETO Nº 13.393-E DE 27 DE OUTUBRO DE 2011</p>
         </div>
         <div class="texto">
-            Certificamos que <b>{{ $certificado->nome_servidor }}</b>, <b>matrícula {{ $certificado->matricula }}</b> participou do curso {{ $certificado->curso }} 
-            no periodo de {{ \Carbon\Carbon::parse($certificado->data_inicio)->format('d/m/Y') }} a {{ \Carbon\Carbon::parse($certificado->data_termino)->format('d/m/Y') }}
-            com carga horaria de {{ $certificado->carga_horaria }}h com aproveitamento de {{ $certificado->aproveitamento }}%.
+            A secretaria de Estado da Gestão Estratégica e Administração - SEGAD, certifica o(a) Servidor(a)
+             <b>{{ strtoupper($certificado->nome_servidor) }}</b>, 
+             Quadro
+             <b>
+                @if($certificado->tipo_vinculo == 'efetivo') 
+                    EFETIVO 
+                @elseif($certificado->tipo_vinculo == 'efetcomiss') 
+                    EFETIVO/COMISSIONADO
+                @elseif($certificado->tipo_vinculo == 'comissionado')
+                    COMISSIONADO
+                @elseif($certificado->tipo_vinculo == 'temporario')
+                    TEMPORÁRIO
+                @elseif($certificado->tipo_vinculo == 'federal')
+                    FEDERAL
+                @endif
+            </b>,
+                <b>matrícula {{ $certificado->matricula }}</b>, pela participação no curso de capacitação {{ $certificado->curso }},
+            no período de {{ \Carbon\Carbon::parse($certificado->data_inicio)->format('d/m/Y') }} a {{ \Carbon\Carbon::parse($certificado->data_termino)->format('d/m/Y') }},
+            ministrado por <b>{{ strtoupper($certificado->professor) }}</b>, 
+            com carga horária de {{ $certificado->carga_horaria }}h, tendo aproveitamento de {{ $certificado->aproveitamento }}%.
             
+        </div>
+        <div class="data">
+            Boa Vista - RR, {{ \Carbon\Carbon::parse($certificado->data_emissao)->format('d')}} de 
+            @switch(\Carbon\Carbon::parse($certificado->data_emissao)->format('m'))
+                @case('01')
+                    janeiro
+                    @break
+                @case('02')
+                    fevereiro
+                    @break
+                @case('03')
+                    março
+                    @break
+                @case('04')
+                    Abril
+                    @break
+                @case('05')
+                    maio
+                    @break
+                @case('06')
+                    junho
+                    @break
+                @case('07')
+                    julho
+                    @break
+                @case('08')
+                    agosto
+                    @break
+                @case('09')
+                    setembro
+                    @break
+                @case('10')
+                    outubro
+                    @break
+                @case('11')
+                    novembro
+                    @break
+                @case('12')
+                    dezembro
+                    @break
+            @endswitch
+            de {{ \Carbon\Carbon::parse($certificado->data_emissao)->format('Y')}}.
         </div>
         <div class="assinatura-secretario">
             <img style="width: 100;" src="{{ $certificado->assinatura_secretario_segad }}" style="margin-bottom: 10px;" ><br>

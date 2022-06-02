@@ -44,8 +44,8 @@ class Gestores extends Controller
             $validated = $request->validate([
                 'nome_secretario'=>'required',
                 'nome_diretor_egrr'=>'required',
-                'imagem_assinatura_secretario'=>'required|file|mimes:jpg,jpeg,png|max:1024|dimensions:max_width=300,max_height=200',
-                'imagem_assinatura_diretor'=>'required|file|mimes:jpg,jpeg,png|max:1024|dimensions:max_width=300,max_height=200',
+                'imagem_assinatura_secretario'=>'required|file|mimes:jpg,jpeg,png|max:1024',
+                'imagem_assinatura_diretor'=>'required|file|mimes:jpg,jpeg,png|max:1024',
             ]);
 
             $validated['imagem_assinatura_secretario'] = Storage::disk('imagens')->put('assets/img/gestores', $request->file('imagem_assinatura_secretario'));
