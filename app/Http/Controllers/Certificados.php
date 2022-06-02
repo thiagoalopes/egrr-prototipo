@@ -162,7 +162,7 @@ class Certificados extends Controller
                         'assinatura_diretor_egrr'=>$gestores->imagem_assinatura_diretor,
                         'secretario_segad'=>$gestores->nome_secretario,
                         'conteudos'=> $conteudos->toArray(),
-                        'assinatura_secretario_segad'=>$gestores->imagem_assinatura_diretor,
+                        'assinatura_secretario_segad'=>$gestores->imagem_assinatura_secretario,
                         'data_emissao'=>Carbon::now(),
                         'id_servidor_emitente'=>Auth::user()->id,
                     ]);

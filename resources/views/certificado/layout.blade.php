@@ -47,7 +47,7 @@
             position: absolute;
             top: 5%;
             left: 21%;
-            opacity: 0.05;
+            opacity: 0.08;
         }
 
         .cabecalho p {
@@ -177,7 +177,6 @@
             <img style="width: 100;" src="{{ $certificado->assinatura_diretor_egrr }}" style="margin-bottom: 10px;"><br>
             {{ $certificado->diretor_egrr }} <br>
             <small>Diretor da Escola de Governo de Roraima</small>
-
         </div>
     </div>
 
