@@ -21,8 +21,6 @@
             position: relative;
             top: 0;
             left: 0;
-            
-
         }
 
         .brasao {
@@ -44,6 +42,14 @@
 
         }
 
+        .marca-dagua {
+            width: 55%;
+            position: absolute;
+            top: 5%;
+            left: 21%;
+            opacity: 0.05;
+        }
+
         .cabecalho p {
             margin: 0;
         }
@@ -58,6 +64,24 @@
             margin-left: -40%;
 
         }   
+
+        .assinatura-secretario {
+            position: absolute;
+            bottom: 10%;
+            left: 15%;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 20px;
+
+        }
+        .assinatura-diretor {
+            position: absolute;
+            bottom: 10%;
+            right: 15%;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 20px;
+        }
         
     </style>
 </head>
@@ -65,6 +89,7 @@
 
     <div class="box-certificado">
         <img class="brasao" src="assets/img/brasao.png" alt="">
+        <img class="marca-dagua" src="assets/img/brasao.png">
         <div class="cabecalho">
             <p>Estado de Roraima</p>
             <p>Secretaria de Estado de Gestão Estratégica e Administração</p>
@@ -75,6 +100,17 @@
             no periodo de {{ \Carbon\Carbon::parse($certificado->data_inicio)->format('d/m/Y') }} a {{ \Carbon\Carbon::parse($certificado->data_termino)->format('d/m/Y') }}
             com carga horaria de {{ $certificado->carga_horaria }}h com aproveitamento de {{ $certificado->aproveitamento }}%.
             
+        </div>
+        <div class="assinatura-secretario">
+            <img style="width: 100;" src="{{ $certificado->assinatura_secretario_segad }}" style="margin-bottom: 10px;" ><br>
+            {{ $certificado->secretario_segad }} <br>
+            Secretário de Estado da Administração
+        </div>
+        <div class="assinatura-diretor">
+            <img style="width: 100;" src="{{ $certificado->assinatura_diretor_egrr }}" style="margin-bottom: 10px;"><br>
+            {{ $certificado->diretor_egrr }} <br>
+            <small>Diretor da Escola de Governo de Roraima</small>
+
         </div>
     </div>
 
