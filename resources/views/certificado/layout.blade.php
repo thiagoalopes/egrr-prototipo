@@ -99,8 +99,8 @@
         <img class="marca-dagua" src="assets/img/brasao.png">
         <div class="cabecalho">
             <p>ESTADO DE RORAIMA</p>
-            <p>SECRETARIA DE ESTADO DA GESTÃO ESTRATÉGICA E ADMINISTRAÇÃO DE RORAIMA - SEGAD</p>
-            <p>ESCOLA DE GOVER NO DE RORAIMA</p>
+            <p>SECRETARIA DE ESTADO DA GESTÃO ESTRATÉGICA E ADMINISTRAÇÃO DE RORAIMA - SEGAD/RR</p>
+            <p>ESCOLA DE GOVERNO DE RORAIMA</p>
             <p>DECRETO Nº 13.393-E DE 27 DE OUTUBRO DE 2011</p>
         </div>
         <div class="texto">
